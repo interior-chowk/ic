@@ -1,0 +1,39 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "RB4NAW2RAH.com.interiorchowk.app"
+        ],
+        "paths": [
+          "/app/*"
+        ],
+        "components": [
+          {
+            "/": "/*"
+          }
+        ]
+      },
+      {
+        "appIDs": [
+          "RB4NAW2RAH.com.interiorchowkservices.app"
+        ],
+        "paths": [
+          "/services/app*"
+        ],
+        "components": [
+          {
+            "/": "/*"
+          }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "RB4NAW2RAH.com.interiorchowk.app",
+      "RB4NAW2RAH.com.interiorchowkservices.app"
+    ]
+  }
+}

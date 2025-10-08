@@ -1,0 +1,1883 @@
+<div class="page-wrapper">
+
+    <center><div style="height: 30px;
+   width: 100%;
+   max-width: 1513px;
+   background-color: #e46725;">
+              <div class="container">
+
+
+<style>
+.app-offer-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ed672f;
+    padding: 0px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.offer-text {
+    color: #ffffff !important;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.app-banner-img {
+    height: 20px;
+    max-width: 100%;
+}
+</style>
+                     <div class="app-offer-banner">
+    <span class="offer-text">
+        Flat 10% off on first app order | Use Code: <strong>APPNEW10</strong>
+    </span>
+    <img class="app-banner-img" src="https://dev.interiorchowk.com/ic/public/website/assets/images/interiorchowk-app-download.png" alt="Download App">
+</div>
+
+
+
+               <!-- End .container -->
+           </div><!-- End .header-top --></div></center>
+       <header class="header header-intro-clearance header-3">
+
+<style>
+    .explore-more-btn {
+    background-color: transparent; /* Transparent button */
+    border: 1px solid #2E6CB3; /* Blue border */
+    color: black; /* Black text */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 50px; /* Rounded button */
+}
+
+.circle-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: 1px solid black; /* Black border */
+    border-radius: 50%; /* Circle shape */
+    margin-left: 12px; /* Alternative if you don’t want Bootstrap's ms-3 */
+}
+
+.circle-arrow i {
+    font-size: 14px; /* Ensure visibility */
+    color: black;
+}
+.header-3 .wishlist a {
+   color: #000000!important;
+}
+@media screen and (min-width: 992px) {
+   .video-banner-bg {
+       padding-top: 6rem;
+       padding-bottom: 6rem;
+   }
+}
+.header-3 .header-search-extended .form-control {
+   border-top-right-radius: 3rem;
+   border-bottom-right-radius: 3rem;
+   padding-left: 0;
+   height: 34px;
+   padding: 1rem 2.4rem 1rem .5rem;
+   background: #cce4f3;
+   color:black;
+}
+.header-search-visible .header-search-wrapper {
+   position: static;
+   left: auto;
+   right: auto;
+   top: auto;
+   margin-top: 0;
+   display: flex
+;
+   background: #F7F7F7;
+}
+.cart-dropdown .dropdown-toggle i {
+   display: inline-block;
+   margin-top: -3px;
+   color: black;
+}
+
+.product {
+   position: relative;
+   margin-bottom: 1rem;
+   transition: box-shadow .35s ease;
+   background-color: #ffffff !important;
+}
+
+.intro-slider-container, .intro-slide, .banner {
+   background-color: transparent!important;
+}
+.header .container, .header .container-fluid {
+   position: static!important;
+   display: flex
+;
+   align-items: center;
+}
+.a {
+    font-family: 'lexend';
+}
+
+
+
+.btndgn{
+background: #ffc107;
+   color: black;
+   border: none;
+   border-radius: 8px;
+   }
+
+   .header-3 .header-search-extended .btn {
+   max-width: 40px;
+   margin-left: 1rem;
+   height: 46px;
+   font-size: 2.2rem;
+   background-color: transparent;
+   color: #333;
+   margin-top: -6px!important;
+}
+.product-7{
+border: 0px solid #c5c0c0!important;
+   border-radius: 25px!important;
+   padding:10px;
+   box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-7 img{
+   border-radius:0 20px 0;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
+
+img.topCon{
+    border-radius:20px;
+    height: 150px;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.overlap_img{margin-top: -50px;}
+.overlap_img img{width: 100px !important;display: inline-block !important;border-radius: 50%;border: 5px solid #fff;}
+
+.testimonial_section {
+  display: block;
+  overflow: hidden;
+}
+.testimonial_section:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+.testimonial_section .about_content {
+  background-color: #020d26;
+  padding-top: 77px;
+  padding-right: 210px;
+  padding-bottom: 62px;
+  padding-left: 40px;
+  position: relative;
+}
+.testimonial_section .about_content .background_layer {
+  background-color: #020d26;
+  width: auto;
+  margin-left: -200px;
+  right: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.testimonial_section .about_content .layer_content {
+  position: relative;
+  z-index: 9;
+  height: 100%;
+}
+.testimonial_section .about_content .layer_content .section_title {
+  margin-bottom: 24px;
+  position: relative;
+}
+.testimonial_section .about_content .layer_content .section_title:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+.testimonial_section .about_content .layer_content .section_title h5 {
+  color: #fff;
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 28px;
+  color: #818a8f;
+  margin-top: -5px;
+  margin-bottom: 6px;
+}
+.testimonial_section .about_content .layer_content .section_title h2 {
+  font-family: "Titillium Web";
+  font-weight: 300;
+  font-size: 45px;
+  line-height: 50px;
+  padding-bottom: 51px;
+  margin-bottom: 0px;
+  color: #fff;
+}
+.testimonial_section .about_content .layer_content .section_title h2 strong {
+  font-weight: 600 !important;
+  width: 100%;
+  display: block;
+}
+.testimonial_section .about_content .layer_content .section_title .heading_line {
+  position: relative;
+}
+.testimonial_section .about_content .layer_content .section_title .heading_line span {
+  transition: all 0.5s ease-in-out 0s;
+  position: relative;
+}
+.testimonial_section .about_content .layer_content .section_title .heading_line span:after {
+  content: "";
+  right: auto;
+  left: 69px;
+  position: absolute;
+  bottom: 28px;
+  width: 17px;
+  margin-left: 0;
+  border-bottom-width: 3px;
+  border-bottom-color: #cacaca;
+  border-bottom-style: solid;
+}
+.testimonial_section .about_content .layer_content .section_title .heading_line:after {
+  content: "";
+  left: 1%;
+  margin-left: 0;
+  position: absolute;
+  bottom: 28px;
+  width: 59px;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-bottom-color: #ff5e14;
+}
+.testimonial_section .about_content .layer_content .section_title p {
+  color: #fff;
+  margin: 0 0 15px;
+}
+.testimonial_section .about_content .layer_content a {
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.testimonial_section .about_content .layer_content a i {
+  font-size: 18px;
+  vertical-align: middle;
+}
+.testimonial_section .about_content .layer_content a:hover {
+  color: #ff5e14;
+}
+.testimonial_section .testimonial_box {
+  margin-top: 60px !important;
+  position: relative;
+}
+.testimonial_section .testimonial_box .testimonial_container {
+  background-color: #ff5e14;
+  margin-left: -170px !important;
+  position: relative;
+}
+.testimonial_section .testimonial_box .testimonial_container .background_layer {
+  background-color: #ff5e14;
+  width: auto;
+  margin-right: -200px;
+  right: 0;
+  background-image: url(../images/map.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content {
+  position: relative;
+  z-index: 9;
+  height: 100%;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel {
+  display: block;
+  position: relative;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials {
+  margin: 0;
+  padding: 50px 50px 50px 50px;
+  position: relative;
+  text-align: center;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials .testimonial_content {
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.13);
+  margin-left: 0px;
+  margin-top: 0;
+  padding: 45px 40px 45px 40px;
+  z-index: 1;
+  position: relative;
+  background-color: #fff;
+  transition: all 0.5s ease-in-out 0s;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials .testimonial_content .testimonial_caption {
+  margin-bottom: 15px;
+  position: relative;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials .testimonial_content .testimonial_caption:after {
+  content: "";
+  width: 30px;
+  display: block;
+  height: 2px;
+  text-align: center;
+  left: 46%;
+  margin-top: 6px;
+  background-color: #ff5e14;
+  position: absolute;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials .testimonial_content .testimonial_caption h6 {
+  padding-top: 0;
+  margin-bottom: -5px;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #020d26;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials .testimonial_content .testimonial_caption span {
+  font-size: 12px;
+  color: #9f9f9f;
+  margin: 0;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials .testimonial_content p {
+  padding: 0;
+  margin: 0;
+  padding-top: 10px;
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #5d6576;
+  font-style: italic;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials .images_box .testimonial_img {
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 55px;
+  top: 80px;
+}
+.testimonial_section .testimonial_box .testimonial_container .layer_content .testimonial_owlCarousel .testimonials .images_box .testimonial_img img {
+  border: 5px solid #fff;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+  width: 35%;
+}
+.testimonial_section .testimonial_box .testimonial_container .owl-nav .owl-prev {
+  position: absolute;
+  top: 25px;
+  right: 52px;
+  border-radius: 0;
+  background: #020d26;
+  display: block;
+  outline: 0;
+  width: 34px;
+  line-height: 34px;
+  height: 34px;
+  color: #fff;
+  font-size: 23px;
+  margin-top: -20px;
+  transition: all 0.3s ease-in-out;
+}
+.testimonial_section .testimonial_box .testimonial_container .owl-nav .owl-prev:hover {
+  background: #020d26;
+}
+.testimonial_section .testimonial_box .testimonial_container .owl-nav .owl-next {
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  border-radius: 0;
+  display: block;
+  background: #020d26;
+  outline: 0;
+  width: 34px;
+  text-align: center;
+  line-height: 34px;
+  height: 34px;
+  color: #fff;
+  font-size: 23px;
+  margin-top: -20px;
+  transition: all 0.3s ease-in-out;
+}
+.testimonial_section .testimonial_box .testimonial_container .owl-nav .owl-next:hover {
+  background: #020d26;
+}
+
+@media all and (max-width: 991px) {
+  .testimonial_section .about_content {
+    padding-right: 15px !important;
+  }
+  .testimonial_section .about_content .background_layer {
+    width: 200% !important;
+  }
+  .testimonial_section .testimonial_box {
+    margin-top: 0 !important;
+  }
+  .testimonial_section .testimonial_box .background_layer {
+    width: 200% !important;
+    margin-left: -200px;
+  }
+  .testimonial_section .testimonial_box .about_content {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin-top: 28% !important;
+  }
+  .testimonial_section .testimonial_box .testimonial_container {
+    margin-left: -15px !important;
+  }
+  .testimonial_section .testimonial_box .testimonial_container .testimonials {
+    margin: 0px 0 20px 0;
+  }
+  .testimonial_section .testimonial_box .testimonial_container .testimonials .testimonial_content {
+    margin-left: -36px !important;
+  }
+  .testimonial_section .testimonial_box .testimonial_container .testimonials .images_box {
+    display: none;
+  }
+}
+
+main .item {
+	 width: 100%;
+	 height: 400px;
+	 position: relative;
+	 border-radius: 12px;
+	 overflow: hidden;
+}
+ main .item img {
+	 width: 100%;
+	 height: 100%;
+	 object-fit: cover;
+	 position: absolute;
+	 inset: 0;
+}
+ main .item .overlay {
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+	 padding: 28px 25px;
+	 color: #fff;
+	 /* background: #020024; */
+	 background: rgba(2,0,36,0.3);
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: space-between;
+	 align-items: flex-start;
+}
+ main .item .overlay span {
+	 background: rgba(255, 255, 255, 0.25);
+	 backdrop-filter: blur(4px);
+	 -webkit-backdrop-filter: blur(4px);
+	 border-radius: 60px;
+	 padding: 10px 20px;
+	 display: inline-block;
+}
+ main .item .overlay > div h2, main .item .overlay > div p {
+	 letter-spacing: 0.5px;
+	 margin-bottom: 5px;
+     color: #ffffff;
+}
+
+.section-9 .owl-theme .owl-nav [class*='owl-']{
+    width: 40px;
+    height: 40px;
+    font-size: 32px;
+}
+
+ /* Search Button */
+ .custom-search-btn {
+    display: flex;
+    align-items: center;
+    background-color: #F7F7F7;
+    border: 0;
+    border-radius: 25px;
+    padding: 8px 12px;
+    cursor: pointer;
+    width: 570px;
+    height: 36px;
+
+  }
+
+  .custom-search-btn i {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+
+  .custom-search-btn p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+  }
+
+  /* Modal Backdrop Blur */
+  .custom-search-modal .modal-backdrop {
+    backdrop-filter: blur(5px);
+  }
+
+  /* Modal Content */
+  .custom-search-modal .modal-content {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+    /* Make Modal Stick to the Top */
+    .custom-search-modal .modal-dialog {
+    position: fixed;
+    top: 0;
+    margin: 0;
+    width: 90%; /* Increase width */
+    max-width: 900px; /* Set max width */
+  }
+
+  /* Remove Top Border Radius */
+  .custom-search-modal .modal-content {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+
+  /* Close Button Customization */
+  .custom-search-modal .btn-close {
+    font-size: 20px;
+  }
+
+  /* Modal Header */
+  .custom-search-modal .modal-header {
+    border-bottom: none;
+  }
+
+  .custom-search-modal .modal-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  /* Search Input */
+  .custom-search-input {
+    display: flex;
+    align-items: center;
+    border: 3px solid #F7F7F7;
+    border-radius: 25px;
+    padding: 8px;
+    height: 36px;
+  }
+
+  .custom-search-input i {
+    font-size: 18px;
+    margin-right: 8px;
+    color: #888;
+  }
+
+  .custom-search-input input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 14px;
+    color: #333;
+  }
+
+  /* Popular Search Tags */
+  .popular-searches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .popular-searches button {
+    background: #e46725;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    display: flex;
+    color: #fff;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .popular-searches button span {
+    margin-left: 5px;
+  }
+
+
+
+
+</style>
+
+<div class="sticky-header ">
+          <div class="header-middle" style="background-color:white;">
+               <div class="container">
+                   <div class="header-left">
+                       <button class="mobile-menu-toggler">
+                           <span class="sr-only">Toggle mobile menu</span>
+                           <i class="icon-bars"></i>
+                       </button>
+
+                       <a href="{{ url('/') }}" class="logo">
+                           <img src="{{ asset('website/assets/images/logoic.png') }}" alt="Molla Logo" width="100" >
+                       </a>
+
+
+
+                        <div class="wishlist">
+
+                        <a href="javascript:void(0)"
+                          title="Choose Delivery Pincode"
+                          style="border-left:1px solid #000; padding-left:15px; height:36px;"
+                          data-toggle="modal"
+                          data-target="#pincodeModal">
+                          <div class="icon">
+                            <span style="font-size:13px;">Deliver to</span>
+                          </div>
+                          <!-- give this span an ID so we can update it dynamically -->
+                          <span id="pincodeDisplay" style="font-size:13px; font-weight:600; margin-bottom:8px;"><i class="fa fa-chevron-down" aria-hidden="true"></i>
+                          </span>
+                        </a>
+                       </div><!-- End .compare-dropdown -->
+                   </div><!-- End .header-left -->
+
+                   <div class="header-center" style="height: 56px;">
+
+                        <!-- Search Button -->
+<!-- HTML -->
+<div style="display: inline-block; position: relative; margin: 20px;">
+  <button type="button" data-bs-toggle="modal" data-bs-target="#searchModal" class="custom-search-btn">
+    <i class="bi bi-search" style="color: #A3A3A3"></i>
+    <p style="color: #A3A3A3">Search for <span id="rotating-product" style="display: inline-block">product</span></p>
+  </button>
+</div>
+
+<!-- CSS -->
+<style>
+  @keyframes slideOutUp {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideInUp {
+    from {
+      transform: translateY(8px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .slide-out-up {
+    animation: slideOutUp 0.5s forwards;
+  }
+
+  .slide-in-up {
+    animation: slideInUp 0.5s forwards;
+  }
+</style>
+
+<!-- JavaScript -->
+<script>
+  const products = ['chair', 'table', 'lamp', 'bedsheet', 'sofa', 'desk'];
+  let currentIndex = 0;
+  const productElement = document.getElementById('rotating-product');
+
+  function updateProduct() {
+    productElement.classList.add('slide-out-up');
+
+    productElement.addEventListener('animationend', () => {
+      productElement.textContent = products[currentIndex];
+      productElement.classList.remove('slide-out-up');
+      productElement.classList.add('slide-in-up');
+
+      productElement.addEventListener('animationend', () => {
+        productElement.classList.remove('slide-in-up');
+      }, {once: true});
+
+      currentIndex = (currentIndex + 1) % products.length;
+    }, {once: true});
+  }
+
+  // Initial update after first load
+  setTimeout(() => {
+    updateProduct();
+    // Set up regular updates every 2 seconds
+    setInterval(updateProduct, 1500);
+  }, 1500);
+</script><!-- End of Search Button -->
+<style>
+    /* Blur background when modal is open */
+    body.modal-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(5px);
+        background-color: rgba(0, 0, 0, 0.7); /* optional dark overlay */
+        z-index: 1040; /* Below modal's z-index */
+    }
+
+    .modal-backdrop {
+        display: none !important; /* Hide default backdrop if needed */
+    }
+
+    /* Ensure modal stays above the blurred layer */
+    .modal.custom-search-modal {
+        z-index: 1050;
+    }
+</style>
+
+                            <!-- Search Modal -->
+                            <div class="modal fade custom-search-modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true" >
+                                <div class="modal-dialog" style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 90%; max-width: 630px;">
+                                    <div class="modal-content" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
+
+                                        <!-- Modal Header -->
+                                        <!-- <div class="modal-header">
+                                            <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="border: none; background: none; cursor: pointer; font-size: 1.5rem;">
+                                                <i class="bi bi-x"></i>
+                                            </button>
+                                        </div>  -->
+                                        <!-- End of Modal Header -->
+
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <!-- Search Input -->
+                                            <div class="custom-search-input">
+                                                <i class="bi bi-search"></i>
+                                                <input type="text" id="searchInput" placeholder="Search..." oninput="hello()">
+                                                
+                                            </div> <!-- End of Search Input -->
+                                            <div id="list_suggestion"></div>
+                                            <script>
+function hello() {
+    var x = document.getElementById('searchInput').value.trim();
+
+    // Hide popular searches and heading if any input
+    if (x.length > 0) {
+        document.getElementsByClassName('popular-searches')[0].style.display = 'none';
+        document.getElementsByClassName('h6')[0].style.display = 'none';
+    } else {
+        document.getElementsByClassName('popular-searches')[0].style.display = 'block';
+        document.getElementsByClassName('h6')[0].style.display = 'block';
+        document.getElementById('list_suggestion').innerHTML = '';
+        return; // Stop AJAX if input is empty
+    }
+
+    $.ajax({
+        url: '{{ route("web_suggestion") }}',
+        type: 'POST',
+        data: {
+            search: x,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(result) {
+            let suggestions = result.suggestion || [];
+
+            if (suggestions.length > 0) {
+                let html = '<ul>';
+                suggestions.forEach(item => {
+                  html += '<li><a href="search_product?name=' + (item.tag) + '" style="color: black;">' + item.tag + '</a></li>';
+                });
+                html += '</ul>';
+                document.getElementById('list_suggestion').innerHTML = html;
+            } else {
+                document.getElementById('list_suggestion').innerHTML = '<p>No suggestions found</p>';
+            }
+        },
+        error: function(xhr) {
+            console.error("Error:", xhr.responseText);
+        }
+    });
+}/////////
+
+
+$.ajax({
+    url: '{{ route("popular_choice") }}',
+    type: 'GET',
+    success: function(result) {
+        console.log(result.pop); // Check karne ke liye
+        
+        let htmls = '';
+        Object.entries(result.pop).forEach(([slug, name]) => {
+    htmls += `<button onclick="window.location.href='/ic/products_1/${slug}'" type="button">${name} <span>→</span></button>`;
+});
+
+        // Set content inside first element with class "popular-searches"
+        document.getElementsByClassName('popular-searches')[0].innerHTML = htmls;
+    },
+    error: function(xhr) {
+        console.error("Error:", xhr.responseText);
+    }
+});
+
+</script>
+
+                                       <!-- Popular Searches -->
+                                            <h6 style="margin-top: 15px;" class="h6">Popular Choices</h6>
+                                            <div class="popular-searches">
+                                                <!-- <button type="button">BedSheets <span>→</span></button>
+                                                <button type="button">Cushion Covers <span>→</span></button>
+                                                <button type="button">Tawa <span>→</span></button>
+                                                <button type="button">Plates & Dinner Sets <span>→</span></button>
+                                                <button type="button">Storage Box & Containers <span>→</span></button>
+                                                <button type="button">Cookware <span>→</span></button>
+                                                <button type="button">Curtains <span>→</span></button> -->
+                                            </div> <!-- End of Popular Searches -->
+                                        </div> <!-- End of Modal Body -->
+                                    </div> <!-- End of Modal Content -->
+                                </div> <!-- End of Modal Dialog -->
+                            </div> <!-- End of Modal -->
+
+                            <!-- Bootstrap JS -->
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- End .header-search -->
+                   </div>
+
+                   <div class="header-right">
+                   @auth
+                      @php
+                          $user = auth()->user();
+                         
+                      @endphp
+                      <div class="dropdown compare-dropdown">
+                          <a href="{{ url('user_profile_1/' . $user->id) }}" class="dropdown-toggle">
+                              <div class="icon">
+                                @if($user->gender === 'Male')
+                                 <img style="height:25px; width:25px; "
+                                      src="{{ asset('/public/website/assets/images/male.webp') }}"
+                                      class="rounded-circle" alt="Profile Picture">
+                               @elseif($user->gender === 'Female')
+                                      <img style="height:25px; width:25px; "
+                                      src="{{ asset('/public/website/assets/images/female.webp') }}"
+                                      class="rounded-circle" alt="Profile Picture">
+                                      @else
+                                  <img style="height:25px; width:25px; "
+                                      src="{{ asset('storage/service-provider/' . ($user->image ?? 'def.png')) }}"
+                                      class="rounded-circle" alt="Profile Picture">
+                                  @endif
+                              </div>
+                             @if($user->gender == null)
+                             <p >{{('My Account') }}</p>
+                             @endif
+                              <p >{{ $user->f_name }}</p>
+                          </a>
+                      </div>
+                  @else
+                      <div class="dropdown compare-dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#loginModal">
+                              <div class="icon">
+                                  <img src="{{ asset('website/assets/images/login.png') }}" alt="Login Icon" width="25">
+                              </div>
+                              <p>Login</p>
+                          </a>
+                      </div>
+                  @endauth
+
+                                @php
+                                    $id = auth()->id();
+                                @endphp
+
+                                @php
+    $wishlistCount = 0;
+    if (auth()->check()) {
+        $wishlistCount = DB::table('wishlists')
+            ->where('customer_id', auth()->id())
+            ->count();
+    }
+@endphp
+
+<div class="wishlist">
+    @php
+        $userId = $id ?? auth()->id();
+    @endphp
+
+    @if ($userId)
+        <a href="{{ url('wishlist_1/' . $userId) }}" title="Wishlist">
+    @else
+        <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#loginModal">
+    @endif
+        <div class="icon">
+            <img src="{{ asset('website/assets/images/wishlist.png') }}" alt="Wishlist Icon" width="25">
+            @if($wishlistCount > 0)
+            <span class="wishlist-count badge">{{ $wishlistCount ?? 0 }}</span>
+            @endif
+        </div>
+        <p>Wishlist</p>
+    </a>
+</div>
+
+
+                       @php
+
+                        $cart = DB::table('new_cart')
+                            ->join('sku_product_new', function($join) {
+                                $join->on('new_cart.variation', '=', 'sku_product_new.id');
+                            })
+                            ->leftJoin('products', 'sku_product_new.product_id', '=', 'products.id')
+                            ->select(
+                                'new_cart.*',
+                                'new_cart.id as cart_id',
+                                'new_cart.quantity as cart_qty',
+                                'sku_product_new.product_id as product_ids',
+                                'sku_product_new.*',
+                                'products.name'
+                            )
+                            ->where('new_cart.user_id', $id)
+                            ->get();
+
+                        $cartCount = count($cart);
+                        $cartTotal = 0;
+                    @endphp
+
+                    <div class="dropdown cart-dropdown">
+                      @if ($userId)
+  <a onclick="window.location.href='{{ url('cart_1/' . $id) }}'" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+    @else
+        <a href="#" class="dropdown-toggle" data-toggle="modal" data-target="#loginModal">
+    @endif
+    
+        <div class="icon">
+            <img src="{{ asset('website/assets/images/cart.png') }}" alt="Cart" width="25">
+            @if($cartCount > 0)
+            <span class="cart-count">{{ $cartCount }}</span>
+            @endif
+        </div>
+        <p>Cart</p>
+    </a>
+     @if($userId)
+    <div class="dropdown-menu dropdown-menu-right" >
+        <div class="dropdown-cart-products"  style="height: 190px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;"">
+            @forelse ($cart as $cartItem)
+                @php
+                    $price = $cartItem->listed_price ?? 0;
+                    $qty = $cartItem->cart_qty; // Adjust if you have quantity support
+                    $cartTotal += $price * $qty;
+              
+                    $images = json_decode($cartItem->image, true);
+                @endphp
+
+                <div class="product">
+                    <div class="product-cart-details">
+                        <h4 class="product-title">
+                            <a href="">
+                            {{ \Illuminate\Support\Str::limit($cartItem->name, 40) }}
+                            </a>
+                        </h4>
+                        <span class="cart-product-info">
+                            <span class="cart-product-qty">{{ $qty }}</span>
+                            x ₹{{ number_format($price, 2) }}
+                        </span>
+                    </div>
+
+                    <figure class="product-image-container">
+                        <a href="" class="product-image">
+                            <img src="{{ asset('storage/images/' . $images[0]) }}" alt="{{ $cartItem->name }}">
+                        </a>
+                    </figure>
+
+                    <a href="javascript:void(0);" 
+                      class="btn-remove delete-cart-items" 
+                      title="Remove Product" 
+                      data-cart-id="{{ $cartItem->cart_id }}">
+                        <i class="icon-close"></i>
+                    </a>
+
+                </div>
+            @empty
+                <p class="text-center p-3">Your cart is empty</p>
+            @endforelse
+        </div>
+
+        @if($cartCount > 0)
+            <div class="dropdown-cart-total">
+                <span>Total</span>
+                <span class="cart-total-price">₹{{ number_format($cartTotal, 2) }}</span>
+            </div>
+
+            <div class="dropdown-cart-action">
+                <a href="{{ url('cart_1/' . $id) }}" class="btn btn-primary">View Cart</a>
+                <a href="{{ url('checkout') }}" class="btn btn-outline-primary-2">
+                    <span>Checkout</span>
+                    <i class="icon-long-arrow-right"></i>
+                </a>
+            </div>
+        @endif
+    </div>
+</div>
+@endif
+                   </div><!-- End .header-right -->
+               </div><!-- End .container -->
+           </div><!-- End .header-middle -->
+
+           <div class="header-bottom sticky-header "  style="--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);
+   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); border-top:1px solid #c9c9c9;">
+               <div class="container">
+@php
+    $cat = DB::table('categories')
+        ->whereIn('name', [
+            'Decor', 'Furnishing', 'Garden', 'Furniture', 'Kitchen',
+            'Electronics', 'Electricals', 'Hardware & Sanitary'
+        ])
+        ->orderByRaw("FIELD(name, 'Decor', 'Furnishing', 'Garden', 'Furniture', 'Kitchen', 'Electronics', 'Electricals', 'Hardware & Sanitary')")
+        ->get();
+
+    $subCategories = DB::table('categories as c')
+        ->whereIn('c.parent_id', $cat->pluck('id'))
+        ->where('c.sub_parent_id', 0)
+        ->orderBy('c.priority', 'asc')
+        ->get()
+        ->groupBy('parent_id');
+
+    $subCategoryIds = $subCategories->flatten()->pluck('id');
+
+    $sub_sub_categories = DB::table('categories')
+        ->whereIn('sub_parent_id', $subCategoryIds)
+        ->get()
+        ->groupBy('sub_parent_id');
+@endphp
+
+<div class="header-center">
+    <nav class="main-nav">
+        <ul class="menu sf-js-enabled">
+            @foreach($cat as $ca)
+                <li>
+                    <a href="{{ url('products_1/' . $ca->slug) }}" style="white-space: nowrap; margin-left: 10px; margin-right: 10px;">{{ $ca->name }}</a>
+                    @if($subCategories->has($ca->id))
+                        <div class="megamenu megamenu-md" >
+                            <div class="row no-gutters">
+                                <div class="col-md-12" >
+                                    <div class="menu-col">
+                                        <div class="row">
+                                          <!-- Left side: first 5 subcategories -->
+                                            <div class="col-md-9">
+                                                <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2">
+                                                    @foreach($subCategories[$ca->id]->slice(0, 5) as $subCat)
+                                                        <div class="col mb-3">
+                                                        <a href="{{ url('products_1/' . $subCat->slug) }}"  class="text-wrap">
+                                                            <div class="menu-title">{{ $subCat->name }}</div>
+                                                        </a>
+                                                            @if($sub_sub_categories->has($subCat->id))
+                                                                <ul class="list-unstyled">
+                                                                    @foreach($sub_sub_categories[$subCat->id] as $subsubcat)
+                                                                        <li class="py-1">
+                                                                            <a href="{{ url('products_1/' . $subsubcat->slug) }}" class="text-nowrap">{{ $subsubcat->name }}</a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+
+                                            <!-- Right side: subcategories after the first 5 -->
+                                            <div class="col-md-3">
+                                                <div class="row">
+                                                    @foreach($subCategories[$ca->id]->slice(5) as $subCat)
+                                                        <div class="col-md-12">
+                                                        <a href="{{ url('products_1/' . $subCat->slug) }}"  class="text-nowrap">
+                                                            <div class="menu-title">{{ $subCat->name }}</div>
+                                                        </a>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </li>
+            @endforeach
+        </ul>
+    </nav>
+</div>
+
+
+    <div class="header-right">
+        <i class="la la-lightbulb-o"></i>
+        <p>Explore Offers<span class="highlight">&nbsp;Up to 30% Off</span></p>
+    </div>
+</div><!-- End .container -->
+
+           </div><!-- End .header-bottom --></div>
+       </header><!-- End .header -->
+
+
+    <!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobile-menu-overlay -->
+
+<div class="mobile-menu-container">
+    <div class="mobile-menu-wrapper">
+        <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+        <form action="#" method="get" class="mobile-search">
+           <!--  -->
+            <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+        </form>
+
+        <div class="row">
+            <!-- Left Column: Category Tabs -->
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    @foreach($cat as $index => $ca)
+                        <button class="nav-link {{ $loop->first ? 'active' : '' }}"
+                                id="v-pills-tab-{{ $ca->id }}"
+                                data-toggle="pill"
+                                data-target="#v-pills-{{ $ca->id }}"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-pills-{{ $ca->id }}"
+                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                            <img src="{{ asset('storage/category/' . $ca->icon) }}" alt="{{ $ca->name }}" />
+                            <span>{{ $ca->name }}</span>
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Right Column: Tab Content for Each Category -->
+            <div class="col-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    @foreach($cat as $ca)
+                        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
+                             id="v-pills-{{ $ca->id }}"
+                             role="tabpanel"
+                             aria-labelledby="v-pills-tab-{{ $ca->id }}">
+
+                            <nav class="mobile-nav pr-4">
+                                <ul class="mobile-menu">
+                                    @if($subCategories->has($ca->id))
+                                        @foreach($subCategories[$ca->id] as $subCat)
+                                            <li class="active">
+                                                <a href="#">{{ $subCat->name }}</a>
+                                                @if($sub_sub_categories->has($subCat->id))
+                                                    <ul>
+                                                        @foreach($sub_sub_categories[$subCat->id] as $subSubCat)
+                                                            <li>
+                                                                <a href="#">{{ $subSubCat->name }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li>
+                                            <a href="#">No subcategories available.</a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav><!-- End .mobile-nav -->
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <div class="social-icons">
+            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+            <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+            <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+            <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+        </div><!-- End .social-icons -->
+    </div><!-- End .mobile-menu-wrapper -->
+</div><!-- End .mobile-menu-container -->
+
+
+
+    <!-- Sign in / Register Modal -->
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="singin-email">Username or email address *</label>
+                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="singin-password">Password *</label>
+                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>LOG IN</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                            </div><!-- End .custom-checkbox -->
+
+                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="register-email">Your email address *</label>
+                                            <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="register-password">Password *</label>
+                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SIGN UP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                                <label class="custom-control-label" for="register-policy" style="font-size: 0px;">I agree to the <a href="#">privacy policy</a> *</label>
+                                            </div><!-- End .custom-checkbox -->
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login  btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                            </div><!-- End .tab-content -->
+                        </div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content" style="border-radius: 1rem; width: 70%; height: 70%;">
+      <div class="modal-header" style="border-bottom: 0px"></div>
+      <div class="modal-body">
+        <div class="container" style="width: 100%; padding-right: 15px; padding-left: 15px;">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="bg-login text-center">
+                <h1>INTERIOR <span>CHOWK</span></h1>
+                <img class="asset-1" src="{{ asset('website/new/assets/images/Asset-1.png') }}" alt="" style="width: 60%" />
+                <img class="asset-2" src="{{ asset('website/new/assets/images/Asset-2.png') }}" alt="" style="width: 60%" />
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="text-login mt-4" style="position: relative; min-height: 320px; overflow: hidden;">
+                
+                <!-- Login Section -->
+                <div id="loginSection" class="slide-section active">
+                  <h5 class="mt-3">LogIn / SignUp</h5>
+                  <div class="form-group mb-2">
+                    <input type="text" class="form-control" id="phone" placeholder="Enter Phone Number" maxlength="10">
+                  </div>
+                  <h6 class="mt-3">Referral Code (Optional)</h6>
+                  <div class="form-group mb-2">
+                    <input type="text" class="form-control" id="referral" placeholder="Enter Referral Code">
+                  </div>
+                  <button type="button" id="sendOtpBtn" class="btn btn-primary">Send OTP</button>
+                </div>
+
+                <!-- OTP Section -->
+                <div id="otpSection" class="slide-section">
+                  <h4>Verify OTP</h4>
+                  <div class="row mt-3">
+                    <div class="col-md-12">
+                      <h6>Enter 4-digit O.T.P. <span id="otpTimer">01:00</span></h6>
+                    </div>
+                    @for ($i = 0; $i < 4; $i++)
+                    <div class="col-3">
+                      <input type="text" maxlength="1" class="form-control mb-1 otp-input" data-index="{{ $i }}">
+                    </div>
+                    @endfor
+                  </div>
+                  <div class="form-group form-check mb-1 mt-2">
+                    <input type="checkbox" class="form-check-input" id="termsCheck">
+                    <label class="form-check-label ml-2" for="termsCheck">
+                      I agree to
+                      <a href="https://dev.interiorchowk.com/ic/policy?type=terms_condition" style="color: #E46725;">Terms & Conditions</a> and
+                      <a href="https://dev.interiorchowk.com/ic/policy?type=privacy_policy" style="color: #E46725;">Privacy Policy</a>
+                    </label>
+                  </div>
+                  <button type="button" id="verifyOtpBtn" class="btn btn-info">Verify O.T.P.</button>
+                </div>
+
+                <!-- Dot Navigation -->
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide Animation CSS -->
+<style>
+  .slide-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    transform: translateX(100%);
+    z-index: 0;
+  }
+
+  .slide-section.active {
+    opacity: 1;
+    transform: translateX(0%);
+    z-index: 1;
+  }
+
+  .slide-section.out-left {
+    transform: translateX(-100%);
+    opacity: 0;
+    z-index: 0;
+  }
+</style>
+
+<!-- JavaScript -->
+<script>
+  // OTP Section Slide Logic
+  document.getElementById("sendOtpBtn").addEventListener("click", function () {
+    const login = document.getElementById("loginSection");
+    const otp = document.getElementById("otpSection");
+
+    login.classList.remove("active");
+    login.classList.add("out-left");
+
+    otp.classList.add("active");
+
+    // Dot change
+    document.querySelectorAll(".dot-nav").forEach(dot => dot.style.background = "#aaa");
+    document.querySelector(".dot-nav[data-target='otpSection']").style.background = "#000";
+  });
+
+  // Dot Navigation Logic
+  document.querySelectorAll(".dot-nav").forEach(dot => {
+    dot.addEventListener("click", function () {
+      const targetId = this.getAttribute("data-target");
+      const allSections = document.querySelectorAll(".slide-section");
+
+      allSections.forEach(section => {
+        section.classList.remove("active", "out-left");
+      });
+
+      document.getElementById(targetId).classList.add("active");
+
+      // Dot indicator
+      document.querySelectorAll(".dot-nav").forEach(d => d.style.background = "#aaa");
+      this.style.background = "#000";
+    });
+  });
+
+  // OTP Navigation Logic
+  document.addEventListener("DOMContentLoaded", function () {
+    const otpInputs = document.querySelectorAll('.otp-input');
+
+    otpInputs.forEach((input, index) => {
+      input.addEventListener('input', function () {
+        if (this.value.length === 1 && index < otpInputs.length - 1) {
+          otpInputs[index + 1].focus();
+        }
+      });
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Backspace' && this.value === '' && index > 0) {
+          otpInputs[index - 1].focus();
+        } else if (e.key === 'ArrowLeft' && index > 0) {
+          otpInputs[index - 1].focus();
+        } else if (e.key === 'ArrowRight' && index < otpInputs.length - 1) {
+          otpInputs[index + 1].focus();
+        }
+      });
+    });
+  });
+</script>
+
+
+<script>
+$(document).ready(function () {
+    let otpTimer;
+    let timeLeft = 60;
+
+    // Dot Navigation Click Handler
+    $('.dot-nav').click(function() {
+        const target = $(this).data('target');
+        $('.dot-nav').removeClass('active');
+        $(this).addClass('active');
+
+        $('#loginSection, #otpSection').hide();
+        $('#' + target).show();
+    });
+
+    // Timer functions
+    function startTimer() {
+        clearInterval(otpTimer);
+        timeLeft = 60;
+        updateTimerDisplay();
+        otpTimer = setInterval(function() {
+            timeLeft--;
+            updateTimerDisplay();
+            if (timeLeft <= 0) {
+                clearInterval(otpTimer);
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        $('#otpTimer').text(`${minutes}:${seconds}`);
+    }
+
+    // Original Send OTP function
+    $('#sendOtpBtn').click(function () {
+        var phone = $('#phone').val();
+        var referral = $('#referral').val();
+
+        if (phone.length !== 10) {
+            alert("Please enter a valid 10-digit phone number.");
+            return;
+        }
+
+        $.ajax({
+            url: "{{ route('sendOtpweb') }}",
+            type: 'POST',
+            data: {
+                 _token: '{{ csrf_token() }}', // CSRF token here
+                phone: phone,
+                referral: referral
+
+            },
+            success: function (response) {
+                if (response.status) {
+                    // Switch to OTP dot when OTP is sent
+                    $('.dot-nav[data-target="otpSection"]').click();
+                    startTimer();
+                }
+               // alert(response.message);
+            },
+            error: function () {
+                alert("Something went wrong while sending OTP.");
+            }
+        });
+    });
+
+    // Original OTP functions
+    $('.otp-input').on('keyup', function () {
+        let index = parseInt($(this).data('index'));
+        if ($(this).val().length === 1 && index < 3) {
+            $('.otp-input').eq(index + 1).focus();
+        }
+    });
+
+    $('#verifyOtpBtn').click(function () {
+        let otp = '';
+        $('.otp-input').each(function () {
+            otp += $(this).val().trim();
+        });
+
+        if (otp.length !== 4) {
+            alert("Please enter all 4 digits of the OTP.");
+            return;
+        }
+
+        var phone = $('#phone').val(); // Make sure this input exists
+
+        if (!phone) {
+            alert("Phone number is missing.");
+            return;
+        }
+
+        $.ajax({
+            url: "{{ url('/logins') }}",
+            type: 'POST',
+           
+            data: {
+                _token: '{{ csrf_token() }}', // CSRF token here
+                otp: otp,
+                phone: phone
+            },
+            success: function (res) {
+                if (res.status) {
+                   // alert('Logged in successfully!');
+                    location.reload();
+                } else {
+                    alert('Login failed: ' + (res.message || 'Invalid OTP.'));
+                }
+            },
+            error: function (xhr, status, error) {
+              console.error("XHR Response:", xhr.responseText);
+              alert("Web session login failed.");
+            }
+        });
+    });
+});
+</script>
+
+<style>
+/* Dot Navigation Styles */
+.dot-nav {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot-nav.active {
+    background-color: #E46725;
+}
+
+.dot-nav:hover {
+    background-color: #E46725;
+    opacity: 0.8;
+}
+</style>
+
+<!-- Modal -->
+<div class="modal fade" id="pincodeModal" tabindex="-1" aria-labelledby="pincodeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body p-5">
+        <h6 class="mb-1">Delivery Time</h6>
+        <p>Please enter PIN code to check delivery time</p>
+
+        <div class="form-inline text-login">
+          <div class="form-group mr-3" style="width: calc(100% - 95px); position:relative;">
+            <input id="pincodeInput"
+                   type="text"
+                   class="form-control w-100"
+                   placeholder="Enter 6‑digit pincode"
+                   maxlength="6"
+                   style="padding-right:105px;">
+            <div style="position:absolute; right:0; top:0;">
+           
+              <button type="button"
+                      class="btn"
+                      onclick="applyPincode()"
+                      style="min-width:auto;background-color:#e46725;">
+                Apply
+              </button>
+            </div>
+          </div>
+
+          <button type="button"
+                  class="btn btn-primary"
+                  onclick="getLocation()">
+            <i class="fa fa-location-arrow ml-0" aria-hidden="true"></i>
+            Locate
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  <style>
+        /* Fix dropdown position and show it consistently */
+        .megamenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; /* Hide by default */
+        }
+
+        /* Show dropdown when hovering over the menu item */
+        .dropdown:hover .megamenu {
+            display: block;
+        }
+
+        /* Add scroll after 450px height but hide scrollbar */
+        .megamenu .menu-col {
+            max-height: 450px;
+            overflow-y: auto;
+            scrollbar-width: none; /* Hide scrollbar in Firefox */
+        }
+
+        .megamenu .menu-col::-webkit-scrollbar {
+            display: none; /* Hide scrollbar in Chrome & Safari */
+        }
+    </style>
+
+<script>
+  // On load: if we’ve stored a pincode, show that instead of 000999
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('pincode');
+    if (saved && /^\d{6}$/.test(saved)) {
+      updateDisplay(saved);
+    }
+  });
+
+  // Utility: change the span’s innerHTML
+  function updateDisplay(pin) {
+    document.getElementById('pincodeDisplay').innerHTML =
+      `${pin} <i class="fa fa-chevron-down" aria-hidden="true"></i>`;
+  }
+
+  // Called when user clicks “Apply”
+  function applyPincode() {
+    const pin = document.getElementById('pincodeInput').value.trim();
+    if (/^\d{6}$/.test(pin)) {
+      localStorage.setItem('pincode', pin);
+      updateDisplay(pin);
+      $('#pincodeModal').modal('hide');
+      location.reload();
+    } else {
+      alert('Please enter a valid 6‑digit pincode.');
+    }
+  }
+
+  // Called when user clicks “Locate”
+  function getLocation() {
+    if (!navigator.geolocation) {
+      return alert("Geolocation is not supported by this browser.");
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        const { latitude: lat, longitude: lng } = pos.coords;
+        const apiKey = 'AIzaSyBjSaMOYIsNMmMcqZI6iyd9bjREm0oBhjY';
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+        fetch(url)
+          .then(r => r.json())
+          .then(data => {
+            const comps = data.results.flatMap(r => r.address_components);
+            const pc = comps.find(c => c.types.includes('postal_code'));
+
+            if (pc && /^\d{6}$/.test(pc.long_name)) {
+              localStorage.setItem('pincode', pc.long_name);
+              updateDisplay(pc.long_name);
+              $('#pincodeModal').modal('hide');
+              location.reload();
+            } else {
+              alert('Could not detect a valid 6‑digit pincode from your location.');
+            }
+          })
+          .catch(() => alert('Failed to fetch location info.'));
+      },
+      () => alert('Location access denied.')
+    );
+  }
+</script>
+
+<script>
+$(document).on('click', '.delete-cart-items', function () {
+    let cartId = $(this).data('cart-id');
+
+    if (!confirm("Are you sure you want to remove this item from the cart?")) return;
+
+    $.ajax({
+        url: "{{ route('cart.remove_1') }}", // Your delete cart route
+        type: "POST",
+        data: {
+            _token: '{{ csrf_token() }}',
+            cart_id: cartId
+        },
+        success: function (response) {
+            alert(response.message);
+
+            // Either reload page:
+            location.reload();
+
+            // OR smoother: dynamically remove item from DOM
+            // Example if you want:
+            // $('a[data-cart-id="' + cartId + '"]').closest('.cart-item-row').remove();
+        },
+        error: function () {
+            alert("Something went wrong while removing the item.");
+        }
+    });
+});
+</script>
+
+
+
+    <!-- <style>
+        /* Main navigation bar */
+        .main-nav {
+            position: relative;
+        }
+
+        /* Fixed mega menu container */
+        .fixed-megamenu {
+            position: absolute;
+            top: 100%;
+
+            background-color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid #c9c9c9;
+            max-height: 450px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        /* Show menu on hover */
+        .menu li:hover .fixed-megamenu {
+            display: block;
+        }
+
+        /* Grid layout for mega menu */
+        .megamenu-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Category group styling */
+        .menu-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Category titles */
+        .menu-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Submenu styling */
+        .submenu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .submenu a {
+            text-decoration: none;
+            color: #666;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            padding: 0.3rem 0;
+        }
+
+        .submenu a:hover {
+            color: #2874f0;
+            transform: translateX(5px);
+        }
+
+        /* Hide scrollbar */
+        .fixed-megamenu {
+            scrollbar-width: none;
+        }
+        .fixed-megamenu::-webkit-scrollbar {
+            display: none;
+        }
+    </style> -->

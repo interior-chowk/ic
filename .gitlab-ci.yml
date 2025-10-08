@@ -1,0 +1,13 @@
+dev-deployment:
+ variables:
+   GIT_STRATEGY: fetch
+ script:
+   - bash ~/gitlab/bundledeploylaravelproject-interiorchowk-php8.3.sh
+ environment:
+     name: Development
+     url : https://interiorchowk.dedicateddevelopers.us
+ tags:
+   - custom-laravel
+ only:
+   - dev
+

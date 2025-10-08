@@ -1,0 +1,115 @@
+<head>
+    {{-- @dd( asset('style.css') ); --}}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="_token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if (isset($seo))
+        <?php $og = json_decode($seo->og_tags, true); ?>
+        <title>{{ $seo->meta_title ?? config('app.name') }}</title>
+        <meta name="description" content="{{ $seo->meta_description ?? '' }}">
+        <meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
+        <link rel="canonical" href="{{ $seo->canonical ?? url()->current() }}">
+        {{-- Open Graph Tags --}}
+        <meta property="og:title" content="{{ $og['title'] ?? $seo->meta_title }}">
+        <meta property="og:description" content="{{ $og['description'] ?? $seo->meta_description }}">
+        <meta property="og:image" content="{{ $og['image'] ?? '' }}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+    @endif
+    @stack('head')
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('asset/img/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="{{ asset('storage/company') }}/{{ $web_config['fav_icon']->value }}">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="manifest" href="{{ asset('website/assets/images/icons/site.html') }}">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="{{ asset('assets/images/icons/browserconfig.xml') }}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet"
+        href="{{ asset('website/new/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/new/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/new/assets/css/plugins/owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/new/assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/new/assets/css/plugins/jquery.countdown.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/new/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/new/assets/css/skins/skin-demo-3.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/new/assets/css/demos/demo-3.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/back-end') }}/css/toastr.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    {{-- <link rel="stylesheet" type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"> --}}
+    @stack('style')
+    <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{{ asset('assets/back-end') }}/js/toastr.js"></script>
+    {!! Toastr::message() !!}
+
+    @if ($errors->any())
+        <script>
+            @foreach ($errors->all() as $error)
+                toastr.error('{{ $error }}', Error, {
+                    CloseButton: true,
+                    ProgressBar: true
+                });
+            @endforeach
+        </script>
+    @endif
+
+
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1176419510435563');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1176419510435563&ev=PageView&noscript=1" /></noscript>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- for search bar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TMC7F3KC');
+    </script>
+    <!-- End Google Tag Manager -->
+
+</head>

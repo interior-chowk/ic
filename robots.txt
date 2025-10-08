@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /my-account
+Disallow: /cart
+Disallow: /get_order?order_id=1000002
+Disallow: /checkout
+Disallow: /index.php
+
+# Optional: Consider blocking if search creates many unique URLs (filter spam)
+# Disallow: /search
+
+Sitemap: https://interiorchowk.com/sitemap.xml

@@ -1,0 +1,77 @@
+<Directory /var/www/html>
+    AllowOverride All
+</Directory>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # ----------------------------------------
+    # 1. Force HTTPS
+    # ----------------------------------------
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # ----------------------------------------
+    # 2. Force non-www
+    # ----------------------------------------
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+    # ----------------------------------------
+    # 3. Remove index.php from URL
+    # ----------------------------------------
+    RewriteCond %{THE_REQUEST} \s/+(index\.php)[^\s]* [NC]
+    RewriteRule ^index\.php/?(.*)$ /$1 [R=301,L]
+
+    # Pass Authorization header to PHP
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # ----------------------------------------
+    # 4. Remove trailing slashes (except root)
+    # ----------------------------------------
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # ----------------------------------------
+    # 5. Laravel routing
+    # ----------------------------------------
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# ----------------------------------------
+# Browser Caching
+# ----------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 6 months"
+
+    # Images
+    ExpiresByType image/jpg "access plus 6 months"
+    ExpiresByType image/jpeg "access plus 6 months"
+    ExpiresByType image/gif "access plus 6 months"
+    ExpiresByType image/png "access plus 6 months"
+    ExpiresByType image/webp "access plus 6 months"
+
+    # CSS & JS
+    ExpiresByType text/css "access plus 6 months"
+    ExpiresByType text/javascript "access plus 6 months"
+    ExpiresByType application/javascript "access plus 6 months"
+
+    # Fonts
+    ExpiresByType application/font-woff2 "access plus 6 months"
+    ExpiresByType application/font-woff "access plus 6 months"
+    ExpiresByType application/vnd.ms-fontobject "access plus 6 months"
+    ExpiresByType application/x-font-ttf "access plus 6 months"
+    ExpiresByType font/opentype "access plus 6 months"
+    ExpiresByType font/otf "access plus 6 months"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|css|js|woff2|woff|ttf|svg|eot)$">
+        Header set Cache-Control "max-age=15552000, public"
+    </FilesMatch>
+</IfModule>

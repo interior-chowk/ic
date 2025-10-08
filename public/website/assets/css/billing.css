@@ -1,0 +1,1493 @@
+.w-85 {
+    width: 85% !important;
+}
+
+.header-bottom.sticky-header {
+    --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);
+    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    border-top: 1px solid #c9c9c9;
+}
+
+.header-intro-clearance .header-bottom .container::before,
+.header-intro-clearance .header-bottom .container::after {
+    width: 0;
+}
+
+.top-header span button {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    height: 18px;
+}
+
+.top-header span img {
+    width: 18px;
+    height: 18px;
+}
+
+.top-header span p {
+    font-size: 12px;
+    color: #ffffff;
+    margin-left: 6px;
+}
+
+.header-intro-clearance .header-bottom .header-right .highlight {
+    color: #E46725;
+}
+
+.consent-para {
+    padding: 5px 0px;
+}
+
+.consent-para p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #ed672f;
+}
+
+.left-addressWrapper {
+    margin-top: 15px;
+}
+
+.left-addressWrapper .nav.nav-pills {
+    margin-bottom: 4px;
+    border-bottom: 2px solid #666666;
+    padding-bottom: 3px;
+}
+
+.left-addressWrapper .nav.nav-pills .nav-link {
+    margin-bottom: 0px;
+    border: 0px solid #000000;
+    border-right: 3px solid #000000;
+    padding: 0px 6px 0px 6px;
+    font-size: 20px;
+    line-height: 20px;
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #000000;
+}
+
+.left-addressWrapper .nav.nav-pills .nav-item {
+    margin-left: 0px;
+}
+
+.left-addressWrapper .nav.nav-pills .nav-item:nth-child(3) .nav-link {
+    border-right: 3px solid #000000;
+}
+
+.left-addressWrapper .nav.nav-pills .nav-link.active {
+    border-right-color: #000000;
+}
+
+.selAddWrapper .btn-ic {
+    min-width: 50px;
+}
+
+.custom_radio {
+    border-radius: 15px;
+}
+
+.custom_radio .form-group {
+    padding: 5px 5px 5px 10px;
+    border-bottom: 1px solid #2E6CB2;
+    margin-bottom: 0px;
+}
+
+.custom_radio .form-group:last-child {
+    padding: 5px 10px;
+    border-bottom: 0px solid #2E6CB2;
+}
+
+.custom_radio .form-group p {
+    font-size: 14px;
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+
+.custom_radio input[type="radio"] {
+    display: none;
+}
+
+.custom_radio input[type="radio"]+label {
+    position: relative;
+    display: inline-block;
+    padding-left: 1.5em;
+    margin-right: 0;
+    cursor: pointer;
+    line-height: 1em;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom_radio input[type="radio"]+label:before,
+.custom_radio input[type="radio"]+label:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+
+}
+
+.custom_radio input[type="radio"]+label:before {
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    border: 1px solid rgb(176, 176, 176);
+}
+
+.custom_radio input[type="radio"]+label:hover:before {
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.custom_radio input[type="radio"]:checked+label:before {
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    border: 4px solid rgb(32, 32, 32);
+}
+
+.custom_radio .addTag {
+    position: absolute;
+    top: 10px;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 2px;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.custom_radio .addTagCol1 {
+    background-color: #FF9E6A;
+}
+
+.custom_radio .addTagCol2 {
+    background-color: #2E6CB2;
+
+}
+
+.custom_radio .addTagCol3 {
+    background-color: #444444;
+
+}
+
+.billAddWrapper {
+    margin-top: 20px;
+}
+
+.billAddWrapper h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.billAddWrapper .custom_radio .form-group {
+    padding: 26px 20px;
+}
+
+.billAddWrapper .custom_radio input[type="radio"]+label {
+    line-height: 22px;
+    padding-left: 30px;
+}
+
+.billAddWrapper .custom_radio {
+    box-shadow: 0px 2px 2px 0px #00000040;
+    border-radius: 15px;
+}
+
+.billAddWrapper .custom_radio {
+    border: 1px solid #eeeeee;
+}
+
+.billAddWrapper .custom_radio .form-group {
+    border-bottom: 0px solid #2E6CB2;
+}
+
+.billAddWrapper .custom_radio .form-group:first-child {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.billAddWrapper .custom_radio .form-group .form-check {
+    height: unset;
+}
+
+.billAddWrapper .custom_radio .form-group:nth-child(1).selected {
+    border: 1px solid #000000;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.billAddWrapper .custom_radio .form-group:nth-child(2).selected {
+    border: 1px solid #000000;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.locBtn {
+    background-color: #68A5EB;
+    border-radius: 20px;
+    padding: 3px 6px;
+    min-width: 100px;
+    color: #ffffff;
+    font-size: 10px;
+
+}
+
+.locBtn i {
+    margin: 0px 0px 0px 2px !important;
+    font-size: 14px;
+
+}
+
+.addNewAddWrapper h3 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.addNewAddWrapper h3 span {
+    display: inline-block;
+    line-height: 1.1;
+    border-right: 3px solid #000000;
+    margin-right: 8px;
+    padding-right: 8px;
+}
+
+.addNewAddWrapper form .form-group .form-control {
+    min-height: 48px;
+    font-size: 14px;
+    background: #EFEFEF;
+}
+
+textarea.form-control {
+    background: #EFEFEF;
+}
+
+.btnAddressAdd {
+    background-color: #2E6CB2;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 7px;
+}
+
+.addTypeWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.addTypeWrapper h5 {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.addTypeWrapper .custom_radio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 0;
+}
+
+.addTypeWrapper .custom_radio .form-group {
+    border-bottom: 0;
+}
+
+.addTypeWrapper .custom_radio .form-group .form-check {
+    height: unset;
+}
+
+.addTypeWrapper .custom_radio input[type="radio"]+label:before,
+.addTypeWrapper .custom_radio input[type="radio"]+label:after {
+    width: 14px;
+    height: 14px;
+}
+
+.addTypeWrapper .custom_radio input[type="radio"]:checked+label:before {
+    border: 3.5px solid rgb(32, 32, 32);
+}
+
+.addNewAddWrapper .form-check-input {
+    width: 17px;
+    height: 17px;
+}
+
+.addNewAddWrapper .form-check-label {
+    margin-left: 12px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.addNewAddWrapper .form-check-label span {
+    font-weight: 300;
+}
+
+.paymentWrapper p {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.billAddWrapper.paymentWrapper h3 {
+    margin-bottom: 0px;
+}
+
+.paymentWrapper img {
+    width: 50px;
+    height: 25px;
+    border: 0.7px solid #A9A9A9;
+    border-radius: 3px;
+    margin-right: 2px;
+}
+
+.paymentWrapper span {
+    border: 1px solid #E7E7E7;
+    font-size: 13px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 37px;
+}
+
+.btnPayNow {
+    font-size: 24px;
+    font-weight: 500;
+    height: 62px;
+    width: 100%;
+    background: #000000;
+    color: #ffffff;
+    border-radius: 5px;
+    margin-top: 45px;
+}
+
+.right-itemWrapper {
+    background: #EFEFEF;
+}
+
+.right-itemWrapper ul {
+    padding: 20px 20px 0px 20px;
+}
+
+.right-itemWrapper ul li {
+    margin-bottom: 12px;
+    position: relative;
+}
+
+
+
+.right-itemWrapper ul li .pro-desc {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.right-itemWrapper ul li .pro-desc img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+
+.right-itemWrapper ul li .pro-desc h6 {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 0;
+}
+
+.right-itemWrapper ul li .pro-desc span {
+    font-size: 10px;
+    font-weight: 600;
+    display: block;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.right-itemWrapper ul li .pro-desc h4 {
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.right-itemWrapper ul li .pro-desc h4.subProHead {
+    margin-bottom: 10px;
+}
+
+.right-itemWrapper ul li .pro-desc h4 span {
+    margin-left: 5px;
+    margin-bottom: 0;
+    text-decoration: line-through;
+    color: #BBBBBB;
+
+}
+
+.right-itemWrapper ul li .pro-desc label {
+    font-size: 12.25px;
+    font-weight: 400;
+    background: #2E6CB2;
+    border-radius: 27.63px;
+    color: #ffffff;
+    padding: 2px 12px;
+    line-height: 1.5;
+}
+
+.right-itemWrapper ul li p {
+    font-size: 10px;
+    font-weight: 500;
+    color: #000000;
+    padding: 8px;
+    border-bottom: 0.7px solid #C7C7C7;
+}
+
+.right-itemWrapper ul li p img {
+    width: 15px;
+    height: 15px;
+    margin-right: 4px;
+    margin-top: -20px;
+}
+
+.offerListContent {
+    border: 4px solid #ffffff;
+    border-radius: 24px;
+    padding: 15px;
+}
+
+.offerCoupWrapper img {
+    width: 35px;
+    height: 35px;
+    margin-right: 12px;
+}
+
+.offerCoupWrapper h5 {
+    font-size: 24px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0;
+    margin-bottom: 6px;
+}
+
+.offerCoupWrapper h5 span {
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 5px;
+    background: #bdebde;
+    padding: 2px 6px;
+    margin-left: 12px;
+}
+
+.right-itemWrapper ul li .offerCoupWrapper p {
+    font-size: 19px;
+    font-weight: 400;
+    color: #6C6C6C;
+    padding-bottom: 0;
+    border: 0;
+}
+
+.right-itemWrapper ul li .offerCoupWrapper p span {
+    color: #000000;
+}
+
+.offerCoupWrapperboxShadw {
+    box-shadow: 0px 2.38px 7.14px 0px #00000040;
+    border-radius: 12px;
+}
+
+.offerCoupWrapper .btnApply {
+    background: #5ED6B3;
+    font-size: 19px;
+    font-weight: 400;
+    border-radius: 8px;
+    min-width: 115px;
+    line-height: 1.35;
+}
+
+.offerCoupWrapper .viewOffBtn {
+    width: 100%;
+    border: 0;
+}
+
+.offerCoupWrapper .accordion .card {
+    background-color: transparent;
+    border: 0px solid rgba(0, 0, 0, .125);
+}
+
+.offerCoupWrapper .accordion .card-header {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #CDCDCD;
+}
+
+.offerCoupWrapper .accordion>.card:first-of-type {
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.offerCoupWrapper .accordion .card .collapse {
+    margin-top: 2px
+}
+
+.offerCoupWrapper .accordion .card-body {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.offerCoupWrapper .accordion .card-body .offCoupLeftWrap {
+    border-radius: 0px;
+}
+
+.offerCoupWrapper .accordion .card-body .offCoupLeftWrap:last-child {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.offerCoupWrapper .accordion .card-body h5 {
+    font-size: 20px;
+}
+
+.offerCoupWrapper .accordion .card-body .btnApply {
+    font-size: 15px;
+    min-width: 110px;
+}
+
+.right-itemWrapper ul li .offerCoupWrapper .accordion .card-body p {
+    font-size: 16px;
+}
+
+.offCoupLeftWrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1.19px solid #CDCDCD;
+    padding: 15px;
+    background-color: #ffffff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.voucherWrapper {
+    box-shadow: 0px 4.76px 4.76px 0px #00000040;
+    border-radius: 12px;
+}
+
+.voucherWrapper .voucher-img {
+    background: #A2CEFF;
+    padding: 15px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.voucherWrapper span {
+    font-size: 17px;
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+.btnApplyCoup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #5ED6B3;
+    font-size: 19px;
+    font-weight: 400;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    min-width: 115px;
+    height: 78px;
+    line-height: 1.35;
+}
+
+.voucherWrapper .form-group .form-control {
+    border: 0;
+    height: 78px;
+    border-radius: 12px;
+}
+
+.cashWrapper {
+    padding: 20px 15px;
+}
+
+.cashWrapper h6 {
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.right-itemWrapper ul li .cashWrapper p {
+    font-size: 14.27px;
+    font-weight: 400;
+    color: #a9a9a9;
+}
+
+.right-itemWrapper ul li .cashWrapper p span {
+    color: #2E6CB2;
+}
+
+.btnCash {
+    border: 1.19px solid #000000;
+    min-width: 85px;
+    border-radius: 7px;
+}
+
+.billBreakdownWrapper {
+    padding: 15px;
+}
+
+.billBreakdownWrapper h4 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.amtBrkdownWrapper {
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+
+.cillBrkCnt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px
+}
+
+.cillBrkCnt label {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.cillBrkCnt label img {
+    width: 25px;
+    margin-left: 6px;
+}
+
+.cillBrkCnt span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2E6CB2;
+    align-items: center;
+}
+
+.cillBrkCnt span img {
+    width: 21px;
+}
+
+.amtBrkdownWrapper hr {
+    margin: 4px 0px;
+}
+
+/* bill-before-delivery css started here============================== */
+
+.background-opacity {
+    position: relative;
+}
+
+.background-opacity::after {
+    content: '';
+    background: url('../images/New_folder/bg3.png') center/contain;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    /* Control image opacity */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.bbdLeftWrapper .prdDtlWrap {
+    margin-bottom: 45px;
+}
+
+.bbdLeftWrapper .prdDtlWrap span h4 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.bbdLeftWrapper .prdDtlWrap span p {
+    font-size: 15px;
+    font-weight: 400;
+    color: #6C6C6C;
+}
+
+.shippingWrap h3 {
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 8px;
+}
+
+.shippingWrap h6 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.shippingWrap p {
+    font-size: 13.5px;
+    font-weight: 400;
+}
+
+.dwnInvWrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.dwnInvWrap h5 {
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 0px;
+}
+
+.btn-dwnInvoice {
+    font-size: 11px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #68A5EB;
+    border-radius: 20px;
+}
+
+.billSummContent {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.billSummContent h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.billSummContent p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2E6CB2;
+}
+
+.billSummContent label .spPaid {
+    display: block;
+    padding: 2px 4px;
+    font-size: 17px;
+    font-weight: 400;
+    color: #ffffff;
+    background: #26D100;
+    border-radius: 6px;
+    min-width: 50px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.billSummContent label .spCod {
+    display: block;
+    padding: 2px 4px;
+    font-size: 17px;
+    font-weight: 400;
+    color: #ffffff;
+    background: #2E6CB2;
+    border-radius: 6px;
+    min-width: 50px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.btnOrdCan {
+    font-size: 16.87px;
+    font-weight: 500;
+    border-radius: 6.18px;
+    color: #ffffff;
+    min-width: 125px;
+    margin-top: 35px;
+}
+
+.btnOrdCan1 {
+    background: #2E6CB2;
+    margin-right: 100px;
+}
+
+.btnOrdCan2 {
+    background: #FF8649;
+}
+
+.billSummContent+hr {
+    border: 0.7px solid #D6D6D6;
+    margin: 0.5rem 0;
+}
+
+.billBefRightHead {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.right-itemWrapper.right-itemWrapper-bbdRight {
+    background-color: transparent;
+    margin-left: 20px;
+}
+
+.right-itemWrapper.right-itemWrapper-bbdRight ul li .pro-desc p {
+    font-size: 10px;
+    font-weight: 500;
+    color: #FF7373;
+    border-bottom: 0;
+    margin-top: 10px;
+    padding-bottom: 0;
+}
+
+.right-itemWrapper.right-itemWrapper-bbdRight ul li .pro-desc h6 {
+    margin-top: 18px;
+}
+
+.right-itemWrapper.right-itemWrapper-bbdRight ul li .pro-desc .proType {
+    margin-bottom: 10px;
+}
+
+.intCancel {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #2E6CB2;
+    border-radius: 4px;
+    padding: 4px 8px;
+    line-height: 1.2;
+    max-width: 130px;
+    margin-bottom: 25px;
+}
+
+.revprodLbl {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #FF8649;
+    border-radius: 5px;
+    padding: 4px 8px;
+    line-height: 1.2;
+    max-width: 140px;
+    margin-bottom: 25px;
+}
+
+.modal-body {
+    padding: 40px 20px;
+}
+
+.cancelModal .custom_radio,
+.retExcModal .custom_radio,
+.revProdModal .custom_radio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 0;
+}
+
+.cancelModal .custom_radio .form-group,
+.retExcModal .custom_radio .form-group,
+.revProdModal .custom_radio .form-group {
+    border-bottom: 0;
+    margin-bottom: 10px;
+}
+
+.cancelModal .custom_radio .form-group .form-check,
+.retExcModal .custom_radio .form-group .form-check,
+.revProdModal .custom_radio .form-group .form-check {
+    height: unset;
+}
+
+.cancelModal .custom_radio input[type="radio"]+label,
+.retExcModal .custom_radio input[type="radio"]+label,
+.revProdModal .custom_radio input[type="radio"]+label {
+    min-width: 220px;
+}
+
+.cancelModal .custom_radio input[type="radio"]+label:before,
+.cancelModal .custom_radio input[type="radio"]+label:after,
+.retExcModal .custom_radio input[type="radio"]+label:before,
+.retExcModal .custom_radio input[type="radio"]+label:after,
+.revProdModal .custom_radio input[type="radio"]+label:before,
+.revProdModal .custom_radio input[type="radio"]+label:after {
+    top: -1.5px;
+    width: 16px;
+    height: 16px;
+}
+
+.cancelModal .custom_radio .form-group .form-check input,
+.retExcModal .custom_radio .form-group .form-check input,
+.revProdModal .custom_radio .form-group .form-check input {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.cancelModal textarea.form-control,
+.retExcModal textarea.form-control {
+    background: #ffffff;
+    min-height: 100px;
+}
+
+.btn-canSubmit {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #FF8649;
+    border-radius: 5px;
+    padding: 3px 6px;
+    min-width: 120px;
+}
+
+.canWarn {
+    color: #FF1F1F;
+    font-size: 10px;
+    font-weight: 200;
+    margin-left: 45px;
+    line-height: 1.2;
+}
+
+.btnCanOrder {
+    background: #FF8649;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 75px;
+    border-radius: 4.75px;
+    padding: 6px 6px;
+}
+
+.btn-RetExcOrd {
+    background: #2E6CB2;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 75px;
+    border-radius: 20px;
+    padding: 3px 6px;
+}
+
+.btn-revProd {
+    background: #FF8649;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 75px;
+    border-radius: 20px;
+    padding: 3px 6px;
+}
+
+.right-itemWrapper ul li p.badPara {
+    padding-bottom: 0;
+    border-bottom: 0px solid #C7C7C7;
+}
+
+.badRetEWrap {
+    padding-bottom: 10px;
+    border-bottom: 0.75px solid #C7C7C7;
+    margin-bottom: 18px;
+}
+
+.intRetExcSelect {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #2E6CB2;
+    border-radius: 4px;
+    padding: 4px 8px;
+    line-height: 1.2;
+    max-width: 150px;
+    margin-bottom: 25px;
+}
+
+/* rating review css started here------------------------------------- */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 1.5em;
+    justify-content: space-around;
+    text-align: center;
+    width: 8em;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    color: #000000;
+    cursor: pointer;
+    margin-bottom: 0px;
+    line-height: 1.4;
+}
+
+.star-rating :checked~label {
+    color: #FFDD31;
+    ;
+}
+
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: #FFDD31;
+}
+
+.ratingWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 1.3px 5.18px 0px #00000040;
+    border-radius: 4px;
+    font-size: 12.96px;
+    font-weight: 300;
+    max-width: 200px;
+    margin-bottom: 15px;
+}
+
+.badr-radioHead {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* responsive start here---------------------------------------------- */
+@media (min-width: 576px) {
+
+    .cancelModal .modal-dialog,
+    .trackOrderModal .modal-dialog,
+    .retExcModal .modal-dialog,
+    .revProdModal .modal-dialog {
+        max-width: 85%;
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    .consent-para p {
+        font-size: 12px;
+    }
+
+    .bbdLeftWrapper .prdDtlWrap span h4 {
+        font-size: 14px;
+    }
+
+    .bbdLeftWrapper .prdDtlWrap span p {
+        font-size: 12px;
+    }
+
+    .shippingWrap h3 {
+        font-size: 16px;
+    }
+
+    .shippingWrap h3 {
+        font-size: 16px;
+    }
+
+    .shippingWrap h6 {
+        font-size: 14px;
+    }
+
+    .shippingWrap p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .bbdLeftWrapper .prdDtlWrap {
+        margin-bottom: 15px;
+    }
+
+    .bbdLeftWrapper .prdDtlWrap span.text-center {
+        text-align: left !important;
+    }
+
+    .dwnInvWrap h5 {
+        font-size: 16px;
+    }
+
+    .dwnInvWrap {
+        margin-top: 20px;
+    }
+
+    .btn-dwnInvoice {
+        font-weight: 400;
+        padding: .5rem 1rem;
+    }
+
+    .billSummContent h4 {
+        font-size: 12px;
+    }
+
+    .billSummContent p {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .billSummContent label .spPaid {
+        font-size: 13px;
+    }
+
+    .btnOrdCan {
+        font-size: 13.87px;
+        min-width: 105px;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        padding: .5rem 1rem;
+    }
+
+    .billBefRightHead {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .right-itemWrapper ul {
+        padding: 10px 5px 0px 5px;
+        margin: 0 0 1rem;
+    }
+
+    .right-itemWrapper ul li .pro-desc img {
+        width: 60px;
+        height: unset;
+    }
+
+    .right-itemWrapper ul li .pro-desc h4 {
+        margin-bottom: 2px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .right-itemWrapper.right-itemWrapper-bbdRight ul li .pro-desc p {
+        margin-top: 0px;
+    }
+
+    .right-itemWrapper.right-itemWrapper-bbdRight {
+        margin-left: 0px;
+    }
+
+    .checkoutRespoWrapper .offerListContent {
+        border: 2px solid #ffffff;
+        border-radius: 8px;
+        padding: 5px;
+    }
+
+    .checkoutRespoWrapper .cashWrapper {
+        padding: 5px 5px;
+        box-shadow: 0px 0px 0px 0px #00000040;
+        margin-top: 0.5rem !important;
+    }
+
+    .checkoutRespoWrapper .cashWrapper h6 {
+        font-size: 12px;
+    }
+
+    .checkoutRespoWrapper .right-itemWrapper ul li .cashWrapper p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .checkoutRespoWrapper .btnCash {
+        border: 1px solid #000000;
+        min-width: 56px;
+        border-radius: 4px;
+        padding: .75rem .5rem;
+        font-size: 1rem;
+    }
+
+    .checkoutRespoWrapper .right-itemWrapper ul li p {
+        padding: 4px;
+        font-size: 8px;
+    }
+
+    .checkoutRespoWrapper .offerListContent .accordion {
+        margin-bottom: 0.5rem;
+    }
+
+    .checkoutRespoWrapper .offerListContent .accordion .card .card-header {
+        padding: .25rem 0.5rem;
+    }
+
+    .checkoutRespoWrapper .offerListContent .accordion .card .card-header h5 .btn {
+        padding: .25rem 0.5rem;
+    }
+
+    .checkoutRespoWrapper .paymentWrapper span {
+        width: 36px;
+        height: 30px;
+    }
+
+    .checkoutRespoWrapper .billBreakdownWrapper {
+        padding: 5px;
+    }
+
+    .checkoutRespoWrapper .billBreakdownWrapper h4 {
+        font-size: 14px;
+        margin-bottom: 0.5rem;
+    }
+
+    .checkoutRespoWrapper .cillBrkCnt label,
+    .checkoutRespoWrapper .cillBrkCnt span {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .checkoutRespoWrapper .cillBrkCnt label img {
+        width: 16px;
+    }
+
+    .checkoutRespoWrapper .addNewAddWrapper h3 {
+        margin-bottom: 1rem;
+    }
+
+    .checkoutRespoWrapper .addNewAddWrapper form .form-group .form-control {
+        min-height: 30px;
+        font-size: 12px;
+        height: 30px;
+        padding: .25rem 0.5rem;
+    }
+
+    .checkoutRespoWrapper .addTypeWrapper .custom_radio .form-group {
+        padding: 5px 5px;
+    }
+
+    .checkoutRespoWrapper .addTypeWrapper .custom_radio .form-group .form-check {
+        line-height: 1.3;
+    }
+
+    .checkoutRespoWrapper .btnAddressAdd {
+        font-size: 12px;
+        border-radius: 4px;
+        padding: .25rem 0.5rem;
+        line-height: 1.35;
+        min-width: 50px;
+    }
+
+    .checkoutRespoWrapper .addTypeWrapper h5 {
+        font-size: 12px;
+    }
+
+    .checkoutRespoWrapper .addTypeWrapper .custom_radio input[type="radio"]+label {
+        font-size: 12px;
+    }
+
+    .checkoutRespoWrapper .addNewAddWrapper textarea.form-control {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .checkoutRespoWrapper .addNewAddWrapper .mb-2 {
+        margin-bottom: 10px !important;
+    }
+
+    .left-addressWrapper .nav.nav-pills {
+        border-bottom: 0px solid #666666;
+    }
+
+    .checkoutRespoWrapper .left-addressWrapper .nav.nav-pills .nav-item:nth-child(3) .nav-link {
+        border-right: 0px solid #000000;
+    }
+
+    .nwAddBtnRespo {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+    }
+
+    .nwAddBtnRespo i {
+        margin-right: 4px;
+    }
+
+    .selAddWrapper .btn-ic {
+        min-width: 35px;
+        padding: 0.25rem 0rem;
+        line-height: 1.2;
+        font-size: 1.2rem;
+    }
+
+    .right-itemWrapper {
+        border-radius: 12px;
+    }
+
+    .offCoupLeftWrap {
+        padding: 5px;
+    }
+
+    .offerCoupWrapper img {
+        width: 22px;
+        height: 22px;
+        margin-right: 6px;
+    }
+
+    .offerCoupWrapper h5 {
+        font-size: 15px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+
+    .offerCoupWrapper h5 span {
+        font-size: 8px;
+        padding: 3px 6px;
+        margin-left: 6px;
+    }
+
+    .offerCoupWrapper .btnApply {
+        font-size: 11px;
+        min-width: 70px;
+        padding: 0.5rem 0.5rem;
+    }
+
+    .offerCoupWrapper .offCoupLeftWrap .offParaCnt {
+        font-size: 11px;
+        color: #000000;
+    }
+
+    .appBtnAndValid {
+        text-align: right;
+    }
+
+    .cancelModal .custom_radio input[type="radio"]+label,
+    .retExcModal .custom_radio input[type="radio"]+label,
+    .revProdModal .custom_radio input[type="radio"]+label {
+        min-width: 142px;
+        font-size: 9px;
+    }
+
+    .cancelModal .custom_radio .form-group,
+    .retExcModal .custom_radio .form-group,
+    .revProdModal .custom_radio .form-group {
+        line-height: 1.2;
+        padding: 2px 4px;
+        margin-bottom: 2px;
+    }
+
+    .revprodLbl {
+        font-size: 11px;
+        font-weight: 500;
+        max-width: 110px;
+        margin-bottom: 15px;
+    }
+
+    .star-rating {
+        width: 6em;
+    }
+
+    .ratingWrapper {
+        font-size: 12px;
+        max-width: 150px;
+    }
+
+    .star-rating label {
+        line-height: 1.2;
+        font-size: 1.4rem;
+    }
+
+    .modal.revProdModal .mt-4,
+    .retExcModal .mt-4 {
+        margin-top: 15px !important;
+    }
+
+    .modal-body {
+        padding: 5px 5px 15px 5px;
+    }
+
+    .cancelModal .custom_radio input[type="radio"]+label:before,
+    .cancelModal .custom_radio input[type="radio"]+label:after,
+    .retExcModal .custom_radio input[type="radio"]+label:before,
+    .retExcModal .custom_radio input[type="radio"]+label:after,
+    .revProdModal .custom_radio input[type="radio"]+label:before,
+    .revProdModal .custom_radio input[type="radio"]+label:after {
+        width: 12px;
+        height: 12px;
+    }
+
+    .custom_radio input[type="radio"]+label:before,
+    .custom_radio input[type="radio"]+label:after {
+        left: -2px;
+    }
+
+    .right-itemWrapper ul li p img {
+        margin-top: 0px;
+    }
+
+    textarea.form-control {
+        padding: 0.5rem 0.5rem;
+        width: 100% !important;
+    }
+
+    .revProdModal label,
+    .retExcModal label {
+        font-size: 10px;
+    }
+
+    .proRevImgUploadWrapper {
+        border: 0.5px dashed #2e6cb2;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .proRevImgUploadWrapper input[type="file"] {
+        display: none;
+    }
+
+    .uplImgProRevBtn {
+        padding: 0.35rem 0.5rem;
+        background-color: #FF8649;
+        font-size: 10px;
+        color: #ffffff;
+        border-radius: 4px;
+        margin: 10px auto 4px auto;
+        display: block;
+        width: 100%;
+        max-width: 85px;
+        text-align: center;
+    }
+
+    .revProdModal .btn-canSubmit,
+    .retExcModal .btn-canSubmit {
+        font-size: 12px;
+        font-weight: 500;
+        min-width: 85px;
+    }
+
+    .retExcModal h6 {
+        font-size: 1.2rem;
+        letter-spacing: 0em;
+    }
+
+    .retExcModal .intRetExcSelect {
+        height: 30px !important;
+    }
+
+    .retExcModal .form-group,
+    .retExcModal .mb-2 {
+        margin-bottom: 1rem !important;
+    }
+
+    .retPopupBtnWrap {
+        display: block !important;
+    }
+
+    .retExcModal .btn-canSubmit {
+        width: 100%;
+        max-width: 85px;
+        display: block;
+    }
+
+    .retExcModal .canWarn {
+        line-height: 1.4;
+        display: block;
+        margin-left: 0px !important;
+        margin-top: 5px;
+    }
+
+}

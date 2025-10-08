@@ -1,0 +1,1577 @@
+@extends('layouts.back-end.common_seller_1')
+
+   
+@section('content')
+
+
+<style>
+.features-row {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 30px;
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+    gap: 6px; /* Adjust this to control spacing between icon and text */
+}
+
+.feature-item img {
+    width: auto;
+    height: 80px;
+}
+
+.feature-label {
+    color: #1d4587;
+    font-weight: 500;
+    text-align: center;
+    font-size: 12px;
+}
+</style>
+
+
+
+<main class="main">
+<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+    <div class="container d-flex align-items-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url('test_1') }}">Home</a></li>
+            <li class="breadcrumb-item">
+                <a href="{{ url('products_1/' . $category_name_1->slug) }}">
+                    {{ $category_name_1->name }}
+                </a>
+            </li>
+            @if($product->sub_category_id)
+                <li class="breadcrumb-item">
+                    <a href="{{ url('products_1/' . $category_name_2->slug) }}">
+                        {{ $category_name_2->name }}
+                    </a>
+                </li>
+            @endif
+            @if($product->sub_sub_category_id)
+                <li class="breadcrumb-item">
+                    <a href="{{ url('products_1/' . $category_name_3->slug) }}">
+                        {{ $category_name_3->name }}
+                    </a>
+                </li>
+            @endif
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ \Illuminate\Support\Str::limit($product->name, 20) }}
+                ({{$product->id}})
+            </li>
+
+            <input type="hidden" id="product_id" value="{{ $product->id }}">
+        </ol>
+    
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            
+<div class="page-content">
+                <div class="container">
+                    <div class="product-details-top">
+                        <div class="row">
+                        <div class="col-md-6">
+                <div class="product-gallery product-gallery-vertical">
+                    
+                    <div class="row">
+
+
+<figure class="product-main-image">
+    <img id="product-zoom"
+         src="/storage/images/default.jpg"
+         data-zoom-image="/storage/images/default.jpg"
+         alt="product image" width="450px" height="450px">
+
+    <!-- Share Button -->
+    <!-- Share Button -->
+<a style="bottom:400px;" href="javascript:void(0);" class="btn-product-gallery share-button" onclick="toggleSharePopup(event)">
+    <i class="fa fa-share-alt" aria-hidden="true"></i>
+</a>
+
+<!-- Share Popup -->
+<div id="sharePopup" class="share-popup">
+    <button onclick="copyLink()" style="margin-left: -8px;"><i class="fa fa-copy"></i> Copy Link</button>
+    <a href="mailto:?subject=Check this out&body=Check this product: {{ request()->fullUrl() }}" target="_blank"><i class="fa fa-envelope"></i> Email</a>
+    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}" target="_blank"><i class="bi bi-twitter-x"></i> Twitter</a>
+    <a href="https://pinterest.com/pin/create/button/?url={{ urlencode(request()->fullUrl()) }}&media={{ asset('path/to/product.jpg') }}" target="_blank"><i class="fa fa-pinterest"></i> Pinterest</a>
+   <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank">
+    <i class="fa fa-facebook"></i> Facebook
+</a>
+
+</div>
+
+ <style>
+  .share-button {
+    position: absolute;
+    bottom: 300px;
+    right: 10px;
+    background: #ffffffcc;
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+
+  .share-popup {
+    position: absolute;
+    bottom: 360px;
+    right: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 20;
+    width: 140px;
+  }
+
+  .share-popup a,
+  .share-popup button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .share-popup a:hover,
+  .share-popup button:hover {
+    text-decoration: underline;
+  }
+</style>
+
+  <script>
+  function toggleSharePopup(event) {
+    event.stopPropagation(); // Prevent global click from closing immediately
+    const popup = document.getElementById('sharePopup');
+    popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  function copyLink() {
+    const dummy = document.createElement('input');
+    dummy.value = window.location.href;
+    document.body.appendChild(dummy);
+    dummy.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummy);
+    alert('Link copied to clipboard!');
+  }
+
+  // Close popup on outside click
+  document.addEventListener('click', function (e) {
+    const popup = document.getElementById('sharePopup');
+    const isClickInside = e.target.closest('.share-button') || e.target.closest('#sharePopup');
+    if (!isClickInside) {
+      popup.style.display = 'none';
+    }
+  });
+</script>
+
+
+
+    <!-- Wishlist Button -->
+    <a style="bottom:350px;" href="javascript:void(0);" id="btn-add-to-wishlist" class="btn-product-gallery">
+        <i class="fa fa-heart-o" aria-hidden="true" style=""></i>
+    </a>
+
+    <!-- Arrows Button -->
+    <a href="#" class="btn-product-gallery">
+        <i class="icon-arrows"></i>
+    </a>
+</figure>
+
+<div id="product-zoom-gallery" class="product-image-gallery">
+    <!-- JS will insert thumbnail images here -->
+</div>
+
+
+<style>
+    #product-zoom-gallery {
+        max-height: 500px; 
+        overflow-y: auto;  
+        display: flex;
+        flex-direction: row;
+        gap: 7px;
+    }
+
+    /* Optional: Scrollbar ko thoda style dena ho toh */
+    #product-zoom-gallery::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #product-zoom-gallery::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 3px;
+    }
+</style>
+
+
+
+
+
+                    </div><!-- End .row -->
+                </div><!-- End .product-gallery -->
+         
+
+
+<style>
+  /* Smooth rotate animation on the chevron */
+  .toggle-icon {
+    transition: transform 0.2s ease;
+  }
+  /* When the link has .collapsed, rotate the chevron left (90°) */
+  .card-link.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+  }
+</style>
+
+<div id="accordion">
+  @foreach(['specification', 'key_features', 'technical_specification', 'other_details'] as $index => $field)
+    @if(!empty($category->$field) && !empty($category_values->$field))
+      <div class="card">
+        <div class="card-header" id="heading-{{ $field }}">
+          <a
+            class="card-link d-flex justify-content-between align-items-center {{ $index > 0 ? 'collapsed' : '' }}"
+            data-toggle="collapse"
+            href="#collapse-{{ $field }}-{{ $category->id }}"
+            aria-expanded="{{ $index == 0 ? 'true' : 'false' }}"
+            aria-controls="collapse-{{ $field }}-{{ $category->id }}"
+            style="font-size: 1.5rem;"
+          >
+            <strong>{{ ucfirst(str_replace('_', ' ', $field)) }}</strong>
+            <i class="bi bi-chevron-down toggle-icon"></i>
+          </a>
+        </div>
+
+        <div
+          id="collapse-{{ $field }}-{{ $category->id }}"
+          class="collapse {{ $index == 0 ? 'show' : '' }}"
+          data-parent="#accordion"
+        >
+          <div class="card-body">
+            <table style="width:100%; border-collapse:collapse; border:1px solid #000;">
+              @php
+                $keys   = explode(',', $category->$field);
+                $values = json_decode($category_values->$field, true) ?? [];
+              @endphp
+              @foreach($keys as $i => $key)
+                <tr style="border:1px solid #000;">
+                  <td style="border:1px solid #000; padding:5px; font-size:1.5rem;">
+                    {{ trim($key) }}
+                  </td>
+                  <td style="border:1px solid #000; padding:5px; font-size:1.5rem;">
+                    {{ $values[$i] ?? 'N/A' }}
+                  </td>
+                </tr>
+              @endforeach
+            </table>
+          </div>
+        </div>
+      </div>
+    @endif
+  @endforeach
+</div>
+
+
+
+                                            
+
+                               
+                           <!-- Bulk Purchase Section -->
+                            <table class="mt-4" width="100%">
+                                <tr>
+                                    <td>
+                                        <img style="width:100px!important;" src="{{ asset('storage/images/' . ($product->thumbnail_image ?? 'default.jpg')) }}" alt="Product image">
+                                    </td>
+                                    <td>
+                                        <div style="padding:10px;">
+                                            <h6>Looking to purchase {{ $product->name }} in bulk?</h6>
+                                            <p>
+                                                <i class="fa fa-check-square"></i> Purchase item in bulk quantity<br>
+                                                <i class="fa fa-check-square"></i> Get at best price for your business
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button style="border:1px solid #777; border-radius:9px;" type="button" class="btn btn-default"
+                                            data-bs-toggle="modal" data-bs-target="#bulkPurchaseModal">
+                                            CLICK TO RAISE REQUEST
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                          
+
+
+
+                            </div><!-- End .col-md-6 -->
+
+                            <div class="col-md-6">
+                                <div class="product-details">
+                                    <h1 class="product-title">{{ $product->name }}</h1>
+                                 <input type="hidden" id="id_s" value="{{ $product->id }}">
+                                    @if ($product->featured == 1)
+                                        <div>
+                                            <img src="{{ asset('website/assets/images/img-2.png') }}" alt="" />
+                                        </div>
+                                    @endif
+                                    <h6 style="color:#E26526; font-weight: 400;"><a href="{{ route('products_2') }}?seller_id={{ $product->user_id }}">More from Store</a></h6>
+                                    
+                                    <!-- <div class="ratings-container d-block">
+                                        <label>Rating: </label>
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: 80%;"></div>
+                                        </div>
+                                        <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
+                                    </div> -->
+</div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6">
+                                            <div class="product-price" style="color: #2E6CB2 !important;">
+                                            ₹ {{ number_format($product->listed_price) }}
+                                            </div>
+                                            <div class="product-price mt-1 mb-1" style="font-weight: 300;">
+                                            @if($product->sku_discount_type == 'percent' && $product->sku_discount > 0)
+                                                <span class="badge badge-danger" style="background-color: #E26526;">
+                                                    {{ round($product->sku_discount, 0) }}% off
+                                                </span>
+                                            @elseif($product->sku_discount_type == 'flat' && $product->sku_discount > 0)
+                                                <span class="badge badge-danger" style="background-color: #E26526;">
+                                                    ₹{{ number_format($product->sku_discount, 0) }} off
+                                                </span>
+                                            @endif
+
+
+                                                <span class="price-cut">₹ {{ number_format($product->variant_mrp) }}</span>
+                                            </div>
+                                            <h6 style="color:#E26526;font-weight: 600;">Limited time Offer!</h6> -->
+
+                                            <div class="col-md-6">
+    <!-- Listed Price -->
+    <div id="listed-price" class="product-price" style="color: #2E6CB2 !important;">
+        ₹ 0
+    </div>
+
+    <!-- Discount + MRP -->
+    <div id="mrp-discount" class="product-price mt-1 mb-1" style="font-weight: 300;">
+        <!-- This will be filled by JS -->
+    </div>
+    <div class="size mt-2 mb-2"></div>
+    <!-- Offer Text -->
+       @if ($product->featured == 1)
+    <h6 style="color:#E26526;font-weight: 600;">Limited time Offer!</h6>
+    @endif
+</div>
+
+                                    
+                                        <!-- <div class="col-md-6">
+                                            <a href="#" class="bt btn-primary btn-lg mr-2" style="background-color: #2E6CB2; border:1px solid #2E6CB2;">Buy now</a>
+                                            <a href="#" class="bt btn-primary btn-lg ml-2" style="background-color: #E26526; border:1px solid #E26526;">Add to cart</a>
+                                        </div> -->
+
+
+                                        <div class="col-md-6">
+    <button id="btn" class="bt btn-primary btn-lg mr-2" 
+        style="background-color: #2E6CB2; border:1px solid #2E6CB2; min-width: 143px;">
+        Buy now
+    </button>
+    <button id="cart" class="bt btn-primary btn-lg ml-2" 
+        style="background-color: #E26526; border:1px solid #E26526; min-width: 143px;">
+        Add to cart
+    </button>
+</div>
+
+<!-- jQuery CDN -->
+
+
+<script>
+    $(document).ready(function(){
+        $("#cart").on("click", function(){
+            // const product = {
+            //     slug: "{{ $product->slug }}",
+            // };
+
+            const product_id = $('#id_s').val();
+            const variant = $('input[name="selected_size"]').val();
+            // console.log(product_id);
+             // console.log(variant);
+
+            $.ajax({
+                url: "{{ route('cart.add_1') }}",
+                type: "POST",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product: product_id,
+                    variant : variant
+                },
+                success: function(response){
+                    alert(response.message);
+                },
+                error: function(xhr){
+                    if (xhr.status === 401) {
+                        alert("You must be logged in to add to cart.");
+                    } else {
+                        alert("Something went wrong.");
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+                                    </div>
+
+                                    <hr class="mt-0 mb-1" />
+
+                                    <div class="details-filter-row details-row-size mb-0">
+                                        <label>Size:</label>
+                                       
+                                    </div>
+                                    
+
+
+                                    <div id="variant-list" class="row mb-1"></div>                                    
+                                    <!-- <div class="row mb-1">
+                                        @foreach(json_decode($product->choice_options) as $option)
+                                            @foreach($option->options as $size)
+                                                <div class="col-md-2">
+                                                    <div class="card">
+                                                        <div class="card-header text-center p-1 font-weight-bold mb-0" style="background-color: #FFECE2;">
+                                                            {{ $size }}
+                                                        </div>
+                                                        <div class="card-body p-2">
+                                                            <p class="card-text">₹ {{ number_format($product->listed_price) }}</p>
+                                                            <p><span class="price-cut ml-0">₹ {{ number_format($product->variant_mrp) }}</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endforeach
+                                    </div> -->
+
+                                    <div class="details-filter-row details-row-size mb-0">
+                                        <label>Color: </label>
+                                        <div class="product-nav product-nav-thumbs">
+                                            <span id="colors" style="width: 100px; font-size: 1.4rem; color:#000000;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                        <ul class="color-product">
+                            @foreach(json_decode($product->colors) as $color)
+                                <li class="color-item" data-color="{{ $color }}">
+                                    <span style="background-color: {{ $color }};"></span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <!-- This div where variants (sizes) will be loaded -->
+                    <style>
+.color-item span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+.color-item.selected span {
+    border: 2px solid black;
+}
+.variant-box.selected {
+    border: 2px solid black;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const colorItems = document.querySelectorAll('.color-item');
+
+    // ✅ Color item click listener
+    colorItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            // Remove old selected
+            document.querySelectorAll('.color-item').forEach(el => el.classList.remove('selected'));
+            this.classList.add('selected');
+
+            const selectedColor = this.getAttribute('data-color');
+            const id = document.getElementById('id_s').value;
+
+            // AJAX for size variants
+            fetch(`{{ route('variation') }}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ color: selectedColor, id: id })
+            })
+            .then(res => res.json())
+            .then(response => {
+                let html = '';
+                 let colorNames = new Set();
+                  let colorToId = {}; // store only 1 ID per color
+
+                response.variant.forEach(item => {
+                                const color = item.color_name;
+
+        // Add to color set
+        colorNames.add(color);
+
+        // Only store first id per color
+        if (!colorToId[color]) {
+            colorToId[color] = item.id;
+        }
+
+
+                    html += `
+                        <div class="col-md-2">
+                            <div class="card variant-box"
+                                 data-listed_price="${item.listed_price}"
+                                 data-variant_mrp="${item.variant_mrp}"
+                                 data-discount_type="${item.discount_type || ''}"
+                                 data-discount="${item.discount || 0}"
+                                 data-sizes="${item.sizes}"
+                                 data-variation="${item.variation}" 
+                                   data-thumbnail="${item.thumbnail_image}"
+                                      data-images='${JSON.stringify(item.image)}'>
+                                <div class="card-header text-center p-1 font-weight-bold mb-0" style="background-color: #FFECE2;">
+                                    ${item.sizes}
+                                </div>
+                                <div class="card-body p-2">
+                                    <p class="card-text">₹ ${Number(item.listed_price).toLocaleString()}</p>
+                                    ${
+                        item.discount != 0 
+                        ? `<p><span class="price-cut ml-0">₹ ${Number(item.variant_mrp).toLocaleString()}</span></p>` 
+                        : ''
+                    }
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                   document.getElementById('colors').innerText = Array.from(colorNames).join(', ');
+                  const uniqueIds = Object.values(colorToId).join(',');
+
+    // ✅ Add to btn as data-id (not text)
+    const wishlistBtn = document.getElementById('btn-add-to-wishlist');
+    wishlistBtn.setAttribute('data-id', uniqueIds);
+
+                document.getElementById('variant-list').innerHTML = html;
+
+                // ✅ Variant click listener
+                document.querySelectorAll('.variant-box').forEach(function (box) {
+                    box.addEventListener('click', function () {
+                        document.querySelectorAll('.variant-box').forEach(el => el.classList.remove('selected'));
+                        this.classList.add('selected');
+
+                        const listedPrice = this.dataset.listed_price;
+                        const variantMrp = this.dataset.variant_mrp;
+                        const discountType = this.dataset.discount_type;
+                        const discount = this.dataset.discount;
+                        const sizes = this.dataset.sizes;
+                         const vari_ant = this.dataset.variation;
+                                 
+
+
+                         thumbnail = this.dataset.thumbnail;
+                images = JSON.parse(this.dataset.images || '[]');
+                 basePath = '/storage/images/';
+
+                
+                // Set Main Image
+                 mainImg = document.getElementById('product-zoom');
+                mainImg.src = basePath + thumbnail;
+               // alert(mainImg.src);
+                mainImg.setAttribute('data-zoom-image', basePath + thumbnail);
+                    //console.log(images);
+                // Replace gallery images
+               images = JSON.parse(images);
+
+ gallery = document.getElementById('product-zoom-gallery');
+ galleryHTML = '';
+
+images.forEach((img, index) => {
+    galleryHTML += `
+        <a class="product-gallery-item ${index === 0 ? 'active' : ''}" href="#"
+           data-image="${basePath + img}"
+           data-zoom-image="${basePath + img}">
+            <img src="${basePath + img}" alt="Product side" style="width: 100px; height: 100px;">
+        </a>
+    `;
+});
+
+gallery.innerHTML = galleryHTML;
+// alert(galleryHTML);
+initThumbnailClick();
+                        // Price update
+                        document.querySelector('.product-price').innerHTML = `₹ ${Number(listedPrice).toLocaleString()}`;
+
+                        let discountHTML = '';
+                        if (discountType === 'percent' && discount > 0) {
+                            discountHTML = `<span class="badge badge-danger" style="background-color: #E26526;">
+                                ${Math.round(discount)}% off
+                            </span>`;
+                        } else if (discountType === 'flat' && discount > 0) {
+                            discountHTML = `<span class="badge badge-danger" style="background-color: #E26526;">
+                                ₹${Number(discount).toLocaleString()} off
+                            </span>`;
+                        }
+                       if(discount >0){
+                        document.querySelector('.product-price.mt-1.mb-1').innerHTML = `
+                            ${discountHTML}
+                            <span class="price-cut">₹ ${Number(variantMrp).toLocaleString()}</span>
+                        `;
+                       }
+                        document.querySelector('.size').innerHTML = `
+                            <input type="hidden" name="selected_size" value="${vari_ant}">
+                        `;
+                    });
+                });
+
+                // ✅ Auto-select first size (optional)
+                const firstVariant = document.querySelector('.variant-box');
+                if (firstVariant) {
+                    firstVariant.click();
+                }
+            })
+            .catch(err => console.error("AJAX error:", err));
+        });
+    });
+
+    // ✅ Auto-click first color
+    if (colorItems.length > 0) {
+        colorItems[0].click();
+    }
+});
+
+
+
+
+function initThumbnailClick() {
+        document.querySelectorAll('.product-gallery-item').forEach(function (thumb) {
+            thumb.addEventListener('mouseenter', function (e) {
+                e.preventDefault();
+
+                const imgSrc = this.dataset.image;
+                const zoomImg = this.dataset['zoom-image'];
+                const mainImg = document.getElementById('product-zoom');
+
+                // Update main image & zoom image
+                mainImg.src = imgSrc;
+                mainImg.setAttribute('data-zoom-image', zoomImg);
+
+                // Update active class
+                document.querySelectorAll('.product-gallery-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    }
+
+   
+</script>
+
+
+
+                                    <hr class="mt-0 mb-0" />
+                                    <div class="features-row">
+    {{-- Pay on Delivery (Always visible) --}}
+    <div class="feature-item">
+        <img 
+            src="{{ asset('website/new/assets/images/cash-on-delivery.png') }}" 
+            alt="Pay on Delivery"
+        >
+        <span class="feature-label">Pay on Delivery</span>
+    </div>
+
+    {{-- Replacement --}}
+    @if($product->replacement_days > 0)
+    <div class="feature-item">
+        <img 
+            src="{{ asset('website/new/assets/images/replacement.png') }}" 
+            alt="7 Days Replacement"
+        >
+        <span class="feature-label">{{$product->replacement_days}} Days Replacement</span>
+    </div>
+    @endif
+
+    {{-- Return --}}
+    @if($product->Return_days > 0)
+    <div class="feature-item">
+        <img 
+            src="{{ asset('website/new/assets/images/return.png') }}" 
+            alt="7 Days Return"
+        >
+        <span class="feature-label">{{$product->Return_days}} Days Return</span>
+    </div>
+    @endif
+
+    {{-- Free Delivery --}}
+    @if($product->free_delivery == 1)
+    <div class="feature-item">
+        <img 
+            src="{{ asset('website/new/assets/images/free-delivery.png') }}" 
+            alt="Free Delivery"
+        >
+        <span class="feature-label">Free Delivery</span>
+    </div>
+    @endif
+
+    @php
+ 
+    $warehouse = \DB::table('warehouse')->find($product->add_warehouse);
+    $warehousePincode = $warehouse ? $warehouse->pincode : null;
+
+@endphp
+
+
+@if($warehousePincode)
+  <div
+    id="instantDelivery"
+    class="feature-item d-none"        
+    data-warehouse-pincode="{{ $warehousePincode }}"
+  >
+    <img
+      src="{{ asset('website/new/assets/images/instant-delivery.png') }}"
+      alt="4‑Hour Instant Delivery"
+    >
+    <span class="feature-label">4‑Hour Instant Delivery</span>
+  </div>
+@endif
+
+{{-- … other product markup … --}}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const instantEl = document.getElementById('instantDelivery');
+    if (!instantEl) return;
+
+    const warehousePin = instantEl.dataset.warehousePincode;
+    const userPin = localStorage.getItem('pincode');  // only read
+
+    // Un-hide badge if the saved pin matches warehouse pin
+    if (userPin && /^\d{6}$/.test(userPin) && userPin === warehousePin) {
+      instantEl.classList.remove('d-none');
+    }
+  });
+</script>
+</div>
+
+
+                                    <hr class="mt-2 mb-2" />
+
+                                    <img style="width:100%; height:auto; overflow:hidden;" src="{{ asset('storage/banner/' . $Product_banner_1->photo) }}" alt="product desc">
+                                    <br>
+
+                                    <h6>Additional Offers</h6>
+                                    <div style="width: 100%; height: 80px; overflow-y: scroll; border:1px solid #777; padding-left:10px;">
+                                        <p><i style="color:red;" class="fa fa-bandcamp" aria-hidden="true"></i> Get FLAT 10% off on Your First Purchase</p>
+                                    </div>
+
+                                    <div class="product-details-tab mt-4">
+                                    <div class="tab-content" style="
+                                            height: 300px;
+                                            overflow-y: auto;
+                                            padding-right: 10px;
+                                        ">
+                                            <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel">
+                                                <div class="product-desc-content">
+                                                    <h3>Description</h3>
+                                                    {!! $product->details !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- End .row -->
+                    </div><!-- End .product-details-top -->
+
+@php
+    // Extract the video ID from youtu.be short URL
+    $url = $product->video_url;
+    $videoId = '';
+
+    if (strpos($url, 'youtu.be/') !== false) {
+        $videoId = substr(parse_url($url, PHP_URL_PATH), 1); // removes leading '/'
+    } elseif (strpos($url, 'youtube.com/watch') !== false) {
+        parse_str(parse_url($url, PHP_URL_QUERY), $params);
+        $videoId = $params['v'] ?? '';
+    }
+@endphp
+
+@if($videoId)
+   <center> <iframe width="970px" height="600px" src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allowfullscreen></iframe></center>
+@endif
+
+@if(!empty($product->thumbnail))
+<center><img style="width:1100px; height:; overflow:hidden;" src="{{ asset('storage/pdfs/'.$product->thumbnail) }}" alt="Product image"></center>
+@endif
+
+
+
+
+<div class="container featured mt-4 pb-2">
+@if($related_products->isNotEmpty())
+              
+
+                    <div class="product-details-top">
+                        <div class="heading heading-flex mb-3">
+                                 <div class="heading-left">
+                                     <h2 class="title">Related Products</h2><!-- End .title -->
+                                 </div><!-- End .heading-left -->
+             
+                                 <div class="heading-right">
+                        <button class="btn explore-more-btn d-flex align-items-center">
+                            Explore More 
+                            <span class="circle-arrow ms-3"> <!-- Increased margin -->
+                                <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </button>
+                        
+                        
+                       </div><!-- End .heading-right -->
+                             </div><!-- End .heading -->
+                                 <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                                     data-owl-options='{
+                                         "nav": false, 
+                                         "dots": true,
+                                         "margin": 20,
+                                         "loop": false,
+                                         "responsive": {
+                                             "0": {
+                                                 "items":1
+                                             },
+                                             "480": {
+                                                 "items":2
+                                             },
+                                             "768": {
+                                                 "items":3
+                                             },
+                                             "992": {
+                                                 "items":4
+                                             },
+                                             "992": {
+                                                 "items":5
+                                             },
+                                             "992": {
+                                                 "items":6
+                                             },
+                                             "1200": {
+                                                 "items":6,
+                                                 "nav": true,
+                                                 "dots": false
+                                             }
+                                         }
+                                     }'>
+                                     @foreach($related_products as $rp)
+                                        <div class="product product-7">
+                                            <figure class="product-media">
+                                            @if($rp->sku_discount_type == 'percent' && $rp->sku_discount > 0)
+                                                <span class="product-label label-new">{{ round($rp->sku_discount, 0) }}% off</span>
+                                            @elseif($rp->sku_discount_type == 'flat' && $rp->sku_discount > 0)
+                                                <span class="product-label label-new">₹{{ number_format($rp->sku_discount, 0) }} off</span>
+                                            @endif
+
+
+                                                <a href="{{ url('product/' . $rp->slug) }}">
+                                                    <img src="{{ asset('storage/images/' . ($rp->thumbnail_image ?? 'default.jpg')) }}" alt="{{ $rp->name }}" class="product-image">
+                                                </a>
+
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                    <a href="{{ url('quick-view/' . $rp->id) }}" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                                    <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
+                                                </div>
+
+                                                <div class="product-action">
+                                                    <a href="{{ url('add-to-cart/' . $rp->id) }}" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                </div>
+                                            </figure>
+
+                                            <div class="product-body">
+                                                <div class="product-cat">
+                                                    <a href="{{ url('category/' . $rp->category_id) }}">{{ $rp->category_id }}</a> {{-- You can map category name if available --}}
+                                                </div>
+                                                <h3 class="product-title">
+                                                <a href="{{ url('product/' . $rp->slug) }}" style="display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;white-space:normal;line-height:1.4em;height:1.4em;">{{$rp->name}}</a>
+
+                                                </h3>
+
+                                                <div class="product-price">
+                                                    ₹{{ number_format($rp->listed_price, 0) }}
+                                                    @if($rp->variant_mrp > $rp->listed_price)
+                                                        <span class="price-cut">₹{{ number_format($rp->variant_mrp, 0) }}</span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: {{ rand(20, 100) }}%;"></div> {{-- Random rating for placeholder --}}
+                                                    </div>
+                                                    <span class="ratings-text">( {{ rand(1, 10) }} Reviews )</span> {{-- Placeholder --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                     
+                                     
+                                   
+    
+                                     
+                                 </div><!-- End .owl-carousel -->
+                             </div><!-- End .container -->
+                             @endif
+            </div><!-- End .container -->
+
+
+
+            <div class="section-6 mt-0">
+            @if($rel_service_providers->isNotEmpty())
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="heading heading-flex mb-3">
+                                <div class="heading-left">
+                                    <h2 class="title">Related Servive Providers</h2><!-- End .title -->
+                                </div><!-- End .heading-left -->
+            
+                                <div class="heading-right">
+                        <button class="btn explore-more-btn d-flex align-items-center">
+                            Explore More 
+                            <span class="circle-arrow ms-3"> <!-- Increased margin -->
+                                <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </button>
+                        
+                        
+                       </div><!-- End .heading-right -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                            data-owl-options='{
+                                "nav": false, 
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":1
+                                    },
+                                    "480": {
+                                        "items":2
+                                    },
+                                    "768": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":4
+                                    },
+                                    "1200": {
+                                        "items":5,
+                                        "nav": true,
+                                        "dots": false
+                                    }
+                                }
+                            }'>
+                            @foreach($rel_service_providers as $provider)
+                                <div class="product product-7 p-0">
+                                    <div class="card text-center border-0">
+                                        <img src="{{ asset($provider->banner_image) }}" class="card-img-top topCon" alt="Service Provider Banner">
+                                        <div class="overlap_img">
+                                            <img src="{{ asset('storage/service-provider/profile/' . $provider->image) }}" class="card-img-top" alt="Service Provider Profile" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <h5 class="card-title">{{ $provider->name ?? 'Unknown' }}</h5>
+                                            <p class="card-text text-dark" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;">
+                                                {{ $provider->city ? str_replace(['[', ']', '"'], '', $provider->city) : 'Location not available' }}
+                                            </p>
+                                            <div class="ratings-container d-block">
+                                                <div class="ratings">
+                                                    <div class="ratings-val" style="width: 20%;"></div>
+                                                </div>
+                                                <span class="ratings-text text-dark d-block ml-0 mt-1">( 2 Reviews )</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            
+                                                        
+                            
+                        </div><!-- End .owl-carousel -->
+                    </div>
+                </div>
+                </div>
+                </div>
+			
+			
+                
+                
+            </div>
+            @endif
+        </div><!-- End .container -->
+
+
+<div class="container">
+			 <div class="video-banner video-banner-bg bg-image text-right" style="background-image: url({{ asset('storage/banner/' . $Product_banner_2->photo) }})">
+                <div class="container">
+                    <h3 class="video-banner-title h1 text-white" style="padding-right:5%;"><span>INTERIOR CHOWK</span><strong>Banner Space </strong><br> Collection 2025</h3><!-- End .video-banner-title -->
+                   
+                </div><!-- End .container -->
+            </div><!-- End .video-banner bg-image --></div>
+<br><br>
+
+			
+        </main><!-- End .main -->
+
+
+
+
+        </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Sticky Bar -->
+   
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+    <div class="mobile-menu-container">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+            <form action="#" method="get" class="mobile-search">
+                <label for="mobile-search" class="sr-only">Search</label>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+            </form>
+            
+            <nav class="mobile-nav">
+                <ul class="mobile-menu">
+                    <li class="active">
+                        <a href="index.html">Home</a>
+
+                        <ul>
+                            <li><a href="index-1.html">01 - furniture store</a></li>
+                            <li><a href="index-2.html">02 - furniture store</a></li>
+                            <li><a href="index-3.html">03 - electronic store</a></li>
+                            <li><a href="index-4.html">04 - electronic store</a></li>
+                            <li><a href="index-5.html">05 - fashion store</a></li>
+                            <li><a href="index-6.html">06 - fashion store</a></li>
+                            <li><a href="index-7.html">07 - fashion store</a></li>
+                            <li><a href="index-8.html">08 - fashion store</a></li>
+                            <li><a href="index-9.html">09 - fashion store</a></li>
+                            <li><a href="index-10.html">10 - shoes store</a></li>
+                            <li><a href="index-11.html">11 - furniture simple store</a></li>
+                            <li><a href="index-12.html">12 - fashion simple store</a></li>
+                            <li><a href="index-13.html">13 - market</a></li>
+                            <li><a href="index-14.html">14 - market fullwidth</a></li>
+                            <li><a href="index-15.html">15 - lookbook 1</a></li>
+                            <li><a href="index-16.html">16 - lookbook 2</a></li>
+                            <li><a href="index-17.html">17 - fashion store</a></li>
+                            <li><a href="index-18.html">18 - fashion store (with sidebar)</a></li>
+                            <li><a href="index-19.html">19 - games store</a></li>
+                            <li><a href="index-20.html">20 - book store</a></li>
+                            <li><a href="index-21.html">21 - sport store</a></li>
+                            <li><a href="index-22.html">22 - tools store</a></li>
+                            <li><a href="index-23.html">23 - fashion left navigation store</a></li>
+                            <li><a href="index-24.html">24 - extreme sport store</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="category.html">Shop</a>
+                        <ul>
+                            <li><a href="category-list.html">Shop List</a></li>
+                            <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
+                            <li><a href="category.html">Shop Grid 3 Columns</a></li>
+                            <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
+                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                            <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
+                            <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
+                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="checkout.html">Checkout</a></li>
+                            <li><a href="wishlist.html">Wishlist</a></li>
+                            <li><a href="#">Lookbook</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="product.html" class="sf-with-ul">Product</a>
+                        <ul>
+                            <li><a href="product.html">Default</a></li>
+                            <li><a href="product-centered.html">Centered</a></li>
+                            <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-gallery.html">Gallery</a></li>
+                            <li><a href="product-sticky.html">Sticky Info</a></li>
+                            <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
+                            <li><a href="product-fullwidth.html">Full Width</a></li>
+                            <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Pages</a>
+                        <ul>
+                            <li>
+                                <a href="about.html">About</a>
+
+                                <ul>
+                                    <li><a href="about.html">About 01</a></li>
+                                    <li><a href="about-2.html">About 02</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="contact.html">Contact</a>
+
+                                <ul>
+                                    <li><a href="contact.html">Contact 01</a></li>
+                                    <li><a href="contact-2.html">Contact 02</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="404.html">Error 404</a></li>
+                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blog.html">Blog</a>
+
+                        <ul>
+                            <li><a href="blog.html">Classic</a></li>
+                            <li><a href="blog-listing.html">Listing</a></li>
+                            <li>
+                                <a href="#">Grid</a>
+                                <ul>
+                                    <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
+                                    <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
+                                    <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
+                                    <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Masonry</a>
+                                <ul>
+                                    <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
+                                    <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
+                                    <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
+                                    <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Mask</a>
+                                <ul>
+                                    <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
+                                    <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Single Post</a>
+                                <ul>
+                                    <li><a href="single.html">Default with sidebar</a></li>
+                                    <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
+                                    <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="elements-list.html">Elements</a>
+                        <ul>
+                            <li><a href="elements-products.html">Products</a></li>
+                            <li><a href="elements-typography.html">Typography</a></li>
+                            <li><a href="elements-titles.html">Titles</a></li>
+                            <li><a href="elements-banne₹html">Banners</a></li>
+                            <li><a href="elements-product-category.html">Product Category</a></li>
+                            <li><a href="elements-video-banne₹html">Video Banners</a></li>
+                            <li><a href="elements-buttons.html">Buttons</a></li>
+                            <li><a href="elements-accordions.html">Accordions</a></li>
+                            <li><a href="elements-tabs.html">Tabs</a></li>
+                            <li><a href="elements-testimonials.html">Testimonials</a></li>
+                            <li><a href="elements-blog-posts.html">Blog Posts</a></li>
+                            <li><a href="elements-portfolio.html">Portfolio</a></li>
+                            <li><a href="elements-cta.html">Call to Action</a></li>
+                            <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav><!-- End .mobile-nav -->
+
+            <div class="social-icons">
+                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            </div><!-- End .social-icons -->
+        </div><!-- End .mobile-menu-wrapper -->
+    </div><!-- End .mobile-menu-container -->
+
+    <!-- Sign in / Register Modal -->
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="singin-email">Username or email address *</label>
+                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="singin-password">Password *</label>
+                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>LOG IN</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                            </div><!-- End .custom-checkbox -->
+
+                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="register-email">Your email address *</label>
+                                            <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="register-password">Password *</label>
+                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SIGN UP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                            </div><!-- End .custom-checkbox -->
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login  btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                            </div><!-- End .tab-content -->
+                        </div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+
+
+    <!-- Bulk Purchase Modal -->
+<div class="modal fade" id="bulkPurchaseModal" tabindex="-1" aria-labelledby="bulkPurchaseLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="#" method="POST">
+        @csrf
+        <input type="hidden" name="product_name" value="{{ $product->name }}">
+        
+        <div class="modal-header">
+          <h5 class="modal-title" id="bulkPurchaseLabel">Bulk Purchase Enquiry</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="border: none; background: none; cursor: pointer; font-size: 1.5rem;">
+                                                <i class="bi bi-x"></i>
+                                            </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Product</label>
+            <input type="text" class="form-control" value="{{ $product->name }}" readonly>
+          </div>
+
+          <div class="mb-3">
+            <label for="quantity_bulk" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="quantity_bulk" name="quantity" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="remarks_bulk" class="form-label">Remarks</label>
+            <textarea class="form-control" id="remarks_bulk" name="remarks" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  
+
+<style>
+
+
+.widget-title1{
+    color: #878787!important;
+    font-weight: 500;
+    font-size: 12px!important;
+    letter-spacing: -.01em;
+    margin-top: 0;
+    margin-bottom: 1.9rem;
+	}
+	.widget-list1{
+	line-height: 2;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    display: block;
+    font-weight: 400;
+    font-size: 12px;
+	}
+
+.header-3 .wishlist a {
+    color: #000000!important;
+}
+@media screen and (min-width: 992px) {
+    .video-banner-bg {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+}
+.header-3 .header-search-extended .form-control {
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+    padding-left: 0;
+    height: 34px;
+    padding: 1rem 2.4rem 1rem .5rem;
+    background: #cce4f3;
+	color:black;
+}
+.header-search-visible .header-search-wrapper {
+    position: static;
+    left: auto;
+    right: auto;
+    top: auto;
+    margin-top: 0;
+    display: flex
+;
+    background: #baddf2;
+}
+.cart-dropdown .dropdown-toggle i {
+    display: inline-block;
+    margin-top: -3px;
+    color: black;
+}
+
+/* table,td{
+    border: 1px solid black;
+} */
+
+.product {
+    position: relative;
+    margin-bottom: 1rem;
+    transition: box-shadow .35s ease;
+    background-color: #ffffff !important;
+}
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
+
+.intro-slider-container, .intro-slide, .banner {
+    background-color: transparent!important;
+}
+.header .container, .header .container-fluid {
+    position: static!important;
+    display: flex
+;
+    align-items: center;
+}
+
+.btndgn{
+background: #ffc107;
+    color: black;
+    border: none;
+    border-radius: 8px;
+	}
+	
+	.header-3 .header-search-extended .btn {
+    max-width: 40px;
+    margin-left: 1rem;
+    height: 46px;
+    font-size: 2.2rem;
+    background-color: transparent;
+    color: #333;
+    margin-top: -6px!important;
+}
+
+@media screen and (min-width: 992px) {
+    .sticky-bar {
+        display: block;
+        width: 100%;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 500;
+        padding-top: 0rem!important;
+        padding-bottom: 0rem!important;
+        background-color: #fff;
+        box-shadow: -15px 0 43px rgba(51, 51, 51, 0.15);
+    }
+}
+
+.product-7{
+border: 0px solid #c5c0c0!important;
+    border-radius: 25px!important;
+    padding:10px;
+    box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-7 img{
+    border-radius:0 20px 0;
+}
+
+img.topCon{
+    border-radius:20px;
+    height: 150px;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.overlap_img{margin-top: -50px;}
+.overlap_img img{width: 100px !important;display: inline-block !important;border-radius: 50%;border: 5px solid #fff;}
+
+</style>
+
+<script>
+$(document).ready(function(){
+    $("#btn-add-to-wishlist").on("click", function(e){
+        e.preventDefault();
+
+        const slug = $(this).data('id');
+        const $icon = $(this).find('i');
+
+        $.ajax({
+            url: "{{ route('store-wishlist-1') }}", // Your correct route
+            type: "POST",
+            data: {
+                _token: '{{ csrf_token() }}',
+                slug: slug
+            },
+            success: function(response){
+                if (response.success) {
+                    // Change icon to filled heart and make it red
+                    $icon.removeClass('fa-heart-o').addClass('fa-heart').css('color', 'red');
+                    alert(response.message);
+                } else {
+                    alert(response.message || "Already in wishlist.");
+                }
+            },
+            error: function(xhr){
+                if (xhr.status === 401) {
+                    alert("Please login to add to wishlist.");
+                } else {
+                    alert("Something went wrong.");
+                }
+            }
+        });
+    });
+});
+</script>
+
+
+
+
+@endsection

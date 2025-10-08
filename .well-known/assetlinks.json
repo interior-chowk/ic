@@ -1,0 +1,28 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.interiorchowk.app",
+      "sha256_cert_fingerprints": [
+        "C4:62:46:D1:58:1C:AB:8E:8C:FE:A8:3B:C7:41:93:C3:90:A2:F8:FE:3B:D9:57:13:1F:21:A1:D6:8B:88:C4:7F",
+        "D9:BB:F3:F1:30:C5:73:E7:73:38:9C:7D:F8:89:52:39:A4:E8:5C:F0:32:F8:7E:D5:04:46:6F:F6:7F:C0:95:23"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.interiorchowk.services.app",
+      "sha256_cert_fingerprints": [
+        "D9:BB:F3:F1:30:C5:73:E7:73:38:9C:7D:F8:89:52:39:A4:E8:5C:F0:32:F8:7E:D5:04:46:6F:F6:7F:C0:95:23",
+        "66:7C:E4:49:B7:F6:49:46:DE:AE:55:1A:53:58:F5:3A:E3:74:0D:9E:0D:D1:6F:3F:37:08:70:13:D8:9D:A1:65"
+      ]
+    }
+  }
+]
