@@ -74,7 +74,7 @@
 
             figure.product-media {
                 border-radius: 20px;
-                height: 280px;
+                /* height: 280px; */
             }
 
             .card-body {
