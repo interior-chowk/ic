@@ -66,16 +66,19 @@ class CronController extends Controller
         $sentTokens = cache()->get("category_notifications_{$today}", []);
 
         $recentlyViewed = DB::table('recently_view as rv')
+            ->where('rv.cat_is_sent', 0)
             ->join('users as u', 'u.id', '=', 'rv.user_id')
             ->join('categories as c', 'c.id', '=', 'rv.category_id')
-            ->whereDate('rv.updated_at', $today)
+            // ->whereDate('rv.updated_at', $today)
             ->whereNotNull('u.cm_firebase_token')
             ->whereNotIn('u.cm_firebase_token', $sentTokens) 
             ->select(
+                'rv.id as id',
                 'u.id as user_id',
                 'u.cm_firebase_token',
                 'rv.category_id',
                 'c.name as category_name',
+                'c.slug as category_slug',
                 'c.icon as icon',
                 'rv.updated_at'
             )
@@ -112,6 +115,10 @@ class CronController extends Controller
         $newSentTokens = array_merge($sentTokens, $finalData->pluck('cm_firebase_token')->toArray());
         cache()->put("category_notifications_{$today}", $newSentTokens, now()->endOfDay());
 
+        DB::table('recently_view')
+            ->whereIn('id', $recentlyViewed->pluck('id'))
+            ->update(['cat_is_sent' => 1]);
+
         return response()->json($results);
     }
 
@@ -122,16 +129,19 @@ class CronController extends Controller
         $sentTokens = cache()->get("subcategory_notifications_{$today}", []);
 
         $recentlyViewed = DB::table('recently_view as rv')
+            ->where('rv.sub_cat_is_sent', 0)
             ->join('users as u', 'u.id', '=', 'rv.user_id')
             ->join('categories as c', 'c.id', '=', 'rv.sub_category_id')
-            ->whereDate('rv.updated_at', $today)
+            // ->whereDate('rv.updated_at', $today)
             ->whereNotNull('u.cm_firebase_token')
             ->whereNotIn('u.cm_firebase_token', $sentTokens)
             ->select(
+                'rv.id as id',
                 'u.id as user_id',
                 'u.cm_firebase_token',
                 'rv.sub_category_id as category_id',
                 'c.name as category_name',
+                'c.slug as category_slug',
                 'c.icon as icon',
                 'rv.updated_at'
             )
@@ -168,6 +178,10 @@ class CronController extends Controller
         $newSentTokens = array_merge($sentTokens, $finalData->pluck('cm_firebase_token')->toArray());
         cache()->put("subcategory_notifications_{$today}", $newSentTokens, now()->endOfDay());
 
+        DB::table('recently_view')
+            ->whereIn('id', $recentlyViewed->pluck('id'))
+            ->update(['sub_cat_is_sent' => 1]);
+
         return response()->json($results);
     }
 
@@ -178,16 +192,19 @@ class CronController extends Controller
         $sentTokens = cache()->get("subsubcategory_notifications_{$today}", []);
 
         $recentlyViewed = DB::table('recently_view as rv')
+            ->where('rv.sub_sub_cat_is_sent', 0)
             ->join('users as u', 'u.id', '=', 'rv.user_id')
             ->join('categories as c', 'c.id', '=', 'rv.sub_sub_category_id')
-            ->whereDate('rv.updated_at', $today)
+            // ->whereDate('rv.updated_at', $today)
             ->whereNotNull('u.cm_firebase_token')
             ->whereNotIn('u.cm_firebase_token', $sentTokens) // avoid duplicates
             ->select(
+                'rv.id as id',
                 'u.id as user_id',
                 'u.cm_firebase_token',
                 'rv.sub_sub_category_id as category_id',
                 'c.name as category_name',
+                'c.slug as category_slug',
                 'c.icon as icon',
                 'rv.updated_at'
             )
@@ -224,6 +241,10 @@ class CronController extends Controller
         $newSentTokens = array_merge($sentTokens, $finalData->pluck('cm_firebase_token')->toArray());
         cache()->put("subsubcategory_notifications_{$today}", $newSentTokens, now()->endOfDay());
 
+        DB::table('recently_view')
+            ->whereIn('id', $recentlyViewed->pluck('id'))
+            ->update(['sub_sub_cat_is_sent' => 1]);
+
         return response()->json($results);
     }
 
@@ -235,7 +256,10 @@ class CronController extends Controller
             ->leftJoin('sku_product_new as sp', 'sp.product_id', '=', 'c.product_id')
             ->whereNotNull('u.cm_firebase_token')
             ->where('c.updated_at', '<=', now()->subHour())
+            ->where('c.type', 0)
+            ->where('c.is_notification_sent', 0)
             ->select(
+                'c.id',
                 'c.user_id',
                 'u.cm_firebase_token',
                 DB::raw("JSON_ARRAYAGG(
@@ -275,6 +299,9 @@ class CronController extends Controller
             ]);
 
             Cache::put($cacheKey, true, now()->addDay());
+            DB::table('new_cart')
+                ->where('id', $userCart->id)
+                ->update(['is_notification_sent' => 1]);
         }
 
         return response()->json([
@@ -291,14 +318,17 @@ class CronController extends Controller
             ->join('sku_product_new as sp', 'sp.product_id', '=', 'p.id')
             ->whereNotNull('u.cm_firebase_token')
             ->where('w.updated_at', '<=', now()->subHours(2))
+            ->where('w.is_notification_sent', 0)
             ->select(
+                'w.id',
                 'w.customer_id',
                 'u.cm_firebase_token',
                 'p.name as product_name',
-                DB::raw("JSON_UNQUOTE(JSON_EXTRACT(sp.image, '$[0]')) as image"),
+                DB::raw("MIN(JSON_UNQUOTE(JSON_EXTRACT(sp.image, '$[0]'))) as image"),
                 'p.thumbnail as product_thumbnail',
                 'w.updated_at'
             )
+            ->groupBy('w.id', 'w.customer_id', 'u.cm_firebase_token', 'p.name', 'p.thumbnail', 'w.updated_at')
             ->get();
 
         if ($wishlist->isEmpty()) {
@@ -308,28 +338,32 @@ class CronController extends Controller
             ]);
         }
 
-        $toNotify = [];
+        // $toNotify = [];
 
-        foreach ($wishlist as $item) {
-            $cacheKey = 'wishlist_notification_sent_' . $item->customer_id . '_' . now()->format('Y-m-d');
+        // foreach ($wishlist as $item) {
+            // $cacheKey = 'wishlist_notification_sent_' . $item->customer_id . '_' . now()->format('Y-m-d');
 
-            if (cache()->has($cacheKey)) {
-                continue;
-            }
+            // if (cache()->has($cacheKey)) {
+            //     continue;
+            // }
 
-            cache()->put($cacheKey, true, now()->endOfDay());
+            // cache()->put($cacheKey, true, now()->endOfDay());
 
-            $toNotify[] = $item;
-        }
+        //     $toNotify[] = $item;
+        // }
 
-        if (empty($toNotify)) {
-            return response()->json([
-                'status'  => 'error',
-                'message' => 'All users already notified today'
-            ]);
-        }
+        // if (empty($toNotify)) {
+        //     return response()->json([
+        //         'status'  => 'error',
+        //         'message' => 'All users already notified today'
+        //     ]);
+        // }
 
-        $results = $notificationService->sendNotificationToWishlistofCustomer(collect($toNotify));
+        $results = $notificationService->sendNotificationToWishlistofCustomer(collect($wishlist));
+
+        DB::table('wishlists as w')
+            ->whereIn('id', $wishlist->pluck('id'))
+            ->update(['is_notification_sent' => 1]);
 
         return response()->json($results);
     }
@@ -393,22 +427,27 @@ class CronController extends Controller
 
     public function productMessage(FirebaseNotificationService $notificationService)
     {
-        $today = now()->toDateString();
+        // $today = now()->toDateString();
 
         $products = DB::table('recently_view as rv')
+            ->where('rv.product_is_sent', 0)
             ->join('users as u', 'u.id', '=', 'rv.user_id')
             ->join('products as p', 'p.id', '=', 'rv.product_id')
             ->join('sku_product_new as sp', 'sp.product_id', '=', 'p.id')
             ->whereNotNull('u.cm_firebase_token')
-            ->whereDate('rv.created_at', $today)
+            ->whereRaw('JSON_VALID(sp.image)')
+            // ->whereDate('rv.created_at', $today)
             ->select(
+                DB::raw("MIN(rv.id) as id"),
                 'rv.user_id',
                 'u.cm_firebase_token',
                 'p.name as product_name',
                 'p.slug as product_slug',
-                DB::raw("JSON_UNQUOTE(JSON_EXTRACT(sp.image, '$[0]')) as image"),
-                'rv.updated_at'
+                DB::raw("MIN(JSON_UNQUOTE(JSON_EXTRACT(sp.image, '$[0]'))) as image"),
+                DB::raw("MAX(rv.updated_at) as updated_at"),
             )
+            ->groupBy('rv.user_id', 'u.cm_firebase_token', 'p.id', 'p.name', 'p.slug')
+            ->orderByDesc('updated_at')
             ->get();
 
         if ($products->isEmpty()) {
@@ -427,12 +466,12 @@ class CronController extends Controller
                 continue;
             }
 
-            $cacheKey = 'product_notification_sent_' . $item->user_id . '_' . now()->format('Y-m-d');
-            if (cache()->has($cacheKey)) {
-                continue;
-            }
+            // $cacheKey = 'product_notification_sent_' . $item->user_id . '_' . now()->format('Y-m-d');
+            // if (cache()->has($cacheKey)) {
+            //     continue;
+            // }
 
-            cache()->put($cacheKey, true, now()->endOfDay());
+            // cache()->put($cacheKey, true, now()->endOfDay());
 
             $toNotify[] = $item;
         }
@@ -445,6 +484,10 @@ class CronController extends Controller
         }
 
         $results = $notificationService->sendNotificationToProductViewUser(collect($toNotify));
+
+        DB::table('recently_view')
+            ->whereIn('id', $products->pluck('id'))
+            ->update(['product_is_sent' => 1]);
 
         return response()->json($results);
     }
@@ -513,6 +556,15 @@ class CronController extends Controller
             'success' => true,
             'message' => 'Shipyaari credentials saved successfully'
         ]);
+    }
+
+
+    public function resetCron()
+    {
+        DB::table('recently_view')->update(['cat_is_sent' => 0, 'sub_cat_is_sent' => 0, 'sub_sub_cat_is_sent' => 0]);
+        DB::table('new_cart')->update(['is_notification_sent' => 0]);
+        DB::table('wishlists')->update(['is_notification_sent' => 0]);
+        return response()->json(['message' => 'CronController is working fine.']);
     }
 
 }

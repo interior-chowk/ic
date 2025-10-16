@@ -193,6 +193,9 @@ class FirebaseNotificationService
                 continue;
             }
 
+            $redirectUrl = 'https://interiorchowk.com/category/' . $categoryData->category_slug;
+
+
             $dataPayload = [
                 'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
                 'type'         => 'category_visit',
@@ -204,7 +207,9 @@ class FirebaseNotificationService
                 'title' => 'Still exploring ' . $productName . ' items?',
                 'body'  => 'Here are some top picks.',
                 'image' => $imageUrl,
-                'data'  => $dataPayload
+                'data'  => array_merge($dataPayload, [
+                                'redirect_url' => $redirectUrl,
+                            ]),
             ];
 
             $accessToken = $this->client->fetchAccessTokenWithAssertion()['access_token'];
@@ -239,6 +244,9 @@ class FirebaseNotificationService
                     "webpush" => [
                         "notification" => [
                             "image" => $notificationData['image']
+                        ],
+                        "fcm_options" => [
+                            "link" => $redirectUrl
                         ]
                     ]
                 ]
@@ -281,6 +289,8 @@ class FirebaseNotificationService
         $title = "Items waiting in your cart 🛒";
         $body  = "You left " . implode(", ", $productNames) . " in your cart. Checkout now!";
 
+        $redirectUrl = 'https://interiorchowk.com/cart';
+
         $payload = [
             "message" => [
                 "token" => $token,
@@ -295,7 +305,8 @@ class FirebaseNotificationService
                     "click_action" => "FLUTTER_NOTIFICATION_CLICK",
                     "type"         => "cart_reminder",
                     "route"        => "/cart",
-                    "screen"       => "CartScreen"
+                    "screen"       => "CartScreen",
+                    "redirect_url" => $redirectUrl,
                 ],
 
                 "apns" => [
@@ -341,6 +352,7 @@ class FirebaseNotificationService
 
              $imageUrl = asset('/storage/images') . '/' . $item->image;
             // $imageUrl = 'https://interiorchowk.com/storage/banner/2025-07-16-68777c4cd5fab.webp';
+            $redirectUrl = 'https://interiorchowk.com/wishlist';
 
             $payload = [
                 "message" => [
@@ -356,7 +368,8 @@ class FirebaseNotificationService
                         "click_action" => "FLUTTER_NOTIFICATION_CLICK",
                         "type"         => "cart_reminder",
                         'route'        => '/wishlists',
-                        "screen"       => "WishlistScreen"
+                        "screen"       => "WishlistScreen",
+                        "redirect_url" => $redirectUrl,
                     ],
 
                     "apns" => [
@@ -474,6 +487,8 @@ class FirebaseNotificationService
              $imageUrl = asset('/storage/images') . '/' . $item->image;
             // $imageUrl = 'https://interiorchowk.com/storage/banner/2025-07-16-68777c4cd5fab.webp';
 
+             $redirectUrl = 'https://interiorchowk.com/product/' . $item->product_slug;
+
             $payload = [
                 "message" => [
                     "token" => $item->cm_firebase_token,
@@ -489,6 +504,7 @@ class FirebaseNotificationService
                             "type"         => "ProductViewReminder",
                             "screen"       => "ProductScreen",
                             "route"        => '/product/' . $item->product_slug,
+                            "redirect_url" => $redirectUrl,
                         ],
 
 

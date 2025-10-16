@@ -414,6 +414,7 @@ Route::group(['prefix' => 'cron', 'as' => 'cron'], function () {
     Route::get('/checkout-message', 'CronController@checkoutMessage')->name('checkoutMessage');
     Route::get('/product-view-message', 'CronController@productMessage')->name('productMessage');
     Route::get('/sign-and-save-shipyaari', 'CronController@signInAndSaveShipyaari')->name('sign-in-shipyaari');
+    Route::get('/reset-cron', 'CronController@resetCron')->name('reset-cron');
 });
 
 
