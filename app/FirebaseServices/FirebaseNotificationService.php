@@ -32,31 +32,31 @@ class FirebaseNotificationService
         // Retrieve all FCM tokens
         $tokens = User::where('role', NULL)->whereNotNull('cm_firebase_token')->pluck('cm_firebase_token')->toArray();
 
-       
+
         $accessToken = $this->client->fetchAccessTokenWithAssertion()['access_token'];
 
-       
+
         $responses = [];
 
         foreach ($tokens as $fcmToken) {
-           
+
             $payload = [
                 "message" => [
                     "token" => $fcmToken,
                     "notification" => [
                         "title" => $notificationData['title'],
                         "body" => $notificationData['body'],
-                        "image" => $notificationData['data']['image'] ?? null,  
+                        "image" => $notificationData['data']['image'] ?? null,
                     ],
                     "data" => $notificationData['data'] ?? [],
                 ]
             ];
 
-           
+
             $response = Http::withToken($accessToken)
                 ->post("https://fcm.googleapis.com/v1/projects/interior-chowk/messages:send", $payload);
 
-           
+
             $responses[] = [
                 'token' => $fcmToken,
                 'response' => $response->json(),
@@ -65,37 +65,37 @@ class FirebaseNotificationService
 
         return $responses;
     }
-    
+
     public function sendNotificationToAllProviders(array $notificationData)
     {
         // Retrieve all FCM tokens
-        $tokens = User::whereIn('role', [2,3,4,5])->whereNotNull('cm_firebase_token')->pluck('cm_firebase_token')->toArray();
+        $tokens = User::whereIn('role', [2, 3, 4, 5])->whereNotNull('cm_firebase_token')->pluck('cm_firebase_token')->toArray();
 
-       
+
         $accessToken = $this->client->fetchAccessTokenWithAssertion()['access_token'];
 
-       
+
         $responses = [];
 
         foreach ($tokens as $fcmToken) {
-           
+
             $payload = [
                 "message" => [
                     "token" => $fcmToken,
                     "notification" => [
                         "title" => $notificationData['title'],
                         "body" => $notificationData['body'],
-                        "image" => $notificationData['data']['image'] ?? null,  
+                        "image" => $notificationData['data']['image'] ?? null,
                     ],
                     "data" => $notificationData['data'] ?? [],
                 ]
             ];
 
-           
+
             $response = Http::withToken($accessToken)
                 ->post("https://fcm.googleapis.com/v1/projects/interior-chowk/messages:send", $payload);
 
-           
+
             $responses[] = [
                 'token' => $fcmToken,
                 'response' => $response->json(),
@@ -109,22 +109,24 @@ class FirebaseNotificationService
     {
         $meta = \App\Model\SeoMeta::where('page', '/')->first();
         $og = json_decode($meta->og_tags, true);
-
+        $redirectUrl = 'https://interiorchowk.com/';
         $notificationData = [
             'title' => ' 👀 Looking for something special?',
-            'body'  =>'Check out our latest arrivals!',
+            'body'  => 'Check out our latest arrivals!',
             'data'  => [
                 'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
                 'type' => 'homepage_visit',
-                'screen' => 'HomeScreen'
+                'screen' => 'HomeScreen',
+                'redirect_url' => $redirectUrl,
             ],
+
         ];
 
         // ✅ Use passed $users collection
         $tokens = $users->whereNotNull('cm_firebase_token')
-                        ->pluck('cm_firebase_token')
-                        ->toArray();
-        
+            ->pluck('cm_firebase_token')
+            ->toArray();
+
 
         $accessToken = $this->client->fetchAccessTokenWithAssertion()['access_token'];
         $responses = [];
@@ -139,6 +141,7 @@ class FirebaseNotificationService
                         "image" => $og['image']
                     ],
                     "data" => $notificationData['data'],
+
                 ]
             ];
 
@@ -208,8 +211,8 @@ class FirebaseNotificationService
                 'body'  => 'Here are some top picks.',
                 'image' => $imageUrl,
                 'data'  => array_merge($dataPayload, [
-                                'redirect_url' => $redirectUrl,
-                            ]),
+                    'redirect_url' => $redirectUrl,
+                ]),
             ];
 
             $accessToken = $this->client->fetchAccessTokenWithAssertion()['access_token'];
@@ -274,18 +277,18 @@ class FirebaseNotificationService
         $accessToken = $this->client->fetchAccessTokenWithAssertion()['access_token'];
 
         $token    = $userCart['token'];
-        $products = $userCart['products']; 
+        $products = $userCart['products'];
 
         $productNames = array_map(function ($p) {
-            return mb_strlen($p['product_name']) > 20 
-                ? mb_substr($p['product_name'], 0, 20) . '...' 
+            return mb_strlen($p['product_name']) > 20
+                ? mb_substr($p['product_name'], 0, 20) . '...'
                 : $p['product_name'];
         }, $products);
 
         $firstImage = $products[0]['image'] ?? $products[0]['thumbnail'];
 
         $imageUrl   = asset('/storage/images') . '/' . $firstImage;
-    
+
         $title = "Items waiting in your cart 🛒";
         $body  = "You left " . implode(", ", $productNames) . " in your cart. Checkout now!";
 
@@ -350,7 +353,7 @@ class FirebaseNotificationService
                 $productName = mb_substr($productName, 0, 20) . '...';
             }
 
-             $imageUrl = asset('/storage/images') . '/' . $item->image;
+            $imageUrl = asset('/storage/images') . '/' . $item->image;
             // $imageUrl = 'https://interiorchowk.com/storage/banner/2025-07-16-68777c4cd5fab.webp';
             $redirectUrl = 'https://interiorchowk.com/wishlist';
 
@@ -385,7 +388,7 @@ class FirebaseNotificationService
 
                     "android" => [
                         "notification" => [
-                            "image" =>$imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail, 
+                            "image" => $imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail,
                         ]
                     ],
                 ]
@@ -411,16 +414,16 @@ class FirebaseNotificationService
     {
         $accessToken = $this->client->fetchAccessTokenWithAssertion()['access_token'];
         $responses = [];
-
+        // $redirectUrl,
         foreach ($product as $item) {
             $productName = $item->product_name;
             if (mb_strlen($productName) > 20) {
                 $productName = mb_substr($productName, 0, 20) . '...';
             }
 
-             $imageUrl = asset('/storage/images') . '/' . $item->image;
+            $imageUrl = asset('/storage/images') . '/' . $item->image;
             // $imageUrl = 'https://interiorchowk.com/storage/banner/2025-07-16-68777c4cd5fab.webp';
-
+            $redirectUrl = 'https://interiorchowk.com/checkout';
             $payload = [
                 "message" => [
                     "token" => $item->cm_firebase_token,
@@ -435,7 +438,8 @@ class FirebaseNotificationService
                         "click_action" => "FLUTTER_NOTIFICATION_CLICK",
                         "type"         => "CheckoutReminder",
                         'route'        => '/checkout',
-                        "screen"       => "CheckoutScreen"
+                        "screen"       => "CheckoutScreen",
+                        "redirect_url" => $redirectUrl,
                     ],
 
                     "apns" => [
@@ -451,7 +455,7 @@ class FirebaseNotificationService
 
                     "android" => [
                         "notification" => [
-                            "image" =>$imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail, 
+                            "image" => $imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail,
                         ]
                     ],
                 ]
@@ -484,10 +488,10 @@ class FirebaseNotificationService
                 $productName = mb_substr($productName, 0, 20) . '...';
             }
 
-             $imageUrl = asset('/storage/images') . '/' . $item->image;
+            $imageUrl = asset('/storage/images') . '/' . $item->image;
             // $imageUrl = 'https://interiorchowk.com/storage/banner/2025-07-16-68777c4cd5fab.webp';
 
-             $redirectUrl = 'https://interiorchowk.com/product/' . $item->product_slug;
+            $redirectUrl = 'https://interiorchowk.com/product/' . $item->product_slug;
 
             $payload = [
                 "message" => [
@@ -500,12 +504,12 @@ class FirebaseNotificationService
                     ],
 
                     "data" => [
-                            "click_action" => "FLUTTER_NOTIFICATION_CLICK",
-                            "type"         => "ProductViewReminder",
-                            "screen"       => "ProductScreen",
-                            "route"        => '/product/' . $item->product_slug,
-                            "redirect_url" => $redirectUrl,
-                        ],
+                        "click_action" => "FLUTTER_NOTIFICATION_CLICK",
+                        "type"         => "ProductViewReminder",
+                        "screen"       => "ProductScreen",
+                        "route"        => '/product/' . $item->product_slug,
+                        "redirect_url" => $redirectUrl,
+                    ],
 
 
                     "apns" => [
@@ -521,7 +525,7 @@ class FirebaseNotificationService
 
                     "android" => [
                         "notification" => [
-                            "image" =>$imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail, 
+                            "image" => $imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail,
                         ]
                     ],
                 ]
@@ -554,7 +558,7 @@ class FirebaseNotificationService
                 $productName = mb_substr($productName, 0, 20) . '...';
             }
 
-             $imageUrl = asset('/storage/images') . '/' . $item->image;
+            $imageUrl = asset('/storage/images') . '/' . $item->image;
             // $imageUrl = 'https://interiorchowk.com/storage/banner/2025-07-16-68777c4cd5fab.webp';
 
             $payload = [
@@ -567,14 +571,14 @@ class FirebaseNotificationService
                         "image" => $imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail,
                     ],
 
-                   "data" => [
-                            "click_action" => "FLUTTER_NOTIFICATION_CLICK",
-                            "type"         => "ProductViewReminder",
-                            "screen"       => "ProductScreen",
-                            "route"        => '/product/' . $item->product_slug,
-                            "button_text"  => "SHOP",
-                            "end_time"     => now()->addHours(4)->format('Y-m-d H:i:s'), // Countdown ends in 4 hours
-                        ],
+                    "data" => [
+                        "click_action" => "FLUTTER_NOTIFICATION_CLICK",
+                        "type"         => "ProductViewReminder",
+                        "screen"       => "ProductScreen",
+                        "route"        => '/product/' . $item->product_slug,
+                        "button_text"  => "SHOP",
+                        "end_time"     => now()->addHours(4)->format('Y-m-d H:i:s'), // Countdown ends in 4 hours
+                    ],
 
                     "apns" => [
                         "payload" => [
@@ -589,7 +593,7 @@ class FirebaseNotificationService
 
                     "android" => [
                         "notification" => [
-                            "image" =>$imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail, 
+                            "image" => $imageUrl ?? asset('/storage/images') . '/' . $item->product_thumbnail,
                         ]
                     ],
                 ]
@@ -610,6 +614,4 @@ class FirebaseNotificationService
             'ProductNotificationResponses' => $responses
         ];
     }
-
-
 }
