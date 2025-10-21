@@ -15,10 +15,7 @@ use App\Model\ShipyaariCredential;
 
 class CronController extends Controller
 {
-    public function __construct()
-    {
-        
-    }
+    public function __construct() {}
 
     // public function homemessage(FirebaseNotificationService $notificationService)
     // {
@@ -52,10 +49,16 @@ class CronController extends Controller
     public function homemessage(FirebaseNotificationService $notificationService)
     {
 
-        $users = User::whereNotNull('cm_firebase_token')
+        $users = User::whereNotNull('cm_firebase_token')->where('is_notification_sent', 0)
             ->get();
 
         $result = $notificationService->sendNotificationToHomepageVisitors($users);
+
+        foreach ($users as $user) {
+            $user->is_notification_sent = 1;
+            $user->save();
+        }
+
         return response()->json($result);
     }
 
@@ -71,7 +74,7 @@ class CronController extends Controller
             ->join('categories as c', 'c.id', '=', 'rv.category_id')
             // ->whereDate('rv.updated_at', $today)
             ->whereNotNull('u.cm_firebase_token')
-            ->whereNotIn('u.cm_firebase_token', $sentTokens) 
+            ->whereNotIn('u.cm_firebase_token', $sentTokens)
             ->select(
                 'rv.id as id',
                 'u.id as user_id',
@@ -341,13 +344,13 @@ class CronController extends Controller
         // $toNotify = [];
 
         // foreach ($wishlist as $item) {
-            // $cacheKey = 'wishlist_notification_sent_' . $item->customer_id . '_' . now()->format('Y-m-d');
+        // $cacheKey = 'wishlist_notification_sent_' . $item->customer_id . '_' . now()->format('Y-m-d');
 
-            // if (cache()->has($cacheKey)) {
-            //     continue;
-            // }
+        // if (cache()->has($cacheKey)) {
+        //     continue;
+        // }
 
-            // cache()->put($cacheKey, true, now()->endOfDay());
+        // cache()->put($cacheKey, true, now()->endOfDay());
 
         //     $toNotify[] = $item;
         // }
@@ -371,16 +374,27 @@ class CronController extends Controller
     public function checkoutMessage(FirebaseNotificationService $notificationService)
     {
         $checkout = DB::table('new_cart as nc')
+            ->where('nc.is_checkout_sent', 0)
             ->join('users as u', 'u.id', '=', 'nc.user_id')
             ->join('products as p', 'p.id', '=', 'nc.product_id')
             ->join('sku_product_new as sp', 'sp.product_id', '=', 'p.id')
             ->whereNotNull('u.cm_firebase_token')
             ->select(
+                'nc.id',
                 'nc.user_id',
                 'u.cm_firebase_token',
                 'p.name as product_name',
                 DB::raw("JSON_UNQUOTE(JSON_EXTRACT(sp.image, '$[0]')) as image"),
                 'p.thumbnail as product_thumbnail',
+                'nc.updated_at'
+            )
+            ->groupBy(
+                'nc.id',
+                'nc.user_id',
+                'u.cm_firebase_token',
+                'p.name',
+                'sp.image',
+                'p.thumbnail',
                 'nc.updated_at'
             )
             ->get();
@@ -421,6 +435,11 @@ class CronController extends Controller
         }
 
         $results = $notificationService->sendNotificationToCheckoutUsers(collect($toNotify));
+
+        $cartIds = collect($toNotify)->pluck('id');
+        DB::table('new_cart')
+            ->whereIn('id', $cartIds)
+            ->update(['is_checkout_sent' => 1]);
 
         return response()->json($results);
     }
@@ -564,7 +583,8 @@ class CronController extends Controller
         DB::table('recently_view')->update(['cat_is_sent' => 0, 'sub_cat_is_sent' => 0, 'sub_sub_cat_is_sent' => 0]);
         DB::table('new_cart')->update(['is_notification_sent' => 0]);
         DB::table('wishlists')->update(['is_notification_sent' => 0]);
+        User::whereNotNull('cm_firebase_token')->update(['is_notification_sent' => 0]);
+        DB::table('new_cart')->update(['is_checkout_sent' => 0]);
         return response()->json(['message' => 'CronController is working fine.']);
     }
-
 }
