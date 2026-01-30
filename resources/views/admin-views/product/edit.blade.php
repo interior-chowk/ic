@@ -175,6 +175,7 @@
                                             <?php
                                                 $selectedwarehouse = DB::table('warehouse')
                                                     ->where('id', $product->add_warehouse)
+
                                                     ->first();
                                             ?>
                                             <option value="{{ $selectedwarehouse->id }}" selected disabled>
