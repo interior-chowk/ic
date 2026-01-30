@@ -1,0 +1,2034 @@
+@extends('layouts.back-end.common_seller_1')
+@section('content')
+    @push('style')
+        <style>
+            .truncate-line-1 {
+                min-height: 44px;
+                line-height: 1.2;
+                display: flex;
+                align-items: center;
+                padding: 0 12px;
+            }
+        </style>
+        <link rel="stylesheet" href="{{ asset('public/website/assets/css/home.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+        <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [{
+                "@type": "Organization",
+                "@id": "https://interiorchowk.com/#organization",
+                "name": "InteriorChowk",
+                "url": "https://interiorchowk.com",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://interiorchowk.com/public/website/assets/images/logoic.png",
+                    "width": 100,
+                    "height": 32
+                },
+                "sameAs": [
+                    "https://www.facebook.com/people/InteriorChowk/61554788270651/",
+                    "https://www.instagram.com/interiorchowk/",
+                    "https://www.linkedin.com/company/interiorchowk/",
+                    "https://www.youtube.com/channel/UCLXmVanINf5oL1gNVHpCmbQ/"
+                ],
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+91-9955680690",
+                    "contactType": "Customer Support",
+                    "email": "customersupport@interiorchowk.com",
+                    "availableLanguage": ["English", "Hindi"],
+                    "areaServed": "IN"
+                },
+                "description": "InteriorChowk offers premium home interior products online. Shop stylish furniture, decor, kitchenware, lighting & more. Trusted by homeowners across India.",
+                "foundingDate": "2023",
+                "founder": {
+                    "@type": "Person",
+                    "name": "Vivek Singh"
+                },
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Greater Noida",
+                    "addressRegion": "Uttar Pradesh",
+                    "addressCountry": "IN"
+                }
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://interiorchowk.com/#website",
+                "url": "https://interiorchowk.com",
+                "name": "InteriorChowk",
+                "publisher": {
+                    "@id": "https://interiorchowk.com/#organization"
+                },
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://interiorchowk.com/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            }
+        ]
+    }
+</script>
+    @endpush
+    <main class="main">
+
+        <!-- intro-section 1 start here-------------------------------------------------------------------------------------------- -->
+        <div class="intro-section sectionMargin">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="intro-slider owl-carousel owl-simple owl-dark owl-nav-inside section2 slider_desktop">
+                        @foreach ($main_banner as $banner)
+                            <div class="intro-slide">
+                                <figure class="slide-image">
+                                    <picture>
+                                        <source media="(max-width: 480px)"
+                                            srcset="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/') }}">
+                                        <a href="{{ $banner->url }}">
+                                            <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/') }}"
+                                                alt="BannerIntro">
+                                        </a>
+                                    </picture>
+                                </figure>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="intro-slider owl-carousel owl-simple owl-dark owl-nav-inside section2 slider_mobile">
+                        @foreach ($mobile_banner as $banner)
+                            <div class="intro-slide">
+                                <figure class="slide-image">
+                                    <picture>
+                                        <source media="(max-width: 480px)"
+                                            srcset="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/') }}">
+                                        <a href="{{ $banner->url }}">
+                                            <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/') }}"
+                                                alt="BannerSlider">
+                                        </a>
+                                    </picture>
+                                </figure>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- section-3 start here-------------------------------------------------------------------------------------------- -->
+        <div class="section-3 card_design sectionMargin">
+            <div class="slide_mob">
+                <div class="container">
+                    <div class="row">
+                        @foreach ($categories as $ca)
+                            <div class="col-3">
+                                <div class="product product-4">
+                                    <figure class="product-media">
+                                        <a href="{{ url('category/' . $ca->slug) }}">
+                                            <img src="{{ $caturl . $ca->icon }}" alt="Product img" class="product-image">
+                                        </a>
+                                    </figure>
+                                    <div class="product-footer">
+                                        <p class="text-center">
+                                            <a href="{{ url('category/' . $ca->slug) }}">{{ $ca->name }}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="slider_desktop">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="owl-carousel category-carousel owl-simple">
+                                @foreach ($categories as $ca)
+                                    <div class="product product-4">
+                                        <figure class="product-media" style="margin-bottom: 0px !important;">
+                                            <a href="{{ url('category/' . $ca->slug) }}">
+                                                <img src="{{ $caturl . $ca->icon }}"
+                                                    alt="Shop {{ $ca->name }} Category" class="product-image">
+                                            </a>
+                                        </figure>
+
+                                        <div class="product-footer">
+                                            <p class="text-center">
+                                                <a href="{{ url('category/' . $ca->slug) }}" class="truncate-line-1"
+                                                    style="padding:0px 12px;">
+                                                    {{ $ca->name }}
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- web service provider start here-------------------------------------------------------------------------------------------- -->
+        {{-- @dd($Service_Provider_Banner_3); --}}
+        @if (isset($Service_Provider_Banner_3->photo))
+            <div class="custom_banner web-service-provider sectionMargin">
+                <div class="container">
+                    <div class="row service-provider-banners">
+                        <div class="col-4 col-lg-4 short-banner">
+                            <div class="banner-wrapper tall-banner">
+                                <a href="{{ $Service_Provider_Banner_3->url }}">
+                                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Service_Provider_Banner_3->photo, '/') }}"
+                                        alt="Banner-3">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-4 col-lg-4 short-banner">
+                            <div class="banner-wrapper short-banner">
+                                <a href="{{ $Service_Provider_Banner_1->url }}">
+                                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Service_Provider_Banner_1->photo, '/') }}"
+                                        alt="Banner">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-4 col-lg-4 short-banner">
+                            <div class="banner-wrapper short-banner">
+                                <a href="{{ $Service_Provider_Banner_2->url }}">
+                                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Service_Provider_Banner_2->photo, '/') }}"
+                                        alt="Banner">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        <div class="custom_banner service-mobile-provider d-none sectionMargin">
+            <div class="container">
+                <div class="row service-provider-banners">
+                    <div class="col-lg-4 col-4 short-banner">
+                        <div class="banner-wrapper tall-banner">
+                            <a href="{{ $Service_Provider_Banner_3->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Mob_Provider_Banner_3->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-4 short-banner">
+                        <div class="banner-wrapper short-banner">
+                            <a href="{{ $Service_Provider_Banner_1->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Mob_Provider_Banner_1->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-4 short-banner">
+                        <div class="banner-wrapper short-banner">
+                            <a href="{{ $Service_Provider_Banner_2->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Mob_Provider_Banner_2->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- intro section 2 start here-------------------------------------------------------------------------------------------- -->
+        @if (!empty($main_banner_2))
+            <div class="intro-section">
+                <div class="container sectionCrouselMargin">
+                    <div class="row">
+                        <div class="col-12 col-lg-12 web-service-provider">
+                            <div class="intro-slider owl-carousel owl-simple owl-dark owl-nav-inside section3">
+                                @foreach ($main_banner_2 as $banner)
+                                    <div class="intro-slide">
+                                        <figure class="slide-image">
+                                            <picture>
+                                                <source media="(max-width: 480px)"
+                                                    srcset="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/') }}">
+                                                <a href="{{ $banner->url }}">
+                                                    <img srcset="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/') }}"
+                                                        alt="Banner">
+                                                </a>
+                                            </picture>
+                                        </figure>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-12 d-none service-mobile-provider elevateSliderMobile">
+                            <div class="intro-slider owl-carousel owl-simple owl-dark owl-nav-inside section3">
+                                @foreach ($mob_main_banner_2 as $banner)
+                                    <div class="intro-slide">
+                                        <figure class="slide-image">
+                                            <picture>
+                                                <source media="(max-width: 480px)"
+                                                    srcset="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/') }}">
+                                                <a href="{{ $banner->url }}">
+                                                    <img srcset="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/') }}"
+                                                        alt="Banner">
+                                                </a>
+                                            </picture>
+                                        </figure>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        @endif
+        @auth
+            @if ($recently_viewed->isNotEmpty())
+                <div class="page-content sectionCrouselMargin recViewItemWrapper">
+                    <div class="recently-viewed-section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <div class="heading heading-flex">
+                                        <div class="heading-left">
+                                            <h2 class="title">Recently items you've viewed</h2>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="owl-carousel recently-viewed-carousel owl-simple carousel-equal-height carousel-with-shadow">
+                                        @foreach ($recently_viewed as $item)
+                                            <div class="product product-7">
+                                                <figure class="product-media">
+                                                    @if ($item->sku_discount_type == 'percent' && $item->sku_discount > 0)
+                                                        <span
+                                                            class="product-label label-new">{{ round($item->sku_discount, 0) }}%
+                                                            off</span>
+                                                    @elseif($item->sku_discount_type == 'flat' && $item->sku_discount > 0)
+                                                        <span
+                                                            class="product-label label-new">₹{{ number_format($item->sku_discount, 0) }}
+                                                            off</span>
+                                                    @endif
+
+                                                    @if ($item->free_delivery == 1)
+                                                        <span class="product-label product-label-two label-sale">Free
+                                                            Delivery</span>
+                                                    @endif
+
+                                                    <a href="{{ url('product/' . ($item->slug ?? '#')) }}">
+                                                        <img src="{{ !empty($item->thumbnail_image)
+                                                            ? asset('storage/app/public/images/' . $item->thumbnail_image)
+                                                            : asset('public/website/assets/images/products/product-placeholder.jpg') }}"
+                                                            alt="{{ $item->name ?? 'Product' }}" class="product-image">
+                                                    </a>
+                                                </figure>
+
+                                                <div class="product-body">
+                                                    <div class="product-cat">
+                                                        <a href="#">Planters</a>
+                                                    </div>
+                                                    <h3 class="product-title">
+                                                        <a href="{{ url('product/' . ($item->slug ?? '#')) }}">
+                                                            {{ Str::limit($item->name ?? 'Unnamed Product', 60) }}
+                                                        </a>
+                                                    </h3>
+                                                    <div class="product-price" style="font-size: 2rem;">
+                                                        ₹ {{ $item->listed_price ?? '0.00' }}
+                                                        @if (!empty($item->variant_mrp) && $item->variant_mrp > $item->listed_price)
+                                                            <span class="price-cut">₹ {{ $item->variant_mrp }}</span>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="ratings-container">
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 40%;"></div>
+                                                        </div>
+                                                        <span class="ratings-text">( 1 Review )</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endauth
+        @if (!empty($Instant_Delivery_Banner->photo))
+            <div class="container instant-delivery-banner-container web-service-provider sectionBannerMargin">
+                <a href="{{ url('instant-delivery-products') }}" aria-label="Browse Instant Delivery Products">
+                    <div class="video-banner video-banner-bg text-right instant-delivery-banner"
+                        style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Instant_Delivery_Banner->photo, '/') }}');">
+                    </div>
+                </a>
+            </div>
+
+            <div class="instant-delivery-banner-container d-none service-mobile-provider sectionMargin">
+                <a href="{{ url('instant-delivery-products') }}" aria-label="Browse Instant Delivery Products">
+                    <div class="video-banner video-banner-bg text-right instant-delivery-banner"
+                        style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Mob_Instant_Delivery_Banner->photo, '/') }}');">
+                    </div>
+                </a>
+            </div>
+        @endif
+
+
+        @if (!empty($desktop1))
+            <div class="container instant-delivery-banner-container web-service-provider sectionBannerMargin"
+                style="height:324px;width:1296px !important; margin:auto;">
+                <div class="video-banner video-banner-bg text-right instant-delivery-banner"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($desktop1->photo, '/') }}'); height:324px;width:1296px !important;">
+                </div>
+            </div>
+        @endif
+
+        @auth
+            @if ($related_products->isNotEmpty())
+                <div class="page-content sectionCrouselMargin relViewItemWrapper">
+                    <div class="related-products-section"
+                        style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Seasonal_Banner[1]->photo, '/') }}');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <div class="heading heading-flex">
+                                        <div class="heading-left">
+                                            <h2 class="title">Related item you've viewed</h2>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="owl-carousel related-products-carousel owl-simple carousel-equal-height carousel-with-shadow">
+                                        @foreach ($related_products as $rp)
+                                            <div class="product product-7">
+                                                <figure class="product-media">
+                                                    @if ($rp->sku_discount_type === 'percent' && $rp->sku_discount > 0)
+                                                        <span class="product-label label-new">{{ round($rp->sku_discount) }}%
+                                                            off</span>
+                                                    @elseif($rp->sku_discount_type === 'flat' && $rp->sku_discount > 0)
+                                                        <span
+                                                            class="product-label label-new">₹{{ number_format($rp->sku_discount) }}
+                                                            off</span>
+                                                    @endif
+
+                                                    @if ($rp->free_delivery)
+                                                        <span class="product-label product-label-two label-sale">Free
+                                                            Delivery</span>
+                                                    @endif
+
+                                                    <a href="{{ url('product/' . $rp->slug) }}">
+                                                        <img src="{{ asset('storage/app/public/images/' . ($rp->thumbnail_image ?? 'default.jpg')) }}"
+                                                            alt="{{ $rp->name }}" class="product-image">
+                                                    </a>
+                                                </figure>
+
+                                                <div class="product-body">
+                                                    <div class="product-cat">
+                                                        <a
+                                                            href="{{ url('category/' . $rp->category_id) }}">{{ $rp->category_id }}</a>
+                                                    </div>
+
+                                                    <h3 class="product-title">
+                                                        <a href="{{ url('product/' . $rp->slug) }}"
+                                                            class="truncate-line-1">{{ $rp->name }}</a>
+                                                    </h3>
+
+                                                    <div class="product-price">
+                                                        ₹{{ number_format($rp->listed_price, 0) }}
+                                                        @if ($rp->variant_mrp > $rp->listed_price)
+                                                            <span
+                                                                class="price-cut">₹{{ number_format($rp->variant_mrp, 0) }}</span>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="ratings-container">
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: {{ rand(20, 100) }}%;">
+                                                            </div>
+                                                        </div>
+                                                        <span class="ratings-text">({{ rand(1, 10) }} Reviews)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endauth
+        @auth
+            @if ($more_related_products->isNotEmpty())
+                <div class="page-content more-items-section sectionCrouselMargin">
+                    <div class="more-related-products-banner"
+                        style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Seasonal_Banner[0]->photo, '/') }}');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <div class="heading heading-flex">
+                                        <div class="heading-left">
+                                            <h2 class="title">More items to consider</h2>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="owl-carousel more-items-carousel owl-simple carousel-equal-height carousel-with-shadow">
+                                        @foreach ($more_related_products as $mp)
+                                            <div class="product product-7">
+                                                <figure class="product-media">
+                                                    @if ($mp->sku_discount_type === 'percent' && $mp->sku_discount > 0)
+                                                        <span class="product-label label-new">{{ round($mp->sku_discount) }}%
+                                                            off</span>
+                                                    @elseif($mp->sku_discount_type === 'flat' && $mp->sku_discount > 0)
+                                                        <span
+                                                            class="product-label label-new">₹{{ number_format($mp->sku_discount) }}
+                                                            off</span>
+                                                    @endif
+
+                                                    <a href="{{ url('product/' . $mp->slug) }}">
+                                                        <img src="{{ asset('storage/app/public/images/' . ($mp->thumbnail_image ?? 'default.jpg')) }}"
+                                                            alt="{{ $mp->name }}" class="product-image">
+                                                    </a>
+                                                </figure>
+
+                                                <div class="product-body">
+                                                    <div class="product-cat">
+                                                        <a
+                                                            href="{{ url('category/' . $mp->category_id) }}">{{ $mp->category_id }}</a>
+                                                    </div>
+                                                    <h3 class="product-title">
+                                                        <a href="{{ url('product/' . $mp->slug) }}" class="truncate-line-1">
+                                                            {{ $mp->name }}
+                                                        </a>
+                                                    </h3>
+                                                    <div class="product-price">
+                                                        ₹{{ number_format($mp->listed_price, 0) }}
+                                                        @if ($mp->variant_mrp > $mp->listed_price)
+                                                            <span
+                                                                class="price-cut">₹{{ number_format($mp->variant_mrp, 0) }}</span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="ratings-container">
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: {{ rand(20, 100) }}%;">
+                                                            </div>
+                                                        </div>
+                                                        <span class="ratings-text">({{ rand(1, 10) }} Reviews)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endauth
+
+        @php
+            $fileUrl = null;
+            $isVideo = false;
+            $extension = null;
+            if (!empty($Banner_3->photo)) {
+                $extension = strtolower(pathinfo($Banner_3->photo, PATHINFO_EXTENSION));
+                $isVideo = in_array($extension, ['mp4', 'webm']);
+                $fileUrl = rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_3->photo, '/');
+            }
+
+            $MobfileUrl = null;
+            $MobisVideo = false;
+            $Mobextension = null;
+            if (!empty($Mob_Banner_3->photo)) {
+                $Mobextension = strtolower(pathinfo($Mob_Banner_3->photo, PATHINFO_EXTENSION));
+                $MobisVideo = in_array($Mobextension, ['mp4', 'webm']);
+                $MobfileUrl = rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Mob_Banner_3->photo, '/');
+            }
+        @endphp
+
+        @if ($MobfileUrl)
+            <div class="video-banner-image d-none service-mobile-provider vidMobBgImg sectionBannerMargin">
+                <a href="{{ $Mob_Banner_3->resource_type == 'category' ? $Mob_Banner_3->url : url('banner_products/' . $Mob_Banner_3->id) }}"
+                    area-label="Browse Banner Products">
+                    @if ($MobisVideo)
+                        <video autoplay muted loop playsinline class="banner-video">
+                            <source src="{{ $MobfileUrl }}" type="video/{{ $Mobextension }}">
+                            Your browser does not support the video tag.
+                        </video>
+                    @else
+                        <div class="banner-image" style="background-image: url('{{ $MobfileUrl }}');"></div>
+                    @endif
+                </a>
+            </div>
+        @endif
+
+        @auth
+            @if ($wishlists->isNotEmpty())
+                <div class="page-content sectionCrouselMargin wishListWrapper">
+                    <div class="wishlist-section"
+                        style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Seasonal_Banner[1]->photo, '/') }}');">
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <div class="heading heading-flex">
+                                        <div class="heading-left">
+                                            <h2 class="title">Love it? Get it.</h2>
+                                        </div>
+                                        <div class="heading-right">
+                                            <button class="btn explore-more-btn"
+                                                onclick="window.location.href='{{ url('/wishlist') }}'">
+                                                Your wishlist <span class="circle-arrow"><i
+                                                        class="bi bi-arrow-right"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="owl-carousel wishlist-carousel owl-simple carousel-equal-height carousel-with-shadow">
+                                        @foreach ($wishlists as $wishlist)
+                                            <div class="product product-7 love-it">
+                                                <div class="media">
+                                                    @if ($wishlist->sku_discount_type === 'percent' && $wishlist->sku_discount > 0)
+                                                        <span
+                                                            class="product-label label-new">{{ round($wishlist->sku_discount) }}%
+                                                            off</span>
+                                                    @elseif($wishlist->sku_discount_type === 'flat' && $wishlist->sku_discount > 0)
+                                                        <span
+                                                            class="product-label label-new">₹{{ number_format($wishlist->sku_discount) }}
+                                                            off</span>
+                                                    @endif
+
+                                                    <img 
+                                                    {{-- src="{{ asset('storage/app/public/images/' . $wishlist->thumbnail_image) }}" --}}
+                                                    src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($wishlist->thumbnail_image, '/') }}"
+                                                    
+                                                        alt="{{ $wishlist->name }}" class="product-image loveitgetit">
+
+                                                    <div class="media-body">
+                                                        <h5 class="product-title truncate-line-2 mb-1">
+                                                            <a
+                                                                href="{{ url('product/' . $wishlist->slug) }}">{{ \Illuminate\Support\Str::limit($wishlist->name, 20, '..') }}</a>
+                                                        </h5>
+                                                        <div class="product-cat">
+                                                            <a href="#">{{ $wishlist->category ?? 'Uncategorized' }}</a>
+                                                        </div>
+                                                        <h6 class="product-type mb-0_5">{{ $wishlist->variation }}</h6>
+                                                        <div class="product-price">
+                                                            ₹ {{ number_format($wishlist->listed_price, 0) }}
+                                                            @if ($wishlist->discount_percent)
+                                                                <span class="price-cut">₹
+                                                                    {{ number_format($wishlist->variant_mrp, 0) }}</span>
+                                                            @endif
+                                                        </div>
+                                                        @if ($wishlist->free_delivery == 1)
+                                                            <button type="button" class="btndgn mt-1">Free Delivery</button>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endauth
+        <div class="page-content sectionCrouselMargin trenBanWrapper">
+            <div class="trending-banner"
+                style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Seasonal_Banner[0]->photo, '/') }}');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading heading-flex">
+                                <div class="heading-left">
+                                    <h2 class="title">Trending now</h2>
+                                </div>
+                                <div class="heading-right">
+                                    <button class="btn explore-more-btn d-flex align-items-center"
+                                        onclick="window.location.href='{{ url('top-products') }}'">
+                                        Explore more
+                                        <span class="circle-arrow ms-3">
+                                            <i class="bi bi-arrow-right"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tab-content tab-content-carousel">
+                                <div class="tab-pane p-0 fade show active" id="featured-women-tab" role="tabpanel">
+                                    <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow trend-media"
+                                        id="top-products-carousel">
+                                        @foreach ($top_products as $tp)
+                                            <div class="product product-7">
+                                                <figure class="product-media">
+                                                    @if ($tp->discount_type == 'percent' && $tp->discount > 0)
+                                                        <span
+                                                            class="product-label label-new">{{ round($tp->discount, 0) }}%
+                                                            off</span>
+                                                    @elseif($tp->discount_type == 'flat' && $tp->discount > 0)
+                                                        <span
+                                                            class="product-label label-new">₹{{ number_format($tp->discount, 0) }}
+                                                            off</span>
+                                                    @endif
+                                                    @if ($tp->free_delivery == 1)
+                                                        <span class="product-label product-label-two label-sale">Free
+                                                            Delivery</span>
+                                                    @endif
+                                                    {{-- @php
+                                                        $images = json_decode($tp->image, true);
+                                                        $productImage =
+                                                            !empty($images) && isset($images[0])
+                                                                ? asset('storage/app/public/images/' . $images[0])
+                                                                : asset('storage/images/default.jpg');
+                                                    @endphp --}}
+                                                    @php
+                                                        $images = json_decode($tp->image, true);
+
+                                                        $productImage =
+                                                            !empty($images) && isset($images[0])
+                                                                ? rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') .
+                                                                    '/' .
+                                                                    ltrim($images[0], '/')
+                                                                : asset('storage/images/default.jpg');
+                                                    @endphp
+
+                                                    <a href="{{ url('product/' . $tp->slug) }}"
+                                                        onclick="setRecentlyViewed({{ $tp->product_id }})">
+                                                        <img src="{{ $productImage }}" alt="{{ $tp->name }}"
+                                                            class="product-image">
+                                                    </a>
+                                                </figure>
+                                                <div class="product-body">
+                                                    <div class="product-cat">
+                                                        @php
+                                                            $categories = json_decode($tp->category_ids, true);
+                                                        @endphp
+                                                        <a href="#">
+                                                            @if (!empty($categories))
+                                                                Category {{ $categories[0]['id'] }}
+                                                            @else
+                                                                Unspecified
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                    <h3 class="product-title">
+                                                        <a href="{{ url('product/' . $tp->slug) }}"
+                                                            onclick="setRecentlyViewed({{ $tp->product_id }})">{{ $tp->name }}</a>
+                                                    </h3>
+                                                    <div class="product-price">
+                                                        ₹{{ number_format($tp->listed_price, 0) }}
+                                                        @if ($tp->discount > 0)
+                                                            <span
+                                                                class="price-cut">₹{{ number_format($tp->variant_mrp, 0) }}</span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="ratings-container">
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" style="width: 20%;"></div>
+                                                        </div>
+                                                        <span class="ratings-text">(2 Reviews)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <script>
+                                    function setRecentlyViewed(productId) {
+                                        $.ajax({
+                                            url: "{{ route('recently_view') }}",
+                                            type: "POST",
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                                            },
+                                            data: {
+                                                product_id: productId
+                                            },
+                                            success: function(response) {},
+                                            error: function(xhr, status, error) {
+                                                console.error(xhr.responseText);
+                                            }
+                                        });
+                                    }
+                                </script>
+                                <div class="tab-pane p-0 fade" id="trending-men-tab" role="tabpanel">
+                                    <div class="banner-group">
+                                        <div class="container">
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="banner banner-overlay comBanner">
+                                                        <a href="#">
+                                                            <img src="{{ asset('public/website/assets/images/demos/demo-20/banners/banner-6.jpg') }}"
+                                                                alt="Banner">
+                                                        </a>
+                                                        <div class="banner-content">
+                                                            <h4 class="banner-subtitle text-white"><a
+                                                                    href="#">INTERIOR
+                                                                    CHOWK</a></h4>
+                                                            <h3 class="banner-title text-white"><a
+                                                                    href="#">Arcitech</a>
+                                                            </h3>
+                                                            <a href="#"
+                                                                class="btn btn-outline-white-3 banner-link">Discover now
+                                                                <i class="icon-long-arrow-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Desktop2 --}}
+        @if (!empty($Banner_3))
+            <div class="container instant-delivery-banner-container web-service-provider sectionBannerMargin"
+                style="height:400px;width:1266px !important; margin:auto;">
+                <div class="video-banner video-banner-bg text-right instant-delivery-banner"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_3->photo, '/') }}'); height:400px;width:1266px !important;">
+                </div>
+            </div>
+
+            {{-- desktop2  mobile --}}
+            <div class="architect-banner-container sectionBannerMargin arcBanCntWrapper d-block d-lg-none">
+                <a href="{{ $Banner_3->url }}">
+                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_3->photo, '/') }}"
+                        class="img-fluid w-100 rounded" alt="banner">
+                </a>
+            </div>
+        @endif
+
+        <div class="container featured topcategory sectionMargin">
+            <h2 class="title text-center">Top categories</h2>
+            <div class="row justify-content-center px-3">
+                @foreach ($top_categories as $t_ca)
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-3">
+                        <div class="category-card text-center">
+                            <figure class="product-media">
+                                <a href="{{ url('category/' . $t_ca->slug) }}">
+                                    <img src="{{ $caturl . $t_ca->icon }}" alt="{{ $t_ca->name }}"
+                                        class="product-image img-fluid">
+                                </a>
+                            </figure>
+                            <div class="category-name-wrapper">
+                                <a href="{{ url('category/' . $t_ca->slug) }}" class="category-name">
+                                    {{ $t_ca->name }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="container featured sectionMargin topBrandWrapper">
+            <div class="heading heading-flex">
+                <div class="heading-left">
+                    <h2 class="title">Top brands</h2>
+                </div>
+                <div class="heading-right">
+                    <button class="btn explore-more-btn d-flex align-items-center" type="button"
+                        onclick="window.location.href='{{ url('brands') }}'">
+                        Explore more
+                        <span class="circle-arrow ms-3">
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tab-content tab-content-carousel">
+                        <div class="tab-pane p-0 fade show active" id="featured-brands-tab" role="tabpanel">
+                            <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow"
+                                id="top-brands-carousel">
+                                @foreach ($top_brands as $tb)
+                                    <div class="brand-card">
+                                        <figure class="brand-logo-wrapper">
+                                            <a href="{{ url('products_2', ['brand_id' => $tb->name]) }}">
+                                                <img src="{{ env('CLOUDFLARE_R2_PUBLIC_URL') }}{{ $tb->image }}"
+                                                    alt="{{ $tb->name }}" class="brand-logo-img">
+                                            </a>
+                                        </figure>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Desktop3 --}}
+        @if (!empty($Banner_4))
+            <div class="container instant-delivery-banner-container web-service-provider sectionBannerMargin mb-4"
+                style="height:400px;width:1266px !important; margin:auto;">
+                <div class="video-banner video-banner-bg text-right instant-delivery-banner"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_4->photo, '/') }}'); height:400px;width:1266px !important;">
+                </div>
+            </div>
+        @endif
+
+        @if (!empty($mobile3->photo))
+            <div class="architect-banner-container sectionBannerMargin arcBanCntWrapper d-block d-lg-none">
+                <a href="{{ $mobile3->url }}">
+                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($mobile3->photo, '/') }}"
+                        class="img-fluid w-100 rounded" alt="banner">
+                </a>
+            </div>
+        @endif
+
+        @if (!empty($architects) && count($architects) > 0)
+            <div class="page-content sectionMargin topArchWrapper">
+                <div class="section-6 top-interior-section"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Seasonal_Banner[1]->photo, '/') }}');">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="heading heading-flex">
+                                    <div class="heading-left">
+                                        <h2 class="title">Top Architects</h2>
+                                    </div>
+                                    <div class="heading-right">
+                                        <button class="btn explore-more-btn d-flex align-items-center"
+                                            onclick="window.location.href='{{ url('architects') }}'">
+                                            Explore more
+                                            <span class="circle-arrow ms-3">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow"
+                                    id="architects-carousel">
+                                    @foreach ($architects as $arch)
+                                        <div class="interior-card">
+                                            <a href="{{ url('/interior-designers' . '/' . Str::slug($arch->name)) }}">
+                                                <div class="card text-center border-0">
+                                                    <img src="{{ asset($arch->banner_image) }}"
+                                                        class="card-img-top interior-banner-img" alt="Designer Banner">
+                                                    <div class="interior-profile-img">
+                                                        <img src="{{ asset('storage/app/public/service-provider/profile/' . $arch->image) }}"
+                                                            alt="Architect Profile">
+                                                    </div>
+                                                    <div class="card-body p-3">
+                                                        <div class="card-title">{{ $arch->name ?? 'Unknown' }}</div>
+                                                        <p class="card-text text-dark truncate-text">
+                                                            {{ $arch->city ? str_replace(['[', ']', '"'], '', $arch->city) : 'Location not available' }}
+                                                        </p>
+                                                        <div class="ratings-container d-block">
+                                                            <div class="ratings">
+                                                                <div class="ratings-val" style="width: 20%;"></div>
+                                                            </div>
+                                                            <span class="ratings-text text-dark d-block ml-0 mt-1">( 2
+                                                                Reviews
+                                                                )</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if (!empty($Banner_5))
+            {{-- Desktop4 --}}
+            <div class="container instant-delivery-banner-container web-service-provider sectionBannerMargin"
+                style="height:400px;width:1266px !important; margin:auto;">
+                <div class="video-banner video-banner-bg text-right instant-delivery-banner"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_5->photo, '/') }}'); height:400px;width:1266px !important;">
+                </div>
+            </div>
+        @endif
+
+        @if (!empty($mobile4->photo))
+            <div class="architect-banner-container sectionBannerMargin arcBanCntWrapper d-block d-lg-none">
+                <a href="{{ $mobile4->url }}">
+                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($mobile4->photo, '/') }}"
+                        class="img-fluid w-100 rounded" alt="banner">
+                </a>
+            </div>
+        @endif
+
+        @if (!empty($interior_designer) && count($interior_designer) > 0)
+            <div class="page-content sectionMargin topInterDesiWrapper">
+                <div class="section-6 top-interior-section"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Seasonal_Banner[0]->photo, '/') }}');">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="heading heading-flex">
+                                    <div class="heading-left">
+                                        <h2 class="title">Top Interior Designers</h2>
+                                    </div>
+                                    <div class="heading-right">
+                                        <button class="btn explore-more-btn d-flex align-items-center"
+                                            onclick="window.location.href='{{ url('interior-designers') }}'">
+                                            Explore more
+                                            <span class="circle-arrow ms-3">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow"
+                                    id="interior-designers-carousel">
+                                    @foreach ($interior_designer as $designer)
+                                        <div class="interior-card">
+                                            <a
+                                                href="{{ url('/interior-designers' . '/' . Str::slug($designer->name)) }}">
+                                                <div class="card text-center border-0">
+                                                    <img src="{{ asset($designer->banner_image) }}"
+                                                        class="card-img-top interior-banner-img" alt="Designer Banner">
+                                                    <div class="interior-profile-img">
+                                                        <img src="{{ asset('storage/app/public/service-provider/profile/' . $designer->image) }}"
+                                                            alt="Designer Profile">
+                                                    </div>
+                                                    <div class="card-body p-3">
+                                                        <h5 class="card-title">{{ $designer->name ?? 'Unknown' }}</h5>
+                                                        <p class="card-text text-dark truncate-text">
+                                                            {{ $designer->city ? str_replace(['[', ']', '"'], '', $designer->city) : 'Location not available' }}
+                                                        </p>
+                                                        <div class="ratings-container d-block">
+                                                            <div class="ratings">
+                                                                <div class="ratings-val" style="width: 20%;"></div>
+                                                            </div>
+                                                            <span class="ratings-text text-dark d-block ml-0 mt-1">( 2
+                                                                Reviews
+                                                                )</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if (!empty($Desktop5))
+            {{-- Desktop4 --}}
+            <div class="container instant-delivery-banner-container web-service-provider sectionBannerMargin"
+                style="height:400px;width:1266px !important; margin:auto;">
+                <div class="video-banner video-banner-bg text-right instant-delivery-banner"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Desktop5->photo, '/') }}'); height:400px;width:1266px !important;">
+                </div>
+            </div>
+        @endif
+
+        @if (!empty($Banner_6->photo))
+            <div class="architect-banner-container sectionBannerMargin arcBanCntWrapper d-block d-lg-none">
+                <a href="{{ $Banner_6->url }}">
+                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_6->photo, '/') }}"
+                        class="img-fluid w-100 rounded" alt="banner">
+                </a>
+            </div>
+        @endif
+
+        @if (!empty($Banner_7->photo))
+            @php
+                $extension = strtolower(pathinfo($Banner_7->photo, PATHINFO_EXTENSION));
+                $isVideo = in_array($extension, ['mp4', 'webm']);
+                $fileUrl = rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_7->photo, '/');
+                $bannerLink =
+                    $Banner_7->resource_type === 'category' ? $Banner_7->url : url('banner_products/' . $Banner_7->id);
+            @endphp
+            <div class="media-banner-section sectionBannerMargin medBannerWrapper">
+                <a href="{{ $bannerLink }}">
+                    @if ($isVideo)
+                        <div class="media-banner video">
+                            <video autoplay muted loop playsinline>
+                                <source src="{{ $fileUrl }}" type="video/{{ $extension }}">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    @else
+                        <div class="media-banner image" style="background-image: url('{{ $fileUrl }}');"></div>
+                    @endif
+                </a>
+            </div>
+        @endif
+
+        @if (!empty($contractors) && count($contractors) > 0)
+            <div class="page-content sectionMargin topContracWrapper">
+                <div class="section-6 top-interior-section"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Seasonal_Banner[0]->photo, '/') }}');">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="heading heading-flex">
+                                    <div class="heading-left">
+                                        <h2 class="title">Top Contractors</h2>
+                                    </div>
+                                    <div class="heading-right">
+                                        <button class="btn explore-more-btn d-flex align-items-center"
+                                            onclick="window.location.href='{{ url('contractors') }}'">
+                                            Explore more
+                                            <span class="circle-arrow ms-3">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow"
+                                    id="contractor-carousel">
+
+                                    @foreach ($contractors as $contr)
+                                        <div class="interior-card">
+                                            <a href="{{ url('/interior-designers/' . Str::slug($contr->name)) }}">
+                                                <div class="card text-center border-0">
+                                                    <img src="{{ $contr->banner_image }}"
+                                                        class="card-img-top interior-banner-img"
+                                                        alt="Contractor banner for {{ $contr->name ?? 'Interior designer' }}">
+
+                                                    <div class="interior-profile-img">
+                                                        <img src="{{ asset('storage/app/public/service-provider/profile/' . $contr->image) }}"
+                                                            alt="Profile photo of {{ $contr->name ?? 'Interior designer' }}"
+                                                            style="width:35%;">
+                                                    </div>
+
+                                                    <div class="card-body p-3">
+                                                        <div class="card-title">
+                                                            {{ $contr->name ?? 'Unknown' }}
+                                                        </div>
+
+                                                        <p class="card-text text-dark truncate-text">
+                                                            {{ $contr->city ? str_replace(['[', ']', '"'], '', $contr->city) : 'Location not available' }}
+                                                        </p>
+
+                                                        <div class="ratings-container d-block">
+                                                            <div class="ratings">
+                                                                <div class="ratings-val" style="width: 20%;"></div>
+                                                            </div>
+                                                            <span class="ratings-text text-dark d-block ml-0 mt-1">
+                                                                (2 Reviews)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if (!empty($Banner_7))
+            {{-- Desktop6 --}}
+            <div class="container instant-delivery-banner-container web-service-provider sectionBannerMargin"
+                style="height:400px;width:1266px !important; margin:auto;">
+                <div class="video-banner video-banner-bg text-right instant-delivery-banner"
+                    style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_7->photo, '/') }}'); height:400px;width:1266px !important;">
+                </div>
+            </div>
+        @endif
+
+        @if (!empty($mobile6->photo))
+            <div class="architect-banner-container sectionBannerMargin arcBanCntWrapper d-block d-lg-none">
+                <a href="{{ $mobile6->url }}">
+                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($mobile6->photo, '/') }}"
+                        class="img-fluid w-100 rounded" alt="banner">
+                </a>
+            </div>
+        @endif
+
+        @php
+            $extension = strtolower(pathinfo($banner->photo, PATHINFO_EXTENSION));
+            $isVideo = in_array($extension, ['mp4', 'webm']);
+            $fileUrl = rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($banner->photo, '/');
+            $linkUrl = $banner->resource_type === 'brand' ? $banner->url : url('banner_products/' . $banner->id);
+
+        @endphp
+
+        @if (!empty($Day_BG_w))
+            <div class="page-content sectionMargin dealBanWrapper">
+                <div class="deal-banner-wrapper"
+                    style="background-image: url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Day_BG_w->photo, '/') }}');">
+                    <div class="row">
+                        <div class="col-12 col-lg-12">
+                            <div class="tab-content tab-content-carousel">
+                                <div class="tab-pane p-0 fade show active" id="featured-women-tab" role="tabpanel">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 col-md-12">
+                                                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow dealBannMarTop"
+                                                    id="deals-carousel">
+                                                    @foreach ($deals as $deal)
+                                                        @php
+                                                            $current_time = now();
+                                                            $end_time = \Carbon\Carbon::parse($deal->expire_date_time);
+                                                            $expired = $current_time->greaterThan($end_time);
+                                                            $time_left = $end_time->diff($current_time);
+                                                            $time_display = $expired
+                                                                ? 'Expired'
+                                                                : ($time_left->d > 0
+                                                                    ? "{$time_left->d}d {$time_left->h}h..."
+                                                                    : ($time_left->h > 0
+                                                                        ? "{$time_left->h}h {$time_left->i}m..."
+                                                                        : ($time_left->i > 0
+                                                                            ? "{$time_left->i}m {$time_left->s}s"
+                                                                            : "{$time_left->s}s")));
+                                                            $image = json_decode($deal->image, true);
+                                                            $first_image = isset($image[0])
+                                                                ? asset('storage/app/public/images/' . $image[0])
+                                                                : asset(
+                                                                    'storage/app/public/images/' .
+                                                                        $deal->thumbnail_image,
+                                                                );
+                                                        @endphp
+                                                        <div class="product product-7 featured-item">
+                                                            <figure class="product-media">
+                                                                @if ($deal->discount > 0)
+                                                                    <span class="product-label label-new">
+                                                                        {{ $deal->discount_type == 'percent' ? round($deal->discount, 0) . '%' : '₹' . number_format($deal->discount, 0) }}
+                                                                        OFF
+                                                                    </span>
+                                                                @endif
+                                                                <span
+                                                                    class="product-label product-label-two label-sale">Free
+                                                                    Delivery</span>
+                                                                <a href="{{ url('product/' . $deal->slug) }}">
+                                                                    <img src="{{ $first_image }}"
+                                                                        alt="{{ $deal->name }}"
+                                                                        class="product-image dealBanWithoutHeadImg">
+                                                                </a>
+                                                            </figure>
+                                                            <div class="product-body">
+                                                                <h3 class="product-title">
+                                                                    <a
+                                                                        href="{{ url('product/' . $deal->slug) }}">{{ $deal->name }}</a>
+                                                                </h3>
+                                                                <div class="product-price">
+                                                                    ₹{{ number_format($deal->listed_price, 0) }}
+                                                                    @if ($deal->variant_mrp > $deal->listed_price)
+                                                                        <span
+                                                                            class="price-cut">₹{{ number_format($deal->variant_mrp, 0) }}</span>
+                                                                    @endif
+                                                                </div>
+                                                                <div class="deal-timer">
+                                                                    <span
+                                                                        class="{{ $expired ? 'timer-expired' : 'timer-text' }}">
+                                                                        {{ $expired ? 'Offer Expired' : 'Ends in: ' . $time_display }}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+
+                                                    @if (count($deals) > 1)
+                                                        <a href="{{ url('deals') }}" class="d-block w-100 h-100">
+                                                            <div>
+                                                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_2->photo, '/') }}"
+                                                                    alt="banner-img" class="deal-banner-image">
+                                                            </div>
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        </div>
+        <style>
+            .row.display-d.flower {
+                margin-top: -40px;
+            }
+        </style>
+        <div class="intro-section">
+            <div class="container sectionBannerMargin blankBannerWrapper">
+                <div class="row display-d flower">
+                    <div class="col-md-12 col-lg-6">
+                        <div class="banner banner-big banner-overlay comBanner">
+                            <a href="{{ $Discount_1->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Discount_1->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="banner banner-overlay comBanner">
+                            <a href="{{ $Discount_2->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Discount_2->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        @foreach ([$Discount_3, $Discount_4] as $discount)
+                            <div class="banner banner-small banner-overlay comBanner">
+                                <a href="{{ $discount->url }}">
+                                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($discount->photo, '/') }}"
+                                        alt="Banner-4">
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="row display-m">
+                    <div class="col-md-12 col-lg-6 col-6">
+                        <div class="banner banner-big banner-overlay comBanner">
+                            <a href="{{ $Discount_1->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Discount_1->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                        <div class="banner banner-overlay comBanner">
+                            <a href="{{ $Discount_2->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Discount_2->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3 col-6">
+                        <div class="banner banner-overlay comBanner">
+                            <a href="{{ $Discount_3 }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Discount_2->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                        <div class="banner banner-big banner-overlay comBanner">
+                            <a href="{{ url('discount_products/' . $Discount_1->id) }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Discount_1->photo, '/') }}"
+                                    alt="Banner">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container sectionBannerMargin d-lg-none imgGalleryWrapper"> <!-- Show only on mobile/tablet -->
+                <div class="row imgGalleryHeight">
+                    <div class="col-6 d-flex flex-column gap-2 respGalPadding"> <!-- gap between banners -->
+                        <div class="banner banner-overlay flex-fill comBanner">
+                            <a href="{{ $discount_banner_2->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($discount_banner_2->photo, '/') }}"
+                                    class="img-fluid" alt="Banner-2">
+                            </a>
+                        </div>
+                        <div class="banner banner-overlay flex-fill comBanner">
+                            <a href="{{ $discount_banner_3->url }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($discount_banner_3->photo, '/') }}"
+                                    class="img-fluid" alt="Banner-3">
+                            </a>
+                        </div>
+                        <div class="banner banner-overlay flex-fill comBanner">
+                            <a href="{{ url('discount_products/' . ($discount_banner_5->id ?? 0)) }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($discount_banner_5->photo, '/') }}"
+                                    class="img-fluid" alt="Banner-5">
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Left Column: Bannner 1 and 4 -->
+                    <div class="col-6 d-flex flex-column gap-2">
+                        <div class="banner banner-overlay flex-fill comBanner">
+                            <a href="{{ url('discount_products/' . ($discount_banner_1->id ?? 0)) }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($discount_banner_1->photo, '/') }}"
+                                    class="img-fluid" alt="Banner-1">
+                            </a>
+                        </div>
+                        <div class="banner banner-overlay flex-fill comBanner">
+                            <a href="{{ url('discount_products/' . ($discount_banner_4->id ?? 0)) }}">
+                                <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($discount_banner_4->photo, '/') }}"
+                                    class="img-fluid" alt="Banner-4">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (!empty($Banner_9->photo))
+                <div class="sectionBannerMargin vidBannerWrapper">
+                    @php
+                        $ext = strtolower(pathinfo($Banner_9->photo, PATHINFO_EXTENSION));
+                        $isVideo = in_array($ext, ['mp4', 'webm']);
+                        $fileUrl = rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_9->photo, '/');
+
+                    @endphp
+                    <a href="{{ $Banner_9->url }}">
+                        @if ($isVideo)
+                            <video autoplay muted loop playsinline class="banner-video">
+                                <source src="{{ $fileUrl }}" type="video/{{ $ext }}">
+                            </video>
+                        @else
+                            <div class="video-banner image-banner" style="background-image: url({{ $fileUrl }});">
+                            </div>
+                        @endif
+                    </a>
+                </div>
+            @endif
+
+            @php
+                $showCreatorsChoice = !empty($choice_1?->name) || !empty($choice_2?->name);
+            @endphp
+
+            @if ($showCreatorsChoice)
+                <div class="container sectionBannerMargin">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <h2 class="title text-center">Creator's Choice</h2>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center flex-nowrap overflow-auto responsive-slider">
+                        @for ($i = 1; $i <= 2; $i++)
+                            @php $item = ${"choice_$i"} ?? null; @endphp
+
+                            @if ($item && !empty($item->name))
+                                @php
+                                    $cloudflareUrl = env('CLOUDFLARE_R2_PUBLIC_URL');
+
+                                    $videoPath = $cloudflareUrl . ($item->video ?? '');
+                                    $photoPath = $cloudflareUrl . ($item->photo ?? '');
+                                    $images = json_decode($item->image ?? '[]', true);
+                                    $firstImage = asset('/storage/app/public/images/' . ($images[0] ?? 'default.jpg'));
+                                    $isVideo = pathinfo($videoPath, PATHINFO_EXTENSION) == 'mp4';
+
+                                @endphp
+
+                                <div class="col-6 col-lg-2 choice-slide">
+                                    <div class="banner product-banner choice-card comBanner">
+                                        <button type="button" class="choice-btn" data-video="{{ asset($videoPath) }}"
+                                            data-name="{{ $item->name }}" data-listed="{{ $item->listed_price }}"
+                                            data-mrp="{{ $item->variant_mrp }}" data-slug="{{ $item->slug }}"
+                                            data-description="{{ htmlentities($item->details) }}"
+                                            data-images='@json($images)' onclick="openProductModal(this)"
+                                            style="background:none; border:0; padding:0; cursor:pointer;">
+
+                                            @if ($isVideo)
+                                                <video autoplay muted loop class="choice-video">
+                                                    <source src="{{ asset($videoPath) }}" type="video/mp4">
+                                                </video>
+                                            @else
+                                                <img src="{{ asset($photoPath) }}" alt="Choice Image">
+                                            @endif
+                                        </button>
+
+
+                                        <p class="choice-title">
+                                            {{ strlen($item->name) > 15 ? substr($item->name, 0, 15) . '...' : $item->name }}
+                                        </p>
+
+                                        <div class="price-display">
+                                            <span>₹{{ number_format($item->listed_price, 0) }}</span>
+                                            <span><del>₹{{ number_format($item->variant_mrp, 0) }}</del></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endfor
+                    </div>
+
+                </div>
+            @endif
+
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="tab-content tab-content-carousel">
+                        <div class="tab-pane p-0 fade show active" id="bags-women-tab" role="tabpanel"
+                            aria-labelledby="bags-women-link">
+                            <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow"
+                                data-toggle="owl"
+                                data-owl-options='{
+                                        "nav": false,
+                                        "dots": true,
+                                        "margin": 20,
+                                        "loop": false,
+                                        "responsive": {
+                                            "0": {
+                                                "items":2
+                                            },
+                                            "480": {
+                                                "items":2
+                                            },
+                                            "768": {
+                                                "items":3
+                                            },
+                                            "1200": {
+                                                "items":3,
+                                                "nav": true,
+                                                "dots": false
+                                            }
+                                        }
+                                    }'>
+                            </div><!-- End .product-body -->
+                        </div><!-- End .product -->
+                    </div><!-- End .owl-carousel -->
+                </div><!-- .End .tab-pane -->
+            </div>
+
+            <div class="tab-pane p-0 fade" id="bags-men-tab" role="tabpanel" aria-labelledby="bags-men-link">
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                    data-owl-options='{
+                                        "nav": false,
+                                        "dots": true,
+                                        "margin": 20,
+                                        "loop": false,
+                                        "responsive": {
+                                            "0": {
+                                                "items":2
+                                            },
+                                            "480": {
+                                                "items":2
+                                            },
+                                            "768": {
+                                                "items":3
+                                            },
+                                            "992": {
+                                                "items":4
+                                            },
+                                            "1200": {
+                                                "items":4,
+                                                "nav": true,
+                                                "dots": false
+                                            }
+                                        }
+                                    }'>
+                </div><!-- End .owl-carousel -->
+            </div><!-- .End .tab-pane -->
+        </div><!-- End .tab-content -->
+        <script>
+            function openProductModal(el) {
+                const videoUrl = el.getAttribute('data-video');
+                const productName = el.getAttribute('data-name');
+                const listedPrice = el.getAttribute('data-listed');
+                const mrp = el.getAttribute('data-mrp');
+                const description = el.getAttribute('data-description');
+                const images = JSON.parse(el.getAttribute('data-images'));
+                slug = el.getAttribute('data-slug');
+
+                // Set video
+                const video = document.getElementById('popupVideo');
+                const source = document.getElementById('popupVideoSource');
+                source.src = videoUrl;
+                video.load();
+                video.play();
+
+                // Set product info
+                document.getElementById('popupProductName').innerHTML = '<a href="product/' + slug + '">' + productName +
+                    '</a>';
+                document.getElementById('popupListedPrice').innerText = listedPrice;
+                document.getElementById('popupMRP').innerText = mrp;
+                document.getElementById('popupDescription').innerHTML = description;
+                document.getElementById('more_cart').innerHTML =
+                    '<button id="btn" class="bt btn-primary mr-2" style="background-color: #2E6CB2; border:1px solid #2E6CB2;">' +
+                    '<a href="product/' + slug + '" style="color: white; text-decoration: none;">More Info</a>' +
+                    '</button>';
+
+                thumbnail = '<div><img src="/storage/app/public/images/' + images[0] + '" width="70px" alt="product">';
+                document.getElementById('thumb').innerHTML = thumbnail;
+                const container = document.getElementById('popupImageContainer');
+                container.innerHTML = '';
+                images.forEach((img, index) => {
+                    const active = index === 0 ? 'active' : '';
+                    container.innerHTML += `
+            <div class="carousel-item ${active}">
+                <img src="/storage/app/public/images/${img}" class="d-block w-100" alt="Image ${index + 1}">
+            </div>
+        `;
+                });
+                var myModal = new bootstrap.Modal(document.getElementById('videoModal'));
+                myModal.show();
+            }
+        </script>
+
+        <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content custom-modal-content">
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <!-- Video -->
+                            <div class="col-md-6">
+                                <div class="video-wrapper">
+                                    <video id="popupVideo" class="w-100 h-100" controls autoplay muted loop>
+                                        <source id="popupVideoSource" src="" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+
+                            <!-- Text + Image Carousel -->
+                            <div class="col-md-6">
+                                <div class="content-wrapper">
+                                    <div class="d-flex align-items-center">
+                                        <!-- Thumb -->
+                                        <div id="thumb" style="width: 60px; height: 60px; flex-shrink: 0;"></div>
+
+                                        <!-- Product Info -->
+                                        <div class="ms-2 ml-1">
+                                            <h5 id="popupProductName" class="text-dark"></h5>
+                                            <div>
+                                                <h6 class="d-inline text-success mb-0">₹<span
+                                                        id="popupListedPrice"></span></h6>
+                                                <span class="text-danger ms-2">₹<del id="popupMRP"></del></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bootstrap Carousel -->
+                                    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner" id="popupImageContainer">
+                                            <!-- Images inserted via JS -->
+                                        </div>
+                                    </div>
+
+                                    <h6>Description</h6>
+                                    <div id="popupDescription" class="descriptions"></div>
+
+                                    <div id="more_cart">
+                                        <!-- Additional cart elements -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- row -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-9 d-none d-md-block">
+            <div class="luxe-border">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="heading heading-flex flex-column">
+                                <div class="heading-left py-4 text-center">
+                                    <img class="luxe-img" src="{{ asset('public/website/assets/images/luxe-img.png') }}"
+                                        alt="luxury" />
+                                    <h2 class="title d-inline-block mx-4">The Luxe Vault</h2>
+                                    <img class="luxe-img" src="{{ asset('public/website/assets/images/luxe-img.png') }}"
+                                        alt="luxury" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content sectionMargin luxeBgWrapper">
+            <div class="luxe-bg"
+                style="background-image:url('{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Luxury_BG->photo, '/') }}');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow tabCntMarTop"
+                                id="luxe-carousel">
+                                @foreach ($luxe_products as $lp)
+                                    @php
+                                        $images = json_decode($lp->image, true);
+                                        $productImage =
+                                            !empty($images) && isset($images[0])
+                                                ? asset('storage/app/public/images/' . $images[0])
+                                                : asset('storage/images/default.jpg');
+                                        $categories = json_decode($lp->category_ids, true);
+                                    @endphp
+                                    <div class="product product-7">
+                                        <figure class="product-media">
+                                            <span class="product-label label-new">New</span>
+                                            <a href="{{ url('product/' . $lp->slug) }}">
+                                                <img src="{{ $productImage }}" alt="{{ $lp->name }}"
+                                                    class="product-image luxeBgWithoutHeadImg">
+                                            </a>
+                                        </figure>
+                                        <div class="product-body">
+                                            <div class="product-cat">
+                                                <a href="#">
+                                                    @if (!empty($categories))
+                                                        Category {{ $categories[0]['id'] }}
+                                                    @else
+                                                        Unspecified
+                                                    @endif
+                                                </a>
+                                            </div>
+                                            <h3 class="product-title">
+                                                <a href="{{ url('product/' . $lp->slug) }}">{{ $lp->name }}</a>
+                                            </h3>
+                                            <div class="product-price">
+                                                ₹{{ number_format($lp->listed_price, 0) }}
+                                                <span class="price-cut">₹{{ number_format($lp->variant_mrp, 0) }}</span>
+                                            </div>
+                                            <div class="ratings-container">
+                                                <div class="ratings">
+                                                    <div class="ratings-val" style="width: 20%;"></div>
+                                                </div>
+                                                <span class="ratings-text">(2 Reviews)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                @if (count($luxe_products) > 1)
+                                    @if (!empty($Banner_2))
+                                        <a href="{{ url('luxury-products') }}" class="luxury-banner-link">
+                                            <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_2->photo, '/') }}"
+                                                alt="luxury banner" class="luxury-banner-img">
+                                        </a>
+                                    @endif
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (!empty($Banner_8->photo))
+            <div class="architect-banner-container sectionMargin">
+                <a href="{{ $Banner_8->url }}">
+                    <img src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_8->photo, '/') }}"
+                        alt="bannerEight">
+                </a>
+            </div>
+        @endif
+
+        @php
+            $hasFirstTwo = !empty($tips_1?->photo) || !empty($tips_2?->photo);
+            $hasOthers = !empty($other_tips) && $other_tips->count() > 0;
+        @endphp
+
+        @if ($hasFirstTwo || $hasOthers)
+            <div class="container tipsVideoWrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center title">Tips</h2>
+                    </div>
+                </div>
+                @if ($hasFirstTwo)
+                    <div class="row justify-content-center tips-row">
+                        @for ($i = 1; $i <= 2; $i++)
+                            @php $item = ${"tips_$i"} ?? null; @endphp
+                            @if ($item && !empty($item->photo))
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-2 tips-col">
+                                    <div class="banner banner-overlay product-banner text-center comBanner">
+                                        <button type="button"
+                                            style="background:none; border:0; padding:0; width:100%; cursor:pointer;">
+
+                                            <video width="100%" autoplay muted loop playsinline>
+                                                <source
+                                                    src="{{ rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($item->photo, '/') }}"
+                                                    type="video/mp4">
+                                            </video>
+
+                                        </button>
+
+                                        <p class="tip-label">{{ $item->name ?? 'Tips' }}</p>
+                                    </div>
+                                </div>
+                            @endif
+                        @endfor
+                    </div>
+                @endif
+
+                @if ($hasOthers)
+                    <div class="tips-carousel-section mt-4">
+                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow tips-carousel-2">
+                            @foreach ($other_tips as $tip)
+                                <div class="item text-center">
+                                    <h5>{{ $tip->name }}</h5>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+            </div>
+        @endif
+
+
+        @if (!empty($Banner_10->photo))
+            <div class="sectionBannerMargin">
+                @php
+                    $extension = strtolower(pathinfo($Banner_10->photo, PATHINFO_EXTENSION));
+                    $isVideo = in_array($extension, ['mp4', 'webm']);
+                    $fileUrl = rtrim(env('CLOUDFLARE_R2_PUBLIC_URL'), '/') . '/' . ltrim($Banner_10->photo, '/');
+
+                    $linkUrl =
+                        $Banner_10->resource_type == 'category'
+                            ? $Banner_10->url
+                            : url('banner_products/' . $Banner_10->id);
+
+                @endphp
+                <a href="{{ $linkUrl }}">
+                    @if ($isVideo)
+                        <video class="custom-banner-video" autoplay muted loop playsinline>
+                            <source src="{{ $fileUrl }}" type="video/{{ $extension }}">
+                            Your browser does not support the video tag.
+                        </video>
+                    @else
+                        <div class="custom-banner-image" style="background-image: url('{{ $fileUrl }}');">
+                        </div>
+                    @endif
+                </a>
+            </div>
+        @endif
+        <div class="welcome-section">
+            <div class="container">
+                <h2 class="title text-center welcome-title">Welcome to InteriorChowk</h2>
+                <div class="row">
+                    <div class="col-lg-6 d-flex align-items-stretch subscribe-div">
+                        <div class="cta cta-box">
+                            <div class="cta-content">
+                                <p class="welcome-description">
+                                    Welcome to InteriorChowk Free branding & promotion* InteriorChowk is committed to
+                                    supporting your growth.
+
+                                    <br>Join us on this journey, and let's turn your interior design dreams into reality
+                                    together!
+
+                                    <br>India's first dedicated marketplace for home interior buyer‘s where a multitude of
+                                    sellers, interior designers, architects, contractors, workers and many more..
+
+                                    <br><b>presence in the competitive market.</b>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 banner-overlay-div">
+                        <div class="banner banner-overlay comBanner">
+                            <iframe width="100%" height="315"
+                                src="https://www.youtube-nocookie.com/embed/SpsiQwxOrKw" title="YouTube video player"
+                                frameborder="0" loading="lazy"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                            </iframe>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container featured-section" style="display: none;">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="heading heading-flex">
+                        <div class="heading-left">
+                            <h2 class="title">Featured in</h2>
+                        </div>
+                        <div class="heading-right">
+                            <button class="btn explore-more-btn d-flex align-items-center">
+                                Explore More
+                                <span class="circle-arrow ms-3">
+                                    <i class="bi bi-arrow-right"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tab-content tab-content-carousel">
+                        <div class="tab-pane p-0 fade show active" id="featured-women-tab" role="tabpanel"
+                            aria-labelledby="featured-women-link">
+                            <div class="owl-carousel owl-simple featured-carousel">
+                                @for ($i = 0; $i < 10; $i++)
+                                    <div class="product product-7 featured-item">
+                                        <figure class="product-media">
+                                            <a href="product.html">
+                                                <img src="{{ asset('public/website/assets/images/logot.png') }}"
+                                                    alt="Product image" class="product-image">
+                                            </a>
+                                        </figure>
+                                    </div>
+                                @endfor
+                            </div>
+                        </div>
+
+                        <div class="tab-pane p-0 fade" id="featured-men-tab" role="tabpanel"
+                            aria-labelledby="featured-men-link">
+                            <div class="owl-carousel owl-simple featured-carousel-alt"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-8 customer-carousel-section" style="display:none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading heading-flex">
+                            <div class="heading-left">
+                                <h2 class="title">Happy Customers</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="owl-carousel owl-simple happy-customer-carousel">
+                            @for ($i = 1; $i <= 8; $i++)
+                                <article class="entry">
+                                    <figure class="entry-media">
+                                        <button type="button"
+                                            style="background:none; border:0; padding:0; cursor:pointer;">
+
+                                            <img src="{{ asset('public/website/assets/images/team/about-2/member-' . $i . '.jpg') }}"
+                                                alt="Customer {{ $i }}">
+
+                                        </button>
+
+                                    </figure>
+
+                                    <div class="entry-body">
+                                        <div class="entry-meta text-dark">
+                                            <a href="#">Dec 12, 2025</a>
+                                        </div>
+
+                                        <h3 class="entry-title">
+                                            <a href="">Aman Bhatnagar</a>
+                                        </h3>
+
+                                        <div class="ratings-container d-block">
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 20%;"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="entry-content">
+                                            <p>Hey! Remember, InteriorChowk or its team will never ask you for financial
+                                                details or...</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="blog-posts blog-carousel-section" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <h2 class="title">From Our Blog</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="owl-carousel owl-simple blog-carousel">
+                            @php
+                                $posts = [
+                                    [
+                                        'img' => 'post-2.jpg',
+                                        'title' => 'Vivamus vestibulum ntulla.',
+                                        'desc' =>
+                                            'Phasellus hendrerit. Pelletesque aliquet nibh necurna In nisi neque, aliquet vel, dapibus id ...',
+                                    ],
+                                    [
+                                        'img' => 'post-3.jpg',
+                                        'title' => 'Praesent placerat risus.',
+                                        'desc' =>
+                                            'Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc ...',
+                                    ],
+                                    [
+                                        'img' => 'post-4.jpg',
+                                        'title' => 'Fusce pellentesque suscipit.',
+                                        'desc' =>
+                                            'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero augue.',
+                                    ],
+                                    [
+                                        'img' => 'post-1.jpg',
+                                        'title' => 'Sed adipiscing ornare.',
+                                        'desc' =>
+                                            'Lorem ipsum dolor consectetuer adipiscing elit. Phasellus hendrerit. Pelletesque aliquet nibh ...',
+                                    ],
+                                ];
+                            @endphp
+
+                            @foreach ($posts as $post)
+                                <article class="entry">
+                                    <figure class="entry-media">
+                                        <a href="">
+                                            <img src="{{ asset('public/website/assets/images/demos/demo-13/blog/' . $post['img']) }}"
+                                                alt="Blog image">
+                                        </a>
+                                    </figure>
+
+                                    <div class="entry-body">
+                                        <div class="entry-meta text-dark">
+                                            <a href="#">Dec 12, 2023</a>, 0 Comments
+                                        </div>
+
+                                        <h3 class="entry-title">
+                                            <a href="">{{ $post['title'] }}</a>
+                                        </h3>
+
+                                        <div class="entry-content">
+                                            <p>{{ $post['desc'] }}</p>
+                                            <a href="" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                </article>
+                            @endforeach
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-outline-lightgray btn-more btn-round">
+                                <span>View more articles</span><i class="icon-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cta pb-lg-3 mb-0 mt-1 lastSectionWrapper">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="cta-heading">
+                            {!! $seo->content ?? '' !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    @push('script')
+        <script src="{{ asset('public/website/assets/js/home.js') }}"></script>
+    @endpush
+@endsection

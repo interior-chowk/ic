@@ -1,0 +1,19 @@
+hello its test
+
+/*$myfile = fopen("/www/wwwroot/interiorchowk.com/response_take.txt", "w") or die("Unable to open file!");
+            $txt = 'hello';
+             $txt = json_encode($request->all(), JSON_PRETTY_PRINT);
+            fwrite($myfile, $txt);
+            fclose($myfile);*/
+            
+            
+/*
+18/10/2024
+Directory: /www/wwwroot/interiorchowk.com/resources/views/admin-views/product/edit.blade.php
+<?php  $product_category = 1; ?>
+                                    <!--{{count($product_category)>=2?$product_category[1]->id:''}}
+                                    {{count($product_category)>=3?$product_category[2]->id:''}}
+                                    {{ $category->id==$product_category[0]->id ? 'selected' : ''}}
+                                    -->
+
+*/            

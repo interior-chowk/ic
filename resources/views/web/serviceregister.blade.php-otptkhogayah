@@ -1,0 +1,1068 @@
+@extends('layouts.back-end.common_seller_1')
+
+@section('content')
+    <div class="page-wrapper">
+        <main class="main">
+            <div class="page-content pb-0 position-relative">
+                <div class="serBgImg"></div>
+                <div class="oval"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+
+                            <form id="msform" class="msform" method="POST" action="{{ route('service.register') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+
+                                <ul id="progressbar">
+                                    <li class="active"><span>Signup Details</span></li>
+                                    <li><span>Personal/business Details</span></li>
+                                    <li><span>Contact Information</span></li>
+                                </ul>
+
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                        <div class="serviceRegImgWrapper">
+                                            <img src="{{ asset('public/website/new/assets/images/service-form.png') }}"
+                                                class="img-fluid" alt="service-form">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                                        <fieldset class="serRegFormWrap firstformset">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <h2 class="fs-title">I am,</h2>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Select Profession<sup>*</sup></option>
+                                                        <option value="5">Interior Designer</option>
+                                                        <option value="4">Architect</option>
+                                                        <option value="3">Contractor</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="mobileNumber" id="mobileNumber"
+                                                        class="form-control" placeholder="Mobile Number*" maxlength="10" />
+                                                    <small class="text-danger" id="mobileError"></small>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-5">
+                                                    <input type="text" name="refCode" class="form-control"
+                                                        placeholder="Referal Code" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-7">
+                                                    <input type="text" name="otp" id="otp"
+                                                        class="form-control optInput" placeholder="Enter OTP" />
+
+                                                    <p class="text-right">
+                                                        <a href="">Rsend OTP ? <span>00:00</span></a>
+                                                    </p>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="email" name="email" id="email" class="form-control"
+                                                        placeholder="Email*" />
+                                                    <small class="text-danger" id="emailError"></small>
+
+                                                </div>
+                                            </div>
+                                            <input type="button" name="previous" class="previous back-button"
+                                                value="Go Back" disabled />
+                                            <input type="button" name="verify" id="verifyBtn" class="next action-button"
+                                                value="Verify" />
+
+                                        </fieldset>
+
+                                        <fieldset class="serRegFormWrap">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Business Type<sup>*</sup></option>
+                                                        <option value="1">IT</option>
+                                                        <option value="2">Infrastructure</option>
+                                                        <option value="3">Manufacturing</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-6">
+                                                    <input type="text" name="gstin" class="form-control"
+                                                        placeholder="GSTIN" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-6">
+                                                    <input type="text" name="pan" class="form-control"
+                                                        placeholder="PAN" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="businessName" class="form-control"
+                                                        placeholder="Business Name" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="fullName" class="form-control"
+                                                        placeholder="Full Name as per Aadhaar" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-5">
+                                                    <div class="calendar-main">
+                                                        <div class="calendar-drop-main form-control"
+                                                            id="calendar-backdrop">
+                                                            <span class="calendar-drop-text"
+                                                                id="selected-date-text">Select
+                                                                a Date</span>
+                                                            <img src="{{ asset('public/website/new/assets/images/calender.png') }}"
+                                                                class="img-fluid calImg" alt="calender">
+                                                        </div>
+                                                        <div class="calendar-wrapper" id="calendar-wrapper">
+                                                            <h4 class="mb-0 text-left pt-1 px-4">Select Date</h4>
+                                                            <div class="calendar-header">
+                                                                <div class="calendar-select-main">
+                                                                    <div class="calendar-select-wrapper">
+                                                                        <div class="calendar-select">
+                                                                            <div id="selected-month"
+                                                                                onclick="toggleDropdownMonth()">
+                                                                                Select month
+                                                                            </div>
+                                                                            <div class="calendar-select-list-wrap"
+                                                                                id="month-select"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="calendar-select-wrapper">
+                                                                        <div class="calendar-select">
+                                                                            <div id="selected-year"
+                                                                                onclick="toggleDropdownYear()">
+                                                                                Select year
+                                                                            </div>
+                                                                            <div class="calendar-select-list-wrap"
+                                                                                id="year-select"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <img src="{{ asset('public/website/new/assets/images/calender.png') }}"
+                                                                    class="img-fluid calInsideImg" alt="calender">
+                                                            </div>
+                                                            <div class="calendar">
+                                                                <ul class="weeks">
+                                                                    <li>Su</li>
+                                                                    <li>Mo</li>
+                                                                    <li>Tu</li>
+                                                                    <li>We</li>
+                                                                    <li>th</li>
+                                                                    <li>fr</li>
+                                                                    <li>sa</li>
+                                                                </ul>
+                                                                <ul class="days"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-7">
+                                                    <input type="text" name="aadhaarNo" class="form-control"
+                                                        placeholder="Aadhaar Card Number" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Select Cities / Areas of working</option>
+                                                        <option value="1">Ghaziabad</option>
+                                                        <option value="2">Delhi</option>
+                                                        <option value="3">Mumbai</option>
+                                                        <option value="3">Gurgaon</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-6">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Services Provided</option>
+                                                        <option value="1">Ghaziabad</option>
+                                                        <option value="2">Delhi</option>
+                                                        <option value="3">Mumbai</option>
+                                                        <option value="3">Gurgaon</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-6">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>No. of Projects</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="3">4</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-6">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Working Since</option>
+                                                        <option value="1">2010</option>
+                                                        <option value="2">2011</option>
+                                                        <option value="3">2012</option>
+                                                        <option value="3">2013</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-6">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Team Strength</option>
+                                                        <option value="1">10</option>
+                                                        <option value="2">15</option>
+                                                        <option value="3">20</option>
+                                                        <option value="3">25</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <textarea name="" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <textarea name="" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-5">
+                                                    <div class="profile-wrapper">
+                                                        <img id="profilePreview" src="https://via.placeholder.com/150"
+                                                            class="profilePreview" alt="">
+
+                                                        <label class="upload-btn">
+                                                            <img src="{{ asset('public/website/new/assets/images/add.png') }}"
+                                                                class="img-fluid selLogo" alt="logo">
+                                                            <input type="file" id="profileInput" accept="image/*">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-7">
+                                                    <div class="ser-reg-banner-wrapper">
+                                                        <img id="banPreview" src="https://via.placeholder.com/150"
+                                                            class="banPreview" alt="">
+
+                                                        <label class="upload-btn">
+                                                            <img src="{{ asset('public/website/new/assets/images/add.png') }}"
+                                                                class="img-fluid selLogo" alt="logo">
+                                                            <input type="file" id="banInput" accept="image/*">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="button" name="previous" class="previous back-button"
+                                                value="Go Back" />
+                                            <input type="button" name="next" class="next action-button"
+                                                value="Next" />
+                                        </fieldset>
+
+                                        <fieldset class="serRegFormWrap">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="whatsapp" class="form-control"
+                                                        placeholder="Whatsapp (Optional)" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="Website" class="form-control"
+                                                        placeholder="Website (Optional)" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="instagramLink" class="form-control"
+                                                        placeholder="Instagram Link (Optional)" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="email" name="facebookLink" class="form-control"
+                                                        placeholder="Facebook Link (Optional)" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="email" name="youtubeLink" class="form-control"
+                                                        placeholder="Youtube Link (Optional)" />
+                                                </div>
+                                            </div>
+                                            <input type="button" name="previous" class="previous back-button"
+                                                value="Go Back" />
+                                            <input type="submit" name="submit" class="submit action-button"
+                                                value="Submit" />
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="mobmsform mt-3">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12">
+                                <ul class="stepper">
+                                    <li class="step active" data-step="1">
+                                        <span class="circle">1</span>
+                                        <span class="label">Signup Details</span>
+                                    </li>
+                                    <div class="step-content active" data-step="1">
+                                        <div class="serRegFormWrap">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <h2 class="fs-title">I am,</h2>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <div class="select_profession container">
+                                                        <label>
+                                                            <input type="radio" name="professionSel" class="d-none"
+                                                                checked>
+                                                            <span class="text-center d-block py-3">Architect</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="professionSel" class="d-none">
+                                                            <span class="text-center d-block py-3">Interior
+                                                                Designer</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="professionSel" class="d-none">
+                                                            <span class="text-center d-block py-3">Contractor</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="professionSel" class="d-none">
+                                                            <span class="text-center d-block py-3">Worker</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Mobile Number</span>
+                                                    <input type="text" name="mobileNumber" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Enter OTP</span>
+                                                    <input type="text" name="otp" class="form-control optInput"
+                                                        placeholder="" />
+                                                    <p class="text-right">
+                                                        <a href="">Rsend OTP ? <span>00:00</span></a>
+                                                    </p>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Referal Code (optional)</span>
+                                                    <input type="text" name="refCode" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Email Address</span>
+                                                    <input type="email" name="email" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn action-button next">Next</button>
+                                    </div>
+
+                                    <li class="step" data-step="2">
+                                        <span class="circle">2</span>
+                                        <span class="label">Personal Details</span>
+                                    </li>
+                                    <div class="step-content" data-step="2">
+                                        <div class="serRegFormWrap">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <div class="profile-wrapper">
+                                                        <img id="profilePreview" src="https://via.placeholder.com/150"
+                                                            class="profilePreview" alt="">
+
+                                                        <label class="upload-btn">
+                                                            <img src="{{ asset('public/website/new/assets/images/add.png') }}"
+                                                                class="img-fluid selLogo" alt="logo">
+                                                            <input type="file" id="profileInput" accept="image/*">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <div class="ser-reg-banner-wrapper">
+                                                        <img id="banPreview" src="https://via.placeholder.com/150"
+                                                            class="banPreview" alt="">
+
+                                                        <label class="upload-btn">
+                                                            <img src="{{ asset('public/website/new/assets/images/add.png') }}"
+                                                                class="img-fluid selLogo" alt="logo">
+                                                            <input type="file" id="banInput" accept="image/*">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Full Name</span>
+                                                    <input type="text" name="fullName" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <div class="calendar-main">
+                                                        <div class="calendar-drop-main form-control"
+                                                            id="calendar-backdrop">
+                                                            <span class="calendar-drop-text" id="selected-date-text">Date
+                                                                of birth as per Aadhaar
+                                                                Card</span>
+                                                            <img src="{{ asset('public/website/new/assets/images/calender.png') }}"
+                                                                class="img-fluid calImg" alt="calender">
+                                                        </div>
+                                                        <div class="calendar-wrapper" id="calendar-wrapper">
+                                                            <h4 class="mb-0 text-left pt-1 px-4">Select Date</h4>
+                                                            <div class="calendar-header">
+                                                                <div class="calendar-select-main">
+                                                                    <div class="calendar-select-wrapper">
+                                                                        <div class="calendar-select">
+                                                                            <div id="selected-month"
+                                                                                onclick="toggleDropdownMonth()">
+                                                                                Select month
+                                                                            </div>
+                                                                            <div class="calendar-select-list-wrap"
+                                                                                id="month-select"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="calendar-select-wrapper">
+                                                                        <div class="calendar-select">
+                                                                            <div id="selected-year"
+                                                                                onclick="toggleDropdownYear()">
+                                                                                Select year
+                                                                            </div>
+                                                                            <div class="calendar-select-list-wrap"
+                                                                                id="year-select"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <img src="assets/images/calender.png"
+                                                                    class="img-fluid calInsideImg" alt="calender">
+                                                            </div>
+                                                            <div class="calendar">
+                                                                <ul class="weeks">
+                                                                    <li>Su</li>
+                                                                    <li>Mo</li>
+                                                                    <li>Tu</li>
+                                                                    <li>We</li>
+                                                                    <li>th</li>
+                                                                    <li>fr</li>
+                                                                    <li>sa</li>
+                                                                </ul>
+                                                                <ul class="days"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Aadhaar Card Number</span>
+                                                    <input type="text" name="aadhaarNo" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <div class="upload-btn">
+                                                        <input type="file" id="aadhaarFront">
+                                                        <label class="c-file-input__label" for="aadhaarFront">
+                                                            <img src="{{ asset('public/website/new/assets/images/add-photo.png') }}"
+                                                                class="img-fluid selLogo mr-2" alt="logo">Attachment
+                                                            of
+                                                            Aadhaar Front Photo
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <div class="upload-btn">
+                                                        <input type="file" id="aadhaarBack">
+                                                        <label class="c-file-input__label" for="aadhaarBack">
+                                                            <img src="{{ asset('public/website/new/assets/images/add-photo.png') }}"
+                                                                class="img-fluid selLogo mr-2" alt="logo">Attachment
+                                                            of
+                                                            Aadhaar Back Photo
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Current / Present Address</span>
+                                                    <input type="text" name="curPreAddr" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Permanent Address</span>
+                                                    <input type="text" name="permaAddr" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <div class="form-group custForm-group">
+                                                        <input type="checkbox" id="radioSel">
+                                                        <label for="radioSel">Same as Current Address?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn back-button prev">Previous</button>
+                                        <button class="btn action-button next">Next</button>
+                                    </div>
+
+                                    <li class="step" data-step="3">
+                                        <span class="circle">3</span>
+                                        <span class="label">Bussiness Details</span>
+                                    </li>
+                                    <div class="step-content" data-step="3">
+                                        <div class="serRegFormWrap">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Bussiness Name (Visible on Profile)</span>
+                                                    <input type="text" name="bussinessName" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Select service provided by you</option>
+                                                        <option value="1">Service No 1</option>
+                                                        <option value="2">Service No 2</option>
+                                                        <option value="3">Service No 3</option>
+                                                        <option value="3">Service No 4 </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Select no. of projects done</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4 </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Working Since</span>
+                                                    <input type="text" name="workSince" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Team Strength</span>
+                                                    <input type="text" name="teamNumber" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Description</span>
+                                                    <input type="text" name="workSince" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <span class="inpLabel">Achievments</span>
+                                                    <input type="text" name="workSince" class="form-control"
+                                                        placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn back-button prev">Previous</button>
+                                        <button class="btn action-button next">Next</button>
+                                    </div>
+
+                                    <li class="step" data-step="4">
+                                        <span class="circle">4</span>
+                                        <span class="label">Area of working</span>
+                                    </li>
+                                    <div class="step-content" data-step="4">
+                                        <div class="serRegFormWrap">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <select class="form-control form-select"
+                                                        aria-label="Default select example">
+                                                        <option selected>Select Cities</option>
+                                                        <option value="1">Delhi</option>
+                                                        <option value="2">Noida</option>
+                                                        <option value="3">Ghaziabad</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn back-button prev">Previous</button>
+                                        <button class="btn action-button next">Next</button>
+                                    </div>
+
+                                    <li class="step" data-step="5">
+                                        <span class="circle">5</span>
+                                        <span class="label">Contact information</span>
+                                    </li>
+                                    <div class="step-content" data-step="5">
+                                        <div class="serRegFormWrap">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="whatsapp" class="form-control"
+                                                        placeholder="Whatsapp (Optional)" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="Website" class="form-control"
+                                                        placeholder="Website (Optional)" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="text" name="instagramLink" class="form-control"
+                                                        placeholder="Instagram Link (Optional)" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="email" name="facebookLink" class="form-control"
+                                                        placeholder="Facebook Link (Optional)" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12">
+                                                    <input type="email" name="youtubeLink" class="form-control"
+                                                        placeholder="Youtube Link (Optional)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn back-button prev">Previous</button>
+                                        <button class="btn action-button">Continue</button>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+    <script>
+        $(function() {
+            var current_fs, next_fs, previous_fs;
+            var left, opacity, scale;
+            var animating;
+
+            $(".next").click(function() {
+                if (animating) return false;
+                animating = true;
+
+                current_fs = $(this).parent();
+                next_fs = $(this).parent().next();
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                next_fs.show();
+                current_fs.animate({
+                    opacity: 0
+                }, {
+                    step: function(now, mx) {
+                        scale = 1 - (1 - now) * 0.2;
+                        left = (now * 50) + "%";
+                        opacity = 1 - now;
+                        current_fs.css({
+                            'transform': 'scale(' + scale + ')'
+                        });
+                        next_fs.css({
+                            'left': left,
+                            'opacity': opacity
+                        });
+                    },
+                    duration: 500,
+                    complete: function() {
+                        current_fs.hide();
+                        animating = false;
+                    },
+                    easing: 'swing'
+                });
+            });
+
+            $(".previous").click(function() {
+                if (animating) return false;
+                animating = true;
+                current_fs = $(this).parent();
+                previous_fs = $(this).parent().prev();
+                $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+                previous_fs.show();
+                current_fs.animate({
+                    opacity: 0
+                }, {
+                    step: function(now, mx) {
+                        scale = 0.8 + (1 - now) * 0.2;
+                        left = ((1 - now) * 50) + "%";
+                        opacity = 1 - now;
+                        current_fs.css({
+                            'left': left
+                        });
+                        previous_fs.css({
+                            'transform': 'scale(' + scale + ')',
+                            'opacity': opacity
+                        });
+                    },
+                    duration: 500,
+                    complete: function() {
+                        current_fs.hide();
+                        animating = false;
+                    },
+                    easing: 'swing'
+                });
+            });
+
+            $(".submit").click(function() {
+                $("#msform").submit();
+            });
+        });
+    </script>
+    <script>
+        const monthSelect = document.getElementById("month-select");
+        const yearSelect = document.getElementById("year-select");
+        const daysTag = document.querySelector(".days");
+
+        let date = new Date(),
+            currentYear = date.getFullYear(),
+            currentMonth = date.getMonth();
+        let selectedDateObj = null;
+
+        const months = [
+            "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+            "November", "December"
+        ];
+
+        for (let i = 0; i < months.length; i++) {
+            let option = document.createElement("div");
+            option.classList += " calendar-select-list";
+            option.id = `option-${i}`;
+            option.value = i;
+            if (currentMonth === i) {
+                option.classList += " month active";
+            }
+            option.addEventListener("click", function() {
+                toggleDropdownMonth(i, months[i]);
+            });
+            option.textContent = months[i];
+            monthSelect.appendChild(option);
+        }
+
+        for (let i = currentYear - 50; i <= currentYear + 50; i++) {
+            let option = document.createElement("div");
+            option.classList += " calendar-select-list";
+            option.value = i;
+            option.id = `option-${i}`;
+            if (currentYear === i) {
+                option.classList += " year active";
+            }
+            option.textContent = i;
+            option.addEventListener("click", function() {
+                toggleDropdownYear(i);
+            });
+            yearSelect.appendChild(option);
+        }
+        const backdrop = document.getElementById("calendar-backdrop");
+        const calendarWrapper = document.getElementById("calendar-wrapper");
+        backdrop.addEventListener("click", (e) => {
+            e.stopPropagation();
+            calendarWrapper.classList.add("show-calender");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!calendarWrapper.contains(e.target) && !backdrop.contains(e.target)) {
+                calendarWrapper.classList.remove("show-calender");
+                monthSelect.classList.remove("show-dropdown");
+                yearSelect.classList.remove("show-dropdown");
+            }
+        });
+
+        monthSelect.value = currentMonth;
+        yearSelect.value = currentYear;
+        const toggleCalender = () => {
+            const div = document.getElementById("calendar-wrapper");
+            div.classList.toggle("show-calender");
+        };
+        const toggleDropdownMonth = (index, month) => {
+            const div = document.getElementById("month-select");
+            const year_div = document.getElementById("year-select");
+            year_div.classList.remove("show-dropdown");
+            if (month) {
+                currentMonth = index;
+                document
+                    .querySelectorAll(".calendar-select-list.month.active")
+                    .forEach((el) => {
+                        el.classList.remove("active");
+                    });
+                const div_option = document.getElementById(`option-${index}`);
+                div_option.classList += " month active";
+                renderCalendar();
+            }
+            div.classList.toggle("show-dropdown");
+        };
+
+        const toggleDropdownYear = (year) => {
+            const div = document.getElementById("year-select");
+            const month_div = document.getElementById("month-select");
+            month_div.classList.remove("show-dropdown");
+            if (year) {
+                currentYear = year;
+                document
+                    .querySelectorAll(".calendar-select-list.year.active")
+                    .forEach((el) => {
+                        el.classList.remove("active");
+                    });
+                const div_option = document.getElementById(`option-${year}`);
+                div_option.classList += " year active";
+                renderCalendar();
+            }
+            div.classList.toggle("show-dropdown");
+        };
+        const renderCalendar = () => {
+            let firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+            let lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            let lastDayOfMonth = new Date(
+                currentYear,
+                currentMonth,
+                lastDateOfMonth
+            ).getDay();
+            const dropdown_month = document.getElementById("selected-month");
+            dropdown_month.innerText = months[currentMonth];
+            const dropdown_year = document.getElementById("selected-year");
+            dropdown_year.innerText = currentYear;
+            let lastDateOfLastMonth = new Date(currentYear, currentMonth, 0).getDate();
+            let liDayTag = "";
+
+            for (let i = firstDayOfMonth; i > 0; i--) {
+                liDayTag += `<li class="inactive">${lastDateOfLastMonth - i + 1}</li>`;
+            }
+
+            for (let i = 1; i <= lastDateOfMonth; i++) {
+                let isToday = "";
+                if (selectedDateObj) {
+                    if (
+                        i === selectedDateObj.getDate() &&
+                        currentMonth === selectedDateObj.getMonth() &&
+                        currentYear === selectedDateObj.getFullYear()
+                    ) {
+                        isToday = 'class="active"';
+                    }
+                } else {
+                    if (
+                        i === date.getDate() &&
+                        currentMonth === new Date().getMonth() &&
+                        currentYear === new Date().getFullYear()
+                    ) {
+                        isToday = 'class="active"';
+                    }
+                }
+                liDayTag += `<li ${isToday} onclick="selectDate(${i})">${i}</li>`;
+            }
+
+            for (let i = lastDayOfMonth; i < 6; i++) {
+                liDayTag += `<li class="inactive">${i - lastDayOfMonth + 1}</li>`;
+            }
+            daysTag.innerHTML = liDayTag;
+        };
+
+        const selectDate = (day) => {
+            const selectedDateText = document.getElementById("selected-date-text");
+            const formattedDate = `${day}/${currentMonth + 1}/${currentYear}`;
+            selectedDateText.innerText = formattedDate;
+            selectedDateObj = new Date(currentYear, currentMonth, day);
+            renderCalendar();
+            const calendarWrapper = document.getElementById("calendar-wrapper");
+            calendarWrapper.classList.remove("show-calender");
+            monthSelect.classList.remove("show-dropdown");
+            yearSelect.classList.remove("show-dropdown");
+        };
+
+        renderCalendar(currentMonth, currentYear);
+        monthSelect.addEventListener("change", (e) => {
+            currentMonth = parseInt(e.target.value);
+            renderCalendar();
+        });
+        yearSelect.addEventListener("change", (e) => {
+            currentYear = parseInt(e.target.value);
+            renderCalendar();
+        });
+    </script>
+    <script>
+        $("#profileInput").on("change", function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $("#profilePreview").attr("src", e.target.result);
+                    $("#removeImage").removeClass("d-none");
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $("#removeImage").on("click", function() {
+            $("#profilePreview").attr("src", "https://via.placeholder.com/150");
+            $("#profileInput").val("");
+            $(this).addClass("d-none");
+        });
+
+        $("#banInput").on("change", function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $("#banPreview").attr("src", e.target.result);
+                    $("#removeImage").removeClass("d-none");
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $("#removeImage").on("click", function() {
+            $("#banPreview").attr("src", "https://via.placeholder.com/150");
+            $("#banInput").val("");
+            $(this).addClass("d-none");
+        });
+
+        $("#aadhaarFront").on("change", function(e) {
+
+            var fileName = "";
+            var scope = $(this).attr("id");
+
+            if (this.files && this.files.length > 1) {
+                fileName = this.files.length + " files selected";
+            } else if (e.target.value) {
+                fileName = e.target.value.split('\\').pop();
+            }
+
+            if (fileName) {
+                $(".c-file-input__label[for='" + scope + "']").html(fileName);
+            }
+        });
+
+        $("#aadhaarBack").on("change", function(e) {
+
+            var fileName = "";
+            var scope = $(this).attr("id");
+
+            if (this.files && this.files.length > 1) {
+                fileName = this.files.length + " files selected";
+            } else if (e.target.value) {
+                fileName = e.target.value.split('\\').pop();
+            }
+
+            if (fileName) {
+                $(".c-file-input__label[for='" + scope + "']").html(fileName);
+            }
+        });
+    </script>
+    <script>
+        $(function() {
+            let currentStep = 1;
+
+            function showStep(step) {
+                currentStep = step;
+
+                $('.step').each(function() {
+                    const s = $(this).data('step');
+                    $(this).removeClass('active done');
+
+                    if (s < step) $(this).addClass('done');
+                    else if (s === step) $(this).addClass('active');
+                });
+
+                $('.step-content').removeClass('active');
+                $('.step-content[data-step="' + step + '"]').addClass('active');
+            }
+
+            $('.next').click(function() {
+                showStep(currentStep + 1);
+            });
+
+            $('.prev').click(function() {
+                showStep(currentStep - 1);
+            });
+
+            $('.step').click(function() {
+                showStep($(this).data('step'));
+            });
+        });
+    </script>
+    <script>
+        let otpSent = false;
+        let otpVerified = false;
+
+        $('#mobileNumber').on('input', function() {
+            let mobile = $(this).val().replace(/\D/g, '');
+            $(this).val(mobile);
+
+            if (mobile.length < 10) {
+                $('#mobileError').text('Enter valid 10 digit mobile number');
+                otpSent = false;
+                otpVerified = false;
+                disableVerify();
+                return;
+            }
+
+            if (mobile.length === 10) {
+                $('#mobileError').text('');
+                sendOtpAjax(mobile);
+            }
+        });
+
+        $('#email').on('input', function() {
+            validateEmail();
+            checkAllValid();
+        });
+
+        function sendOtpAjax(mobile) {
+            if (otpSent) return;
+            otpSent = true;
+            $.ajax({
+                url: "{{ route('send_otp') }}",
+                type: 'POST',
+                data: {
+                    mobile: mobile,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response == 1) {
+                        $(".get_otp").text("Re-send");
+                        $('#otp_input_type').show();
+                        $('#otp_verify_button').show();
+                    } else if (response == 2) {
+                        $('#number_exit').show();
+                        otpSent = false;
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $(".Verify_otp").click(function() {
+                let number = $("#partitioned").val();
+                if (!number) return;
+                $.ajax({
+                    url: "{{ route('shop.Verify_otp') }}",
+                    type: 'POST',
+                    data: {
+                        number: number,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        if (response == 1) {
+                            otpVerified = true;
+
+                            $('#otp_input_type').hide();
+                            $('#otp_verify_button').hide();
+
+                            $(".get_otp")
+                                .removeClass("btn--primary")
+                                .addClass("btn-success")
+                                .text("Verified")
+                                .attr('disabled', true);
+                            $('#mobileNumber').attr('disabled', true);
+                            checkAllValid();
+                        }
+
+                        if (response == 0) {
+                            otpVerified = false;
+                            $("#show_otp_error").show();
+                            disableVerify();
+                        }
+                    }
+                });
+            });
+        });
+
+        function validateEmail() {
+            const email = $('#email').val().trim();
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!regex.test(email)) {
+                $('#emailError').text('Enter valid email address');
+                return false;
+            }
+
+            $('#emailError').text('');
+            return true;
+        }
+
+        function checkAllValid() {
+            const mobileValid = $('#mobileNumber').val().length === 10;
+            const emailValid = validateEmail();
+
+            if (mobileValid && emailValid && otpVerified) {
+                enableVerify();
+            } else {
+                disableVerify();
+            }
+        }
+
+        function enableVerify() {
+            $('#verifyBtn').prop('disabled', false).removeClass('disabled');
+        }
+
+        function disableVerify() {
+            $('#verifyBtn').prop('disabled', true).addClass('disabled');
+        }
+    </script>
+@endsection

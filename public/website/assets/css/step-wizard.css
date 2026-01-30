@@ -1,0 +1,92 @@
+.trackOrderModal h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-left: 60px;
+}
+
+.trackOrderModal .subhead {
+    font-size: 16.44px;
+    font-weight: 400;
+    margin-left: 60px;
+    color: #6C6C6C;
+
+}
+
+.wizard {
+    margin: 50px 10px;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.step {
+    width: 25%;
+    text-align: center;
+    position: relative;
+}
+
+.step::before {
+    content: "";
+    height: 1.64px;
+    width: 100%;
+    background: repeating-linear-gradient(90deg, #BBBBBB, #BBBBBB 6px, transparent 6px, transparent 12px);
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+}
+
+.step span {
+    background: #BBBBBB;
+    border-radius: 50%;
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+    position: relative;
+    z-index: 1;
+}
+
+.step.active span,
+.step.completed span {
+    background: #2E6CB2;
+    color: #fff;
+}
+
+.step.completed::before {
+    background: repeating-linear-gradient(90deg, #2E6CB2, #2E6CB2 6px, transparent 6px, transparent 12px);
+}
+
+.step:first-child::before {
+    width: 100%;
+    left: 50%;
+}
+
+.step:last-child::before {
+    width: 0%;
+}
+
+.trackOrdButtons {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.wizard .step h6 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.wizard .step p {
+    font-size: 16.44px;
+    font-weight: 400;
+    color: #6C6C6C;
+    margin-bottom: 15px;
+    visibility: hidden;
+}
+
+.wizard .step.active p {
+    visibility: visible;
+}

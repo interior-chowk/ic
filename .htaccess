@@ -1,0 +1,50 @@
+# This .htaccess file controls core web server behavior and is
+# essential for security, clean URLs, and error handling.
+
+# --------------------------------------------------------------
+# 1. ENVIRONMENT & DEBUGGING
+# --------------------------------------------------------------
+
+# WARNING: If you are seeing a 500 Internal Server Error,
+# you must check the Apache error logs first.
+# You can try enabling PHP error display for debugging:
+# Remove the '#' before the next two lines to turn PHP errors ON.
+# IMPORTANT: ALWAYS turn these OFF for production environments!
+# php_flag display_errors On
+# php_value error_reporting 32767 # E_ALL
+
+# --------------------------------------------------------------
+# 2. DIRECTORY INDEX & LISTING PREVENTION
+# --------------------------------------------------------------
+
+# Prevent directory contents from being listed if an index file is missing (security)
+Options -Indexes
+
+# Specify the default file to load when a directory is requested
+DirectoryIndex index.php index.html index.htm
+
+# --------------------------------------------------------------
+# 3. URL REWRITING (FOR CLEAN URLS)
+# --------------------------------------------------------------
+
+# Activate the rewrite engine module
+RewriteEngine On
+
+# You might need to set the base path if your application is in a subdirectory (e.g., /blog/)
+# RewriteBase /
+
+# Check if the requested file/path actually exists on the server (e.g., image.jpg)
+RewriteCond %{REQUEST_FILENAME} !-f
+# Check if the requested path is a directory that actually exists on the server
+RewriteCond %{REQUEST_FILENAME} !-d
+# If neither a file nor a directory exists, silently rewrite the request to index.php
+# This allows index.php to handle all application routing/URLs.
+RewriteRule ^(.*)$ index.php [L]
+
+# --------------------------------------------------------------
+# 4. ERROR PAGES (Optional)
+# --------------------------------------------------------------
+
+# Uncomment these lines to redirect server errors to custom pages
+# ErrorDocument 404 /404.html
+# ErrorDocument 500 /500.html

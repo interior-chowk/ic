@@ -1,0 +1,404 @@
+.banner-headBg {
+    background-image: url("../images/backgrounds/Rectangle\ 5.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 305px;
+    position: relative;
+}
+
+.banner-headBg .heartBadge {
+    position: absolute;
+    top: 12px;
+    right: 200px;
+}
+
+.banner-headBg .shareBadge {
+    position: absolute;
+    top: 9px;
+    right: 165px;
+}
+
+.banner-headBg .shareBadge img {
+    width: 27px;
+    height: 34px;
+}
+
+.PersonalDtlWrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.imgNamWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.imgNamWrapper img {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    position: absolute;
+    top: -50px;
+    left: 0px;
+}
+
+.namData {
+    margin-left: 215px;
+}
+
+.namData h2 {
+    font-size: 34.37px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+.namData p {
+    font-size: 20.62px;
+    font-weight: 600;
+    color: #FF8649;
+    line-height: 1.2;
+}
+
+.namData span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #a9a9a9;
+}
+
+.ratingWrapper {
+    box-shadow: 0px 0px 0px 0px #00000000;
+    justify-content: flex-start;
+    line-height: 1;
+    margin-bottom: 0px;
+}
+
+.star-rating {
+    justify-content: space-between;
+    width: 7.5em;
+}
+
+.star-rating label {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.socialWrap {
+    text-align: right;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.workWrap {
+    border-radius: 7px;
+    border: 0.5px solid #2E6CB2;
+    margin-top: 50px;
+    padding: 15px;
+}
+
+.workWrap h3 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #2E6CB2;
+    border-bottom: 4px solid #2E6CB2;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.workWrap p,
+.workWrap span,
+.workWrap ul li {
+    font-size: 18px;
+    /* font-weight: 600; */
+    line-height: 1.3;
+    color: #000000;
+}
+
+.workWrap p {
+    min-width: 300px;
+}
+
+.workWrap .serPara {
+    max-width: 400px;
+}
+
+.workWrap .keyVal {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.workWrap ul {
+    padding-left: 30px;
+}
+
+.workWrap ul li {
+    list-style: disc;
+}
+
+.portfolioWrapper h1 {
+    font-size: 50px;
+    font-weight: 700;
+    color: #2E6CB2;
+    text-align: center;
+    margin-top: 35px;
+    text-decoration: underline;
+}
+
+.PortfolioImg {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 960px;
+    margin: 0 auto 20px auto;
+}
+
+.contactInfoWrapper h4 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+.cntPairWrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.cntPairWrap img {
+    margin-right: 10px;
+}
+
+.cntPairWrap p {
+    font-size: 23.24px;
+    /* font-weight: 700; */
+    margin-bottom: 0px;
+}
+
+img.img-fluid-icon {
+    width: 100px;
+}
+
+.socialMedWrapper {
+    text-align: center;
+}
+
+.socialMedWrapper h4 {
+    font-size: 50px;
+    font-weight: 700;
+    color: #2E6CB2;
+    max-width: 1000px;
+    text-align: center;
+    margin: 40px auto 0 auto;
+}
+
+.socMedIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+    padding-bottom: 30px;
+    border-bottom: 3px solid #A7A7A7;
+}
+
+.socMedIcon a {
+    margin: 0 15px;
+}
+
+.reviewWrapper h4 {
+    font-size: 50px;
+    font-weight: 900;
+    color: #2E6CB2;
+    text-align: center;
+    margin: 25px auto 0 auto;
+}
+
+.reviewWrapper .ratingWrapper {
+    margin: 20px auto 0 auto;
+    justify-content: center;
+}
+
+.reviewWrapper .star-rating {
+    width: 15.5em;
+}
+
+.reviewWrapper .star-rating label {
+    font-size: 7rem;
+}
+
+.reviewWrapper textarea {
+    border: 1.5px solid #FF8649;
+    border-radius: 15px;
+    margin-top: 20px;
+    resize: none;
+    padding: 12px;
+}
+
+.reviewWrapper .btn-revSub {
+    font-size: 22.41px;
+    font-weight: 600;
+    background-color: #FF8649;
+    border-radius: 7.47px;
+    color: #ffffff;
+    margin-top: 15px;
+
+}
+
+@media screen and (max-width: 767.98px) {
+    .banner-head img {
+        width: 10px;
+        height: 13.36px !important;
+    }
+
+    .PortfolioImg {
+        justify-content: space-between;
+    }
+
+    .PortfolioImg img {
+        max-width: 115px !important;
+    }
+
+    .banner-headBg .shareBadge img {
+        width: 15.87px;
+        height: 15.87px;
+    }
+
+    .banner-headBg .heartBadge {
+        top: 10px;
+        right: 45px;
+    }
+
+    .banner-headBg .shareBadge {
+        right: 20px;
+    }
+
+    .banner-headBg {
+        height: 102px;
+        position: absolute;
+        left: 0px;
+    }
+
+    .PersonalDtlWrap {
+        margin-top: 115px;
+    }
+
+    .imgNamWrapper img {
+        width: 87.14px;
+        height: 87.14px;
+        top: -25px;
+    }
+
+    .namData {
+        margin-left: 95px;
+    }
+
+    .namData h2 {
+        font-size: 15px;
+        margin-top: 0;
+    }
+
+    .namData p {
+        font-size: 9px;
+    }
+
+    .star-rating label {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    .star-rating {
+        width: 3.25em;
+    }
+
+    .namData span {
+        font-size: 5px;
+        line-height: 1;
+        display: flex;
+    }
+
+    .socialWrap a.wtappLink img {
+        width: 58px;
+        height: 19.26px;
+        margin-bottom: 0.35rem !important;
+    }
+
+    .socialWrap a.fbLink img {
+        width: 55.24px;
+        height: 18.16px;
+    }
+
+    .workWrap h3 {
+        font-size: 9px;
+        border-bottom: 0.86px solid #2E6CB2;
+    }
+
+    .workWrap p,
+    .workWrap span,
+    .workWrap ul li {
+        font-size: 8px;
+    }
+
+    .portfolioWrapper h1 {
+        font-size: 20px;
+    }
+
+    .contactInfoWrapper h4 {
+        font-size: 25.45px;
+    }
+
+    .cntPairWrap p {
+        font-size: 14.79px;
+    }
+
+    .cntPairWrap img {
+        width: 22.18px;
+        height: 22.18px;
+    }
+
+    .socialMedWrapper h4 {
+        font-size: 21.99px;
+        max-width: 425px;
+    }
+
+    .socMedIcon {
+        border-bottom: 1.32px solid #A7A7A7;
+        padding-bottom: 20px;
+    }
+
+    .socMedIcon a img {
+        width: 28.59px;
+        height: 28.59px;
+    }
+
+    .reviewWrapper h4 {
+        font-size: 21px;
+    }
+
+    .reviewWrapper .ratingWrapper {
+        margin: 10px auto 0 auto;
+    }
+
+    .reviewWrapper .star-rating label {
+        font-size: 3rem;
+    }
+
+    .reviewWrapper textarea {
+        border: 0.79px solid #FF8649;
+    }
+
+    .reviewWrapper .btn-revSub {
+        font-size: 11.78px;
+        min-width: 94px;
+    }
+
+    .workWrap p {
+        min-width: 150px;
+    }
+}

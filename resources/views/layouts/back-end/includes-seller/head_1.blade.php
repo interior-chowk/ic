@@ -1,0 +1,103 @@
+<head>
+    {{-- ================= BASIC META ================= --}}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {{-- ================= CSRF ================= --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="_token" content="{{ csrf_token() }}">
+
+    {{-- ================= SEO META ================= --}}
+    @if (isset($seo))
+        <?php $og = json_decode($seo->og_tags, true); ?>
+
+        <title>{{ $seo->meta_title ?? config('app.name') }}</title>
+        <meta name="description" content="{{ $seo->meta_description ?? '' }}">
+        <meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
+        <link rel="canonical" href="{{ $seo->canonical ?? url()->current() }}">
+
+        {{-- Open Graph --}}
+        <meta property="og:title" content="{{ $og['title'] ?? $seo->meta_title }}">
+        <meta property="og:description" content="{{ $og['description'] ?? $seo->meta_description }}">
+        <meta property="og:image" content="{{ $og['image'] ?? '' }}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+    @else
+        <title>{{ config('app.name') }}</title>
+    @endif
+
+    @stack('head')
+
+    {{-- ================= ICONS ================= --}}
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('public/asset/img/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="{{ asset('storage/app/public/company') }}/{{ $web_config['fav_icon']->value }}">
+
+    <meta name="theme-color" content="#ffffff">
+
+    {{-- ================= FONTS ================= --}}
+    <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
+
+    {{-- ================= CSS LIBRARIES ================= --}}
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+
+    {{-- ================= THEME CSS ================= --}}
+    <link rel="stylesheet" href="{{ asset('public/website/new/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/website/new/assets/css/plugins/owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('public/website/new/assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/website/new/assets/css/plugins/jquery.countdown.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/website/new/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/website/new/assets/css/skins/skin-demo-3.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/website/new/assets/css/demos/demo-3.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/back-end/css/toastr.css') }}">
+
+    @stack('style')
+
+    {{-- ================= CORE JS ================= --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <script src="{{ asset('public/assets/back-end/js/toastr.js') }}"></script>
+
+    {{-- AOS --}}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    {{-- CUSTOM JS (LAST) --}}
+    <script src="{{ asset('public/asset/js/custom.js') }}" defer></script>
+
+    {!! Toastr::message() !!}
+
+    {{-- ================= FACEBOOK PIXEL (Updated to avoid unload warning) ================= --}}
+    {{-- <script>
+        !function(f,b,e,v,n,t,s){
+            if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+            t=b.createElement(e);t.async=!0;t.src=v;
+            s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);
+        }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1176419510435563');
+        fbq('track', 'PageView');
+    </script> --}}
+
+    {{-- ================= GOOGLE TAG MANAGER ================= --}}
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TMC7F3KC');
+    </script>
+</head>

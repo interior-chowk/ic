@@ -1,0 +1,938 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\CPU\CartManager;
+use App\CPU\Helpers;
+use App\CPU\OrderManager;
+use App\Model\Order;
+use App\Model\OrderDetail;
+use App\Model\ShippingAddress;
+use App\Model\ShiprocketCourier;
+use App\Model\Product;
+use App\Model\Review;
+use App\Model\Cart;
+use App\Model\RefundRequest;
+use Razorpay\Api\Errors\SignatureVerificationError;
+use App\CPU\ImageManager;
+use Illuminate\Support\Facades\Validator;
+use App\Model\OrderTransaction;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Razorpay\Api\Api;
+use Redirect;
+use Session;
+use App\Model\WalletTransaction;
+use App\User;
+use App\Services\ShiprocketService;
+use App\Services\ShipyaariService;
+use Illuminate\Support\Facades\Log;
+
+class RazorPayController extends Controller
+{
+    public function payWithRazorpay()
+    {
+        return view('razor-pay');
+    }
+
+    public function createRazorpayOrder(Request $request, ShipyaariService $shiprocketService)
+    {
+        set_time_limit(300);
+        ini_set('max_execution_time', 300);
+
+        // -----------------------------
+        // COD flow
+        // -----------------------------
+        if ($request->iscod === '1') {
+            $cart_group_ids = Cart::where('user_id', $request->user()->id)
+                ->where('is_selected', 1)
+                ->pluck('cart_group_id')
+                ->toArray();
+
+            if (empty($cart_group_ids)) {
+                return response()->json(['status' => false, 'message' => 'No cart group found.'], 400);
+            }
+
+            $unique_id = $request->user()->id . '-' . rand(100000, 999999) . '-' . time();
+            $finalOrderArray = [];
+
+            foreach ($cart_group_ids as $group_id) {
+                $data = [
+                    'payment_method' => 'cash_on_delivery',
+                    'order_status' => 'confirmed',
+                    'payment_status' => 'unpaid',
+                    'transaction_ref' => '',
+                    'razorpay_payment_id' => '',
+                    'order_group_id' => $unique_id,
+                    'cart_group_id' => $group_id,
+                    'request' => $request,
+                    'status' => 'created',
+                    'wallet_deduct_amount' => $request->wallet_deduct_amount ?? 0
+                ];
+
+                $order_id = OrderManager::generate_order($data);
+                $order = Order::find($order_id);
+
+                // calculate weight & shipping charge (your existing logic)
+                $details = $order->details()->with('product:id,weight')->get()->toArray();
+                $total_weight = array_reduce($details, function ($carry, $item) {
+                    $sku = DB::table('sku_product_new')
+                        ->where('product_id', $item['product_id'])
+                        ->where('variation', $item['variant'])
+                        ->first();
+                    $weight = floatval(str_replace(['kg','KG',' '], '', $sku->weight ?? 0));
+                    return $carry + ($weight * $item['qty']);
+                }, 0);
+
+                $shippingPrice = $shiprocketService->checkForAvailability([
+                    'pickup_postcode' => $order->seller->shop->pincode,
+                    'delivery_postcode' => json_decode($order->shipping_address_data)->zip ?? '',
+                    'weight' => $total_weight,
+                    'cod' => 1,
+                    'mode' => 'Surface',
+                ]);
+
+                if (!empty($shippingPrice['data'])) {
+                    $charge = $shippingPrice['data'][0]['rate'] ?? 0;
+                    $order->shipping_cost = $charge;
+                    $order->save();
+                }
+
+                $shiprocketService->createOrder($order);
+
+                $finalOrderArray[] = [
+                    'seller_id' => $order->seller_id,
+                    'order_id' => $order_id,
+                    'shipping_charge' => $order->shipping_cost,
+                ];
+            }
+
+            return response()->json([
+                'status' => true,
+                'order_ids' => array_column($finalOrderArray, 'order_id'),
+                'order_group_id' => $unique_id,
+                'seller_wise_orders' => $finalOrderArray,
+                'message' => 'Order placed successfully (COD)',
+                'redirect_url' => url('/get_order') . '?order_id=' . $finalOrderArray[0]['order_id'],
+            ], 200);
+        }
+
+        // -----------------------------
+        // ONLINE payment (Razorpay)
+        // -----------------------------
+        if ($request->iscod === '0') {
+            try {
+                $cart_group_ids = Cart::where('user_id', $request->user()->id)
+                    ->where('is_selected', 1)
+                    ->pluck('cart_group_id')
+                    ->toArray();
+
+                if (empty($cart_group_ids)) {
+                    return response()->json(['status' => false, 'message' => 'No cart group found.'], 400);
+                }
+
+                // create order group id for eventual orders (saved in session)
+                $unique_id = $request->user()->id . '-' . rand(100000, 999999) . '-' . time();
+
+                // save useful things in session so verify endpoint can use them
+                // session([
+                //     'shipping_address_id' => $request->input('shipping_address_id'),
+                //     'billing_address_id' => $request->input('billing_address_id'),
+                //     'cart_group_ids' => $cart_group_ids,
+                // ]);
+                session([
+                    'shipping_address_id' => $request->input('shipping_address_id'),
+                    'billing_address_id' => $request->input('billing_address_id'),
+                    'cart_group_ids' => $cart_group_ids,
+                    'wallet_deduct_amount' => $request->input('wallet_deduct_amount'),
+                    'coupon_discount' => $request->input('coupon_discount'),
+                    'iteam_amounts' => $request->input('iteam_amounts', 0),
+                    'instant_delivery' => $request->input('instant_delivery', 0),
+                ]);
+
+
+                $api = new Api(config('razor.razor_key'), config('razor.razor_secret'));
+
+                // Amount must be numeric; trust frontend but re-check
+                $totalAmount = floatval($request->amount);
+
+                // Save the checkout amount and order_group_id in session for verify step
+                session(['checkout_amount' => $totalAmount, 'pending_order_group_id' => $unique_id]);
+                // dd(session('iteam_amounts'));
+                // Create Razorpay order
+                $razorpayOrder = $api->order->create([
+                    'receipt' => 'rcpt_' . uniqid(),
+                    'amount' => intval(round($totalAmount * 100)), // in paise
+                    'currency' => 'INR',
+                    'payment_capture' => 1,
+                ]);
+
+                // Save razorpay order id in session for later validation (this is crucial)
+                session(['razorpay_order_id' => $razorpayOrder->id]);
+
+                return response()->json([
+                    'status' => true,
+                    'amount' => $totalAmount,
+                    'online_payment' => $razorpayOrder->toArray(),
+                    'order_group_id' => $unique_id,
+                    'cart_group_ids' => $cart_group_ids,
+                ], 200);
+
+            } catch (\Exception $e) {
+                Log::error('Razorpay create order error: ' . $e->getMessage());
+                return response()->json(['status' => false, 'message' => 'Razorpay Error: ' . $e->getMessage()], 500);
+            }
+        }
+
+        return response()->json(['status' => false, 'message' => 'Invalid payment type'], 400);
+    }
+    
+    public function verifyPayment(Request $request, ShipyaariService $shiprocketService)
+    {
+        $payload = $request->all();
+
+        $rz_order_id     = $payload['razorpay_order_id'] ?? null;
+        $rz_payment_id   = $payload['razorpay_payment_id'] ?? null;
+        $signature       = $payload['razorpay_signature'] ?? null;
+        $cart_group_ids  = $payload['cart_group_ids'] ?? session('cart_group_ids', []);
+
+        // basic validation
+        if (!$rz_order_id || !$rz_payment_id || !$signature) {
+            return response()->json(['success' => false, 'message' => 'Invalid request'], 400);
+        }
+
+        if (empty($cart_group_ids)) {
+            return response()->json(['success' => false, 'message' => 'Cart group ids missing'], 400);
+        }
+
+        // Ensure the Razorpay order id matches the one we created earlier
+        $sessionRazorOrderId = session('razorpay_order_id');
+        if (!$sessionRazorOrderId || ($rz_order_id !== $sessionRazorOrderId)) {
+            Log::error("Razorpay order id mismatch. Session: {$sessionRazorOrderId} Received: {$rz_order_id}");
+            return response()->json(['success' => false, 'message' => 'Order ID mismatch'], 400);
+        }
+
+        // Validate signature
+        $generated = hash_hmac('sha256', $rz_order_id . '|' . $rz_payment_id, config('razor.razor_secret'));
+        if (!hash_equals($generated, $signature)) {
+            Log::error('Razorpay signature mismatch', [
+                'generated' => $generated,
+                'signature' => $signature,
+                'rz_order_id' => $rz_order_id,
+                'rz_payment_id' => $rz_payment_id
+            ]);
+            return response()->json(['success' => false, 'message' => 'Invalid signature'], 400);
+        }
+
+        // Fetch payment from Razorpay to ensure status captured/authorized
+        try {
+            $api = new Api(config('razor.razor_key'), config('razor.razor_secret'));
+            $payment = $api->payment->fetch($rz_payment_id);
+
+            if (!in_array($payment->status, ['captured', 'authorized'])) {
+                return response()->json(['success' => false, 'message' => 'Payment not captured'], 400);
+            }
+        } catch (\Exception $e) {
+            Log::error("Razorpay fetch failed: ".$e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Unable to verify payment with Razorpay'], 500);
+        }
+
+        // All validated — create orders seller-wise
+        DB::beginTransaction();
+        $finalOrderArray = [];
+        try {
+            // create a fresh order_group_id for DB entries
+            $order_group_id = OrderManager::gen_unique_id();
+
+            foreach ($cart_group_ids as $group_id) {
+                $data = [
+                    'payment_method'      => 'razor_pay',
+                    'order_status'        => 'confirmed',
+                    'payment_status'      => 'paid',
+                    'transaction_ref'     => $rz_payment_id,
+                    'razorpay_payment_id' => $rz_payment_id,
+                    'order_group_id'      => $order_group_id,
+                    'cart_group_id'       => $group_id,
+                    'status'              => 'created',
+                    'request'             => $request,
+                    'shipping_address_id' => session('shipping_address_id'),
+                    'billing_address_id'  => session('billing_address_id'),
+                    'wallet_deduct_amount' => session('wallet_deduct_amount'),
+                    'coupon_discount'      => session('coupon_discount'),
+                    'iteam_amounts'        => session('iteam_amounts'),
+                    'instant_delivery'     => session('instant_delivery'),
+                    'amount'              => session('checkout_amount'),
+                ];
+
+                $order_id = OrderManager::generate_order($data);
+                $order    = Order::find($order_id);
+
+                // calculate weight & shipping (your existing logic)
+                $details = $order->details()->with('product:id,weight')->get()->toArray();
+                $total_weight = array_reduce($details, function ($carry, $item) {
+                    $sku = DB::table('sku_product_new')
+                        ->where('product_id', $item['product_id'])
+                        ->where('variation', $item['variant'])
+                        ->first();
+
+                    $weight = floatval(str_replace(['kg','KG',' '], '', $sku->weight ?? 0));
+                    return $carry + ($weight * $item['qty']);
+                }, 0);
+
+                $shippingPrice = $shiprocketService->checkForAvailability([
+                    'pickup_postcode'   => $order->seller->shop->pincode,
+                    'delivery_postcode' => json_decode($order->shipping_address_data)->zip ?? '',
+                    'weight'            => $total_weight,
+                    'cod'               => 1,
+                    'mode'              => 'Surface',
+                ]);
+
+                if (!empty($shippingPrice['data'])) {
+                    $charge = $shippingPrice['data'][0]['rate'] ?? 0;
+                    $order->shipping_cost = $charge;
+                    $order->save();
+                }
+
+                $shiprocketService->createOrder($order);
+
+                $finalOrderArray[] = [
+                    'seller_id' => $order->seller_id,
+                    'order_id' => $order_id,
+                    'shipping_charge' => $order->shipping_cost,
+                ];
+            }
+
+            DB::commit();
+
+            // cleanup cart
+            CartManager::cart_clean();
+
+            // clear relevant sessions
+            session()->forget(['razorpay_order_id','checkout_amount','pending_order_group_id','cart_group_ids','shipping_address_id','billing_address_id']);
+
+            return response()->json([
+                'success' => true,
+                'order_ids' => array_column($finalOrderArray, 'order_id'),
+                'order_group_id' => $order_group_id,
+                'seller_wise_orders' => $finalOrderArray,
+                'message' => 'Order placed successfully (Online)',
+                'redirect_url' => url('/get_order') . '?order_id=' . $finalOrderArray[0]['order_id'],
+                
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Order creation failed after payment: ".$e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Order processing failed'], 500);
+        }
+    }
+
+    public function razorpayWebhook(Request $request, ShipyaariService $shiprocketService)
+    {
+        $payload = $request->getContent();
+        $signature = $request->header('X-Razorpay-Signature');
+        $secret = config('razor.webhook_secret');
+
+        $expected = hash_hmac('sha256', $payload, $secret);
+        if (!hash_equals($expected, $signature)) {
+            \Log::warning('Invalid razorpay webhook signature');
+            return response('invalid signature', 400);
+        }
+
+        $body = $request->all();
+        $event = $body['event'] ?? '';
+
+        if ($event === 'payment.captured' || $event === 'payment.authorized') {
+            $payment = $body['payload']['payment']['entity'] ?? null;
+            if (!$payment) return response('no payment', 200);
+
+            $rz_order_id = $payment['order_id'] ?? null;
+            $rz_payment_id = $payment['id'] ?? null;
+            $status = $payment['status'] ?? null; // captured, failed, authorized
+
+            if (!$rz_order_id) return response('no order id', 200);
+
+            // Find orders created earlier where transaction_ref equals razorpay order id
+            $orders = Order::where('transaction_ref', $rz_order_id)->get();
+            if ($orders->isEmpty()) {
+                // maybe store somewhere to reprocess or log
+                \Log::warning("No orders matched rz_order_id: $rz_order_id");
+                return response('no orders', 200);
+            }
+
+            // if already paid skip
+            if ($orders->first()->payment_status === 'paid') {
+                return response('already processed', 200);
+            }
+
+            DB::beginTransaction();
+            try {
+                foreach ($orders as $order) {
+                    if ($status === 'captured' || $status === 'authorized') {
+                        $order->payment_status = 'paid';
+                        $order->order_status = 'confirmed';
+                        $order->transaction_ref = $rz_payment_id; // set payment id
+                        $order->save();
+
+                        // create Shipyaari order
+                        try {
+                            $shiprocketService->createOrder($order);
+                        } catch (\Exception $e) {
+                            \Log::error("Shipyaari createOrder failed (webhook) for order {$order->id}: ".$e->getMessage());
+                        }
+                    } else {
+                        // payment failed
+                        $order->payment_status = 'failed';
+                        $order->order_status = 'failed';
+                        $order->transaction_ref = $rz_payment_id;
+                        $order->save();
+                    }
+                }
+                DB::commit();
+                return response('ok', 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                \Log::error('Webhook processing error: '.$e->getMessage());
+                return response('error', 500);
+            }
+        } elseif ($event === 'payment.failed') {
+            $payment = $body['payload']['payment']['entity'] ?? null;
+            if (!$payment) return response('no payment', 200);
+            $rz_order_id = $payment['order_id'] ?? null;
+            $rz_payment_id = $payment['id'] ?? null;
+
+            $orders = Order::where('transaction_ref', $rz_order_id)->get();
+            foreach ($orders as $order) {
+                $order->payment_status = 'failed';
+                $order->order_status = 'failed';
+                $order->transaction_ref = $rz_payment_id;
+                $order->save();
+            }
+            return response('ok', 200);
+        }
+
+        // ignore other events
+        return response('ignored', 200);
+    }
+    
+    public function payments(Request $request, ShipyaariService $shiprocketService)
+    {
+        $api = new Api(config('razor.razor_key'), config('razor.razor_secret'));
+
+        $attributes = [
+            'razorpay_order_id' => $request->razorpay_order_id,
+            'razorpay_payment_id' => $request->razorpay_payment_id,
+            'razorpay_signature' => $request->razorpay_signature,
+        ];
+
+        try {
+            // Step 1: Verify Signature
+            $api->utility->verifyPaymentSignature($attributes);
+
+            // Step 2: Fetch Payment
+            $payment = $api->payment->fetch($request->razorpay_payment_id);
+
+            // Step 3: Capture Payment only if not already captured
+            if ($payment['status'] !== 'captured') {
+                $payment->capture(['amount' => (int) $payment['amount']]); // amount in paisa
+                Log::info('Payment captured for ID: ' . $request->razorpay_payment_id);
+            } else {
+                Log::warning('Payment already captured: ' . $request->razorpay_payment_id);
+            }
+
+            // Step 4: Fetch Razorpay Order for receipt (optional)
+            $razorpayOrder = $api->order->fetch($request->razorpay_order_id);
+            $receipt = $razorpayOrder['receipt'] ?? null;
+
+            // Step 5: Update Orders in DB
+            if (is_array($request->order_ids) && count($request->order_ids)) {
+                Order::whereIn('id', $request->order_ids)->update([
+                    'Payment_status' => 'Paid',
+                    'razorpay_payment_id' => $request->razorpay_payment_id,
+                    'transaction_ref' => $receipt,
+                ]);
+
+                // Step 6: Call Shipyaari for each order
+                $orders = Order::whereIn('id', $request->order_ids)->get();
+
+                foreach ($orders as $ord) {
+                    try {
+                        $shiprocketService->createOrder($ord);
+                    } catch (\Exception $ex) {
+                        Log::error('Shipyaari Order Error for Order ID ' . $ord->id . ': ' . $ex->getMessage());
+                    }
+                }
+            } else {
+                Log::warning('No valid order IDs found in payment request.');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No valid order IDs provided.'
+                ], 422);
+            }
+
+            // Step 7: Return success response
+            return response()->json(['success' => true]);
+
+        } catch (SignatureVerificationError $e) {
+            Log::error('Razorpay Signature Verification Failed: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Signature verification failed',
+                'message' => $e->getMessage()
+            ], 500);
+        } catch (\Exception $e) {
+            Log::error('Payment Processing Error: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Payment verification failed.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function get_order_list(Request $request)
+    {
+        $order_id = $request->input('order_id');
+        //dd($order_id);
+        $orders = Order::with('delivery_man')->where(['customer_id' => $request->user()->id])->where('id',$order_id)->get();
+        $orders->map(function ($data) {
+        $shiprocketService =  new ShipyaariService(); 
+            // Sabhi order_details nikaal lo
+        $orderDetails = DB::table('order_details')->where('order_id', $data->id)->get();
+        $skuProducts = $orderDetails->map(function ($ord) {
+        //dd($ord->qty);
+        return DB::table('products')
+            ->join('sku_product_new', function ($join) use ($ord) {
+                $join->on('products.id', '=', 'sku_product_new.product_id')
+                     ->where('sku_product_new.variation', '=', $ord->variant);
+            })
+            ->where('products.id', $ord->product_id)
+             ->select(
+            'products.name as name',
+            'products.Return_days',
+            'sku_product_new.*',
+            DB::raw("'{$ord->qty}' as qty") // 👈 custom qty value added here
+        )
+            ->first(); // yahaan get() se multiple milenge, par agar har order_detail ka ek hi match h to first()
+        });
+        $data['sku_product'] = $skuProducts;
+        $data['total_variant_mrp'] = $skuProducts->sum(function ($item) {
+                //dd($item);
+            return ($item->variant_mrp ?? 0)*($item->qty);
+        });
+        $data['total_listed_price'] = $skuProducts->sum(function ($item) {
+            return ($item->listed_price ?? 0)*($item->qty);
+        });
+         //  dd($data['sku_product']);
+        $data['shipping_address_data'] = json_decode($data['shipping_address_data']);
+        $data['billing_address_data'] = json_decode($data['billing_address_data']);
+
+        $shiproket_shiprocket_order_id = ShiprocketCourier::where('order_id',$data['id'])->value('awb_code');
+        $data['awbs'] = $shiproket_shiprocket_order_id;
+
+        if($shiproket_shiprocket_order_id){
+            
+        $response = $shiprocketService->trackOrder($shiproket_shiprocket_order_id);
+        $data['current_status'] = $response->getData(true)['currentStatus'];
+        }
+        
+        if(isset($shiproket_shiprocket_order_id))
+        {
+        $shiproket_status = ShiprocketCourier::where('order_id',$data['id'])->value('status');
+        if($shiproket_status == 'DELIVERED'){
+                $data['delivered_at'] = ShiprocketCourier::where('order_id',$data['id'])->value('delivered_at');
+                //dd($data['delivered_at']);
+        }
+        // dd($shiproket_status);
+        $shiproket_created_at = ShiprocketCourier::where('order_id',$data['id'])->value('created_at');
+        $shiproket_updated_at = ShiprocketCourier::where('order_id',$data['id'])->value('updated_at');
+        if($shiproket_status == 'NEW')
+        {
+            $data['order_status'] =  'Confirmed';
+        }
+        else{
+        $data['order_status'] =  $shiproket_status;
+        }
+        $data['created_at'] =  $shiproket_created_at;
+        $data['updated_at'] =  $shiproket_updated_at;
+        }
+        return $data;
+        });
+        return view('web.get_order',compact('orders','order_id'));
+    }
+
+    public function order_cancel(Request $request, ShipyaariService $shiprocketService)
+    {
+        // Step 1: Validate
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required',
+            'product_id' => 'required',
+            'reason' => 'nullable',
+            'remarks' => 'nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        }
+
+        // Step 2: Fetch Order & OrderDetail
+        $order = Order::find($request->order_id);
+        
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+
+        $order_detail = OrderDetail::where('order_id', $request->order_id)
+            ->where('product_id', $request->product_id)
+            ->first();
+
+        if (!$order_detail) {
+            return response()->json(['error' => 'Order detail not found'], 404);
+        }
+
+        // Step 3: Cancel the order
+        $order->order_status = 'canceled';
+        $order->save();
+
+        $order_detail->cancellation_reason = $request->reason;
+        $order_detail->cancellation_remarks = $request->remarks;
+        $order_detail->order_status_details = 'canceled';
+        $order_detail->save();
+
+        // Step 4: Restore stock
+        OrderManager::stock_update_on_order_status_changes($order_detail, 'canceled');
+
+        // Step 5: Refund Logic (if online and unpaid)
+        if ($order->payment_method !== 'cash_on_delivery' && $order_detail->payment_status === 'unpaid') {
+            $refundAmount = $order->wallet_deduction + $order->amount;
+        
+        //    $prod = DB::table('orders')
+        // ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+        // ->join('products', 'order_details.product_id', '=', 'products.id')
+        // ->where('products.id', $order_details->product_id) // if $order_details is already defined
+        // ->select('products.free_delivery', 'order_details.price', 'orders.shipping_cost')
+        // ->first();
+
+                        $previousBalance = WalletTransaction::where('user_id', $order->customer_id)
+                                        ->orderBy('id', 'desc')
+                                        ->value('balance') ?? 0;
+                            
+                        $wallet_transaction = new WalletTransaction;
+                                    $wallet_transaction->user_id = $order->customer_id;
+                                    $wallet_transaction->transaction_id = OrderManager::gen_unique_id();
+                                    $wallet_transaction->credit  = $refundAmount;
+                                    $wallet_transaction->balance = $previousBalance + $refundAmount; // ✅ correct calculation
+                        $wallet_transaction->transaction_type = "refund";
+                        $wallet_transaction->reference = 'Order cancellation refund for Order #' . $order->id;
+                        $wallet_transaction->save();
+
+                        // dd($wallet_transaction);
+        $user = User::find($order->customer_id);
+        if ($user) {
+            $user->wallet_balance = $user->wallet_balance + $refundAmount; // ✅
+            $user->save();
+        }
+                
+            }
+
+            // Step 6: Cancel from Shipyaari/Shiprocket
+            try {
+                $shiprocketService->cancelOrder($order);
+            } catch (\Exception $e) {
+                \Log::error('Shiprocket Cancel Error for Order ID ' . $order->id . ': ' . $e->getMessage());
+            }
+
+            // Step 7: Final Response
+            return response()->json(translate('order_canceled_successfully'), 200);
+    }
+
+    public function order_track(Request $request)
+    {
+       
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        }
+
+        return response()->json(OrderManager::track_order($request['order_id']), 200);
+    }
+    
+    public function returns(Request $request)
+    {
+        // $order_id = $request->input('order_id');
+        $order_id = 1000007;
+        //dd($order_id);
+        $orders = Order::with('delivery_man')->where(['customer_id' => $request->user()->id])->where('id',$order_id)->get();
+        $orders->map(function ($data) {
+
+            // Sabhi order_details nikaal lo
+            $orderDetails = DB::table('order_details')->where('order_id', $data->id)->get();
+
+            $skuProducts = $orderDetails->map(function ($ord) {
+
+            return DB::table('products')
+                    ->join('sku_product_new', function ($join) use ($ord) {
+                        $join->on('products.id', '=', 'sku_product_new.product_id')
+                            ->where('sku_product_new.variation', '=', $ord->variant);
+                    })
+                    ->where('products.id', $ord->product_id)
+                    ->select(
+                    'products.name as name',
+                    'sku_product_new.*',
+                    DB::raw("'{$ord->qty}' as qty") // 👈 custom qty value added here
+                )
+                    ->first(); // yahaan get() se multiple milenge, par agar har order_detail ka ek hi match h to first()
+        });
+
+        $data['sku_product'] = $skuProducts;
+
+
+        $data['total_variant_mrp'] = $skuProducts->sum(function ($item) {
+            return ($item->variant_mrp ?? 0)*($item->qty);
+        });
+
+        $data['total_listed_price'] = $skuProducts->sum(function ($item) {
+            return ($item->listed_price ?? 0)*($item->qty);
+        });
+
+         //  dd($data['sku_product']);
+            $data['shipping_address_data'] = json_decode($data['shipping_address_data']);
+            $data['billing_address_data'] = json_decode($data['billing_address_data']);
+
+            $shiproket_shiprocket_order_id = ShiprocketCourier::where('order_id',$data['id'])->value('shiprocket_order_id');
+            if(isset($shiproket_shiprocket_order_id))
+            {
+            $shiproket_status = ShiprocketCourier::where('order_id',$data['id'])->value('status');
+            $shiproket_created_at = ShiprocketCourier::where('order_id',$data['id'])->value('created_at');
+            $shiproket_updated_at = ShiprocketCourier::where('order_id',$data['id'])->value('updated_at');
+            if($shiproket_status == 'NEW')
+            {
+               $data['order_status'] =  'Confirmed';
+            }
+            else{
+            $data['order_status'] =  $shiproket_status;
+            }
+            $data['created_at'] =  $shiproket_created_at;
+            $data['updated_at'] =  $shiproket_updated_at;
+            }
+            return $data;
+        });
+        //dd($orders);
+        return view('web.return',compact('orders','order_id'));
+    }
+
+    public function return_req(Request $request)
+    {
+        // dd($request->all());
+        $order_details = OrderDetail::where('order_id',$request->order_id)->where('product_id',$request->product_id)->first();
+        
+        $user = $request->user();
+
+            $refund_request = new RefundRequest;
+
+            $refund_request->order_details_id = $order_details->id;
+             
+            $refund_request->customer_id = $request->user()->id;
+            $refund_request->status = 'pending';
+             $refund_request->requested_for = $request->status;
+            $refund_request->amount = $order_details->price;
+            $refund_request->product_id = $order_details->product_id;
+            $refund_request->order_id = $order_details->order_id;
+            $refund_request->refund_reason = $request->reason;
+             $refund_request->refund_remarks = $request->remarks;
+               
+            if ($request->file('images')) {
+                foreach ($request->file('images') as $img) {
+                    $product_images[] = ImageManager::upload('refund/', 'png', $img);
+                }
+                $refund_request->images = json_encode($product_images);
+            }
+            
+            $refund_request->save();
+
+            $order_details->refund_request = 1;
+            $order_details->save();
+            //dd($order_details);
+            return response()->json(['message'=> 'successfully',
+        'status'=> true], 200);
+    }
+
+    public function review_submit(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'product_id' => 'required',
+            'comment' => 'required',
+            'rating' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        }
+
+        $image_array = [];
+        if (!empty($request->file('fileUpload'))) {
+            foreach ($request->file('fileUpload') as $image) {
+                if ($image != null) {
+                    array_push($image_array, ImageManager::upload('review/', 'png', $image));
+                }
+            }
+        }
+
+        Review::updateOrCreate(
+            [
+                'delivery_man_id'=> null,
+                'customer_id'=>$request->user()->id,
+                'product_id'=>$request->product_id
+            ],
+            [
+                'customer_id' => $request->user()->id,
+                'product_id' => $request->product_id,
+                'comment' => $request->comment,
+                'rating' => $request->rating,
+                'attachment' => json_encode($image_array),
+            ]
+        );
+
+        return response()->json(['message' => translate('successfully review submitted!')], 200);
+    }
+
+    public function status_return(Request $request)
+    {
+        $orderId = $request->order_id;
+        //dd($order_id);
+        
+
+        $return = RefundRequest::where('order_id', $orderId)->first();
+
+        $allStatuses = [
+            "Request Submitted",
+            "Request in progress",
+            "Request Accepted",
+            "Refund Initiated",
+            
+        ];
+
+        return response()->json([
+            'success' => true,
+            'statuses' => $allStatuses,
+            'current' => $return 
+            
+
+        ]);
+
+    } 
+      
+    public function delete_return(Request $request)
+    {
+        $orderId = $request->order_id;
+
+        
+        $deleted = RefundRequest::where('order_id', $orderId)->delete();
+
+        if ($deleted) {
+            return response()->json(['success' => true, 'message' => 'Return deleted successfully']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'No return request found for this order.']);
+        }
+    }
+      
+    public function payment(Request $request, ShiprocketService $shiprocketService)
+    {
+        try {
+            $api = new Api(config('razor.razor_key'), config('razor.razor_secret'));
+            $payment = $api->payment->fetch($request['razorpay_payment_id']);
+            /*$api->transfer->create(array('account' => 'acc_id', 'amount' => 500, 'currency' => 'INR'));*/
+
+            if (count($request->all()) && !empty($request['razorpay_payment_id'])) {
+                $response = $api->payment->fetch($request['razorpay_payment_id'])->capture(array('amount' => $payment['amount']));
+                
+                $unique_id = OrderManager::gen_unique_id();
+                $order_ids = [];
+                foreach (CartManager::get_cart_group_ids() as $group_id) {
+                    
+                    $data = [
+                        'payment_method' => 'razor_pay',
+                        'order_status' => 'confirmed',
+                        'payment_status' => $response['status'],
+                        'transaction_ref' => $response['id'],
+                        'order_group_id' => $unique_id,
+                        'cart_group_id' => $group_id,
+                        'wallet_deduct_amount' => session('wallet_deduct_amount') ?? 0,
+                        'iteam_amounts' => session('iteam_amounts') ?? 0,
+                        'instant_delivery' => session('instant_delivery') ?? 0,
+                        'gstNumber' => session('gstNumber') ?? NULL,
+                        'gstCompanyName' => session('gstCompanyName') ?? NULL
+                    ];
+                    $order_id = OrderManager::generate_order($data);
+
+                    session()->forget('wallet_deduct_amount');
+                    session()->forget('iteam_amounts');
+                    session()->forget('instant_delivery');
+                    session()->forget('gstNumber');
+                    session()->forget('gstCompanyName');
+
+                    try {
+                        //create shiprocket order
+                        $order = Order::find($order_id);
+                        $shiprocketService->createOrder($order);
+
+                    }catch(\Exception $e) {
+                        // return response()->json($e->getMessage());
+                    }
+
+                    array_push($order_ids, $order_id);
+                }
+            }
+            CartManager::cart_clean();
+
+        } catch (\Exception $exception) {
+            Toastr::error('Payment process failed');
+            return back();
+        }
+
+        if (session()->has('payment_mode') && session('payment_mode') == 'app') {
+            return redirect()->route('payment-success');
+        }
+
+        return view(VIEW_FILE_NAMES['order_complete']);
+    }
+
+    public function success()
+    {
+        if (auth('customer')->check()) {
+            Toastr::success('Payment success.');
+            return redirect('/account-oder');
+        }
+        return response()->json(['message' => 'Payment succeeded'], 200);
+    }
+
+    public function fail()
+    {
+        if (auth('customer')->check()) {
+            Toastr::error('Payment failed.');
+            return redirect('/account-oder');
+        }
+
+                    session()->forget('wallet_deduct_amount');
+                    session()->forget('iteam_amounts');
+                    session()->forget('instant_delivery');
+                    session()->forget('gstNumber');
+                    session()->forget('gstCompanyName');
+
+        return response()->json(['message' => 'Payment failed'], 403);
+    }
+
+    public function label(string $awb, ShipyaariService $shipyaari)
+    {
+        // Service direct force-download/redirect karega
+        return $shipyaari->downloadLabel($awb);
+    }
+
+    public function webhook(Request $request)
+    {
+        
+    }
+}
